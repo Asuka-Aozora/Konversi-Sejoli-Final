@@ -1,0 +1,55 @@
+/*
+Human Sans font
+*/
+
+@font-face {
+  font-family: "HumanSans";
+  src: url("../font/human_sans/HumanSans-Regular.woff2");
+  font-weight: 400;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "HumanSans";
+  src: url("../font/human_sans/HumanSans-Medium.woff2");
+  font-weight: 500;
+  font-display: swap;
+  font-style: normal;
+}
+
+/* using the font*/
+/*
+body {
+    font-family: "HumanSans", sans-serif;
+}
+*/
+
+/*============================*/
+
+/*
+Clash Display font
+*/
+@font-face {
+  font-family: "Clash Display";
+  src: url("../font/ClashDisplay/ClashDisplay-Semibold.woff2");
+  font-weight: 500;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Clash Display";
+  src: url("../font/ClashDisplay/ClashDisplay-Semibold.woff2");
+  font-weight: 600;
+  font-display: swap;
+  font-style: normal;
+}
+
+/* using the font */
+/*
+body {
+    font-family: "ClashDisplay", sans-serif;
+*/
+
+/*============================*/

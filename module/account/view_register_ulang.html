@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+	
+  <?php include(__DIR__.'/../layout/view_head.html');?>
+  <?php 
+  	if(!$dt['err']){
+  		echo "
+		<script type='text/javascript'>
+  		setTimeout(function(){
+  			window.location.href='".BASE_URL."/login';
+  		},5000);
+		</script>
+  		";
+  	}
+  	
+  ?>
+  <body>
+    <div id="wrapper" >
+      <?php include(__DIR__.'/../layout/view_icon_menu.html');?>
+      <div id="content" >
+      	<div style="text-align:center;">
+      		
+	        <form method="post" >
+	        	<input type="text" name="email" style="    width: 200px;
+	    height: 30px;
+	    border: 0px;
+	    border-bottom: 1px solid;" placeholder="Email Anda"><br><br>
+	        	<input type="submit" value="Register" class="yellow-btn">
+	        </form>
+	        <br>
+	        <?php echo $dt['res'];?>
+      	</div>
+
+        
+        <br>
+      </div>
+      <div class="clear"></div>
+    </div><!-- wrapper -->
+  </body>
+</html>

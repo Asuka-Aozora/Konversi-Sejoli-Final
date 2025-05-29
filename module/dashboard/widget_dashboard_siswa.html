@@ -1,0 +1,391 @@
+<div id="widget_dashboard_siswa" class="hide widget mb-4 rounded-2xl mx-auto bg-white p-4 max-w-[90%]">
+	
+    <!-- Profil Siswa -->
+    <div class="mb-4 rounded-2xl mx-auto bg-white p-4 max-w-[90%] border border-gray-200">
+         
+        
+        <!-- Data Pribadi -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="space-y-4">
+                <div class="flex items-center mb-4">
+                    <div class="w-20 h-20 rounded-full bg-blue-100 flex items-center justify-center">
+                        <i class="fas fa-user-graduate text-blue-500 text-3xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-800" id="siswa_nama">Ahmad Santoso</h3>
+                        <p class="text-gray-600" id="siswa_email">ahmad.santoso@email.com</p>
+                        <p class="text-gray-500 text-sm" id="siswa_status">Status: Aktif</p>
+                    </div>
+                </div>
+				<button onclick="toggleDetails()" class="text-blue-500 hover:text-blue-700 text-sm font-medium ml-auto">
+					<span id="showMoreText">Show More</span>
+					<i id="showMoreIcon" class="fas fa-chevron-down ml-1"></i>
+				</button>
+                
+                <div id="detailsContainer" class="hide">
+                    <div class="bg-gray-50 rounded-lg mt-4 p-4">
+                        <div>
+                            <p class="text-sm text-gray-500">NIS Lokal</p>
+                            <p class="font-medium" id="nis_lokal">2023001</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-500">NISN</p>
+                            <p class="font-medium" id="nisn">1234567890</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-500">NIK</p>
+                            <p class="font-medium" id="nik">3201234567890001</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-500">Jenis Kelamin</p>
+                            <p class="font-medium" id="jenis_kelamin">Laki-laki</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-500">Tempat Lahir</p>
+                            <p class="font-medium" id="tempat_lahir">Jakarta</p>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-500">Tanggal Lahir</p>
+                            <p class="font-medium" id="tgl_lahir">15 Agustus 2005</p>
+                        </div>
+                    </div>
+
+                    <!-- Info Akademik -->
+                    <div class="bg-gray-50 rounded-lg mt-4 p-4">
+                        <h5 class="font-semibold text-gray-700 mb-3">Informasi Akademik</h5>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <p class="text-sm text-gray-500">Kelas</p>
+                                <p class="font-medium" id="kelas">XII IPA 1</p>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-500">Rombel</p>
+                                <p class="font-medium" id="rombel">A</p>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-500">Sekolah</p>
+                                <p class="font-medium" id="sekolah">SMAN 1 Jakarta</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Info Kontak -->
+                    <div class="bg-gray-50 rounded-lg mt-4 p-4">
+                        <h5 class="font-semibold text-gray-700 mb-3">Informasi Kontak</h5>
+                        <div class="space-y-3">
+                            <div>
+                                <p class="text-sm text-gray-500">No. WhatsApp Siswa</p>
+                                <p class="font-medium" id="no_wa">+62812-3456-7890</p>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-500">No. WhatsApp Wali</p>
+                                <p class="font-medium" id="no_wa_wali">+62812-9876-5432</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Info Orang Tua -->
+                    <div class="bg-gray-50 rounded-lg mt-4 p-4">
+                        <h5 class="font-semibold text-gray-700 mb-3">Data Orang Tua/Wali</h5>
+                        <div class="space-y-3">
+                            <div>
+                                <p class="text-sm text-gray-500">Nama Ayah/Wali</p>
+                                <p class="font-medium" id="nama_ayah_wali">Budi Santoso</p>
+                                <p class="text-sm text-gray-500 mt-1">WA Ayah/Wali</p>
+                                <p class="font-medium" id="wa_nama_ayah_wali">+62812-1111-2222</p>
+                            </div>
+                            <div>
+                                <p class="text-sm text-gray-500">Nama Ibu/Wali</p>
+                                <p class="font-medium" id="nama_ibu_wali">Siti Rahayu</p>
+                                <p class="text-sm text-gray-500 mt-1">WA Ibu/Wali</p>
+                                <p class="font-medium" id="wa_nama_ibu_wali">+62812-3333-4444</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+			<br>
+             
+        </div>
+    </div>
+
+	<!-- Pembayaran yang harus dibayar -->
+	<div class="mb-4 rounded-2xl mx-auto bg-white p-4 max-w-[90%] border border-gray-200">
+		<div class="flex items-center justify-between mb-3">
+			<h4 class="font-semibold text-gray-800">
+				<i class="fas fa-money-bill-wave text-green-500 mr-2"></i>
+				Pembayaran yang Harus Dilunasi
+			</h4>
+		</div>
+		<div id="pembayaran_container">
+			<div class="space-y-3">
+				<!-- Data pembayaran akan diisi secara dinamis -->
+				<div class="animate-pulse">
+					<div class="h-16 bg-gray-100 rounded-lg"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Ujian yang tersedia -->
+	<div class="mb-4 rounded-2xl mx-auto bg-white p-4 max-w-[90%] border border-gray-200">
+		<div class="flex items-center justify-between mb-3">
+			<h4 class="font-semibold text-gray-800">
+				<i class="fas fa-edit text-blue-500 mr-2"></i>
+				Ujian yang Tersedia
+			</h4>
+		</div>
+		<div id="ujian_container">
+			<div class="space-y-3">
+				<!-- Data ujian akan diisi secara dinamis -->
+				<div class="animate-pulse">
+					<div class="h-16 bg-gray-100 rounded-lg"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<style>
+.font-medium {
+    font-weight: 500;
+}
+
+.text-gray-500 {
+    color: rgb(107, 114, 128);
+}
+
+.mt-1 {
+    margin-top: 0.25rem;
+}
+
+/* Tambahan style untuk elemen lain */
+.text-gray-800 {
+    color: rgb(31, 41, 55);
+}
+
+.text-gray-600 {
+    color: rgb(75, 85, 99);
+}
+
+.text-sm {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+}
+
+.bg-gray-50 {
+    background-color: rgb(249, 250, 251);
+}
+
+.rounded-lg {
+    border-radius: 0.5rem;
+}
+
+.space-y-3 > * + * {
+    margin-top: 0.75rem;
+}
+
+.grid {
+    display: grid;
+}
+
+.gap-4 {
+    gap: 1rem;
+}
+
+.mb-3 {
+    margin-bottom: 0.75rem;
+}
+
+.font-semibold {
+    font-weight: 600;
+}
+
+
+.ml-auto {
+    margin-left: auto;
+}
+
+.ml-1 {
+    margin-left: 0.25rem;
+}
+
+.mt-4 {
+    margin-top: 1rem;
+}
+
+.p-4 {
+    padding: 1rem;
+}
+
+.hover\:text-blue-700:hover {
+    color: rgb(29, 78, 216);
+}
+
+.text-blue-500 {
+    color: rgb(59, 130, 246);
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    loadDashboardData();
+});
+
+function loadDashboardData() {
+    fetch(localStorage.getItem('base_url')+'/api/get_dashboard_siswa')
+        .then(response => response.json())
+        .then(result => {
+            if (result.success) {
+                const data = result.data;
+                updateProfilSiswa(data.profil);
+                updatePembayaran(data.pembayaran);
+                updateUjian(data.ujian);
+                localStorage.setItem('data_bank', JSON.stringify(data.bank));
+            } else {
+                console.error('Error:', result.msg);
+            }
+        })
+        .catch(error => {
+            console.error('Error fetching dashboard data:', error);
+        });
+}
+
+
+
+function updateProfilSiswa(profil) {
+    // Data Pribadi
+    document.getElementById('siswa_nama').textContent = profil.nama || '-';
+    document.getElementById('siswa_email').textContent = profil.email || '-';
+    document.getElementById('siswa_status').textContent = 'Status: ' + (profil.status || 'Aktif');
+    document.getElementById('nis_lokal').textContent = profil.nis_lokal || '-';
+    document.getElementById('nisn').textContent = profil.nisn || '-';
+    document.getElementById('nik').textContent = profil.nik || '-';
+    document.getElementById('jenis_kelamin').textContent = profil.jenis_kelamin || '-';
+    document.getElementById('tempat_lahir').textContent = profil.tempat_lahir || '-';
+    document.getElementById('tgl_lahir').textContent = profil.tgl_lahir ? formatDate(profil.tgl_lahir) : '-';
+    
+    // Info Akademik
+    document.getElementById('kelas').textContent = profil.kelas || '-';
+    document.getElementById('rombel').textContent = profil.rombel || '-';
+    
+    // Info Kontak
+    document.getElementById('no_wa').textContent = formatPhoneNumber(profil.no_wa);
+    document.getElementById('no_wa_wali').textContent = formatPhoneNumber(profil.no_wa_wali);
+    
+    // Info Orang Tua
+    document.getElementById('nama_ayah_wali').textContent = profil.nama_ayah_wali || '-';
+    document.getElementById('wa_nama_ayah_wali').textContent = formatPhoneNumber(profil.wa_nama_ayah_wali);
+    document.getElementById('nama_ibu_wali').textContent = profil.nama_ibu_wali || '-';
+    document.getElementById('wa_nama_ibu_wali').textContent = formatPhoneNumber(profil.wa_nama_ibu_wali);
+}
+
+function updatePembayaran(pembayaran) {
+    const container = document.getElementById('pembayaran_container');
+    if (pembayaran && pembayaran.length > 0) {
+        container.innerHTML = pembayaran.map(item => `
+            <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg border border-gray-100 mb-2">
+                <div>
+                    <p class="font-medium text-gray-800">${item.jenis || 'Pembayaran'}</p>
+                    <p class="text-sm text-gray-500">
+                        ${item.tahun_ajaran ? `Tahun Ajaran: ${item.tahun_ajaran}` : ''}
+                        ${item.tgl_bayar ? `<br>Jatuh tempo: ${formatDate(item.tgl_bayar)}` : ''}
+                    </p>
+                </div>
+                <div class="text-right">
+                    <p class="font-bold ${item.status === 'blm_lunas' ? 'text-red-500' : 'text-green-500'}">
+                        Rp ${formatNumber(item.harga)}
+                    </p>
+                    
+                        <a href="#" onclick="bayar_sekarang(${item.harga})" class="text-sm text-blue-500 hover:underline">
+                            Bayar Sekarang
+                        </a>
+                    
+                </div>
+            </div>
+        `).join('');
+    } else {
+        container.innerHTML = '<p class="text-center text-gray-500 py-3">Tidak ada pembayaran yang harus dilunasi</p>';
+    }
+}
+
+function updateUjian(ujian) {
+    const container = document.getElementById('ujian_container');
+    if (ujian && ujian.length > 0) {
+        container.innerHTML = ujian.map(item => `
+            <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg border border-gray-100 mb-2">
+                <div>
+                    <p class="font-medium text-gray-800">${item.judul}</p>
+                    <p class="text-sm text-gray-500">
+                        <i class="far fa-calendar-alt mr-1"></i>${formatDate(item.tanggal)}
+                        <span class="mx-2">•</span>
+                        <i class="far fa-clock mr-1"></i>${item.durasi} menit
+                    </p>
+                    <p class="text-xs text-gray-500 mt-1">
+                        <i class="fas fa-hourglass-start mr-1"></i>Buka: ${formatDateTime(item.open)}
+                        <br>
+                        <i class="fas fa-hourglass-end mr-1"></i>Tutup: ${formatDateTime(item.close)}
+                    </p>
+                </div>
+                <a href="${item.url}" class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 text-sm transition-colors duration-200">
+                    Mulai Ujian
+                </a>
+            </div>
+        `).join('');
+    } else {
+        container.innerHTML = '<p class="text-center text-gray-500 py-3">Tidak ada ujian yang tersedia</p>';
+    }
+}
+
+function formatDate(dateString) {
+    if (!dateString) return '-';
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return new Date(dateString).toLocaleDateString('id-ID', options);
+}
+
+function formatNumber(number) {
+    if (!number) return '0';
+    return new Intl.NumberFormat('id-ID').format(number);
+}
+
+function formatPhoneNumber(phone) {
+    if (!phone) return '-';
+    // Menghapus karakter non-digit
+    const cleaned = phone.replace(/\D/g, '');
+    // Format nomor telepon Indonesia
+    if (cleaned.length === 12) {
+        return `+${cleaned.slice(0, 2)}-${cleaned.slice(2, 6)}-${cleaned.slice(6)}`;
+    }
+    return phone;
+}
+
+function formatDateTime(dateString) {
+    if (!dateString) return '-';
+    const options = { 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+    };
+    return new Date(dateString).toLocaleDateString('id-ID', options).replace('pukul', '');
+}
+
+function toggleDetails() {
+    const container = document.getElementById('detailsContainer');
+    const text = document.getElementById('showMoreText');
+    const icon = document.getElementById('showMoreIcon');
+    
+    if (container.classList.contains('hide')) {
+        container.classList.remove('hide');
+        text.textContent = 'Show Less';
+        icon.classList.remove('fa-chevron-down');
+        icon.classList.add('fa-chevron-up');
+    } else {
+        container.classList.add('hide');
+        text.textContent = 'Show More';
+        icon.classList.remove('fa-chevron-up');
+        icon.classList.add('fa-chevron-down');
+    }
+}
+</script>

@@ -1,0 +1,61 @@
+<div id="widget_poin" class="hide widget mb-4 rounded-2xl mx-auto bg-white p-4 max-w-[90%]">
+  <!-- jumlah poin -->
+  <div class="mt-6 flex flex-col items-center gap-2">
+    <div>
+      <select class="pilih_semester" style="background: none;">
+        <?php echo $dt['option_program']; ?>
+      </select>
+    </div>
+    <div class="flex items-center gap-3">
+      <img src="<?php echo BASE_URL;?>/asset/icon/sack-dollar-solid.svg" alt=""
+        style="    width: 50px;filter: brightness(3.5) hue-rotate(170deg);" />
+      <span id="poin_user_top" class="ilm-cd-bold text-[40px] text-ilm-fire sl:text-[43px]">Rp 10,7Jt</span>
+    </div>
+    <h3 class="ilm-hs-medium text-base text-ilm-space sl:text-lg">
+      Pemasukan Terkumpul
+    </h3>
+  </div>
+  <!-- end jumlah poin -->
+  <!-- total perolehan -->
+  <div class="mt-6 flex justify-between border-y-2">
+    <div id="list_klaim_button" class="w-full border-r-2 py-4 cursor-pointer">
+      <p class="ilm-hs-medium text-xs text-ilm-space sl:text-sm">
+        Estimasi Pemasukan
+      </p>
+      <div class="flex items-center gap-1">
+        <img src="<?php echo BASE_URL;?>/asset/icon/sack-dollar-solid.svg" alt="" />
+        <span id="total_perolehan" class="ilm-cd-semibold text-base text-ilm-fire sl:text-xl">10Jt</span>
+      </div>
+    </div>
+    <div id="list_pesaing_button" class="flex w-full flex-col items-end py-4 cursor-pointer">
+      <p class="ilm-hs-medium text-xs text-ilm-space sl:text-sm">
+        Program Ujian
+      </p>
+      <div id="jml_pesaing_button" class="flex items-center gap-1">
+        <img src="<?php echo BASE_URL;?>/asset/icon/setting.png" style="    width: 20px;" alt="" />
+        <span id="jml_program_ujian" class="ilm-cd-semibold text-base text-ilm-fire sl:text-xl">5</span>
+      </div>
+    </div>
+  </div>
+  <!-- end total perolehan -->
+  <!-- voucer playstore -->
+  <div class="mt-6 flex items-center justify-between">
+    <h3 id="target_hadiah" class="ilm-hs-medium text-sm text-ilm-space sl:text-base">
+      Progress Pembayaran Siswa
+    </h3>
+    <span id="jml_progress_pembayaran">50%</span>
+  </div>
+  <!-- end voucer playstore -->
+  <!-- bar poin -->
+  <div class="mb-4" style="margin-top: 10px;">
+    <div class="h-2.5 w-full rounded-full bg-gray-200 overflow-hidden">
+      <div id="target_persen"
+        class="h-2.5 rounded-full bg-ilm-gold"
+        style="width: 50%"
+      ></div>
+      <br>
+    </div>
+  </div> 
+  <!-- end bar poin -->
+
+</div>

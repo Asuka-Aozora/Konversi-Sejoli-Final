@@ -1,0 +1,113 @@
+<!-- Section Login -->
+        <div id="widget_login" class="hide widget mb-4 rounded-2xl mx-auto bg-white p-4 max-w-[90%]">
+
+          <!-- Desc Dashboard -->
+          <div class="p-4 text-center">
+            <div class="">
+              <h2 class=" ilm-hs-medium sl:text-[16px] text-[14px]">
+                Mohon Login Terlebih Dahulu
+              </h2>
+              <div id="login_form"><br>
+                <input type=text class='user_email' placeholder='email' value='demo.admin@gmail.com'><br>
+                <input type=password class='passwd' placeholder='password' value='c4lQfTeowz'><br>
+                <button id="mulai_kerjakan_btn" style="background: darkorange;color: white;" onclick="return do_form_login(this);" class=" m-auto mt-4 flex w-full rounded-lg border-2 border-ilm-orange py-4" >
+                  <span class="m-auto flex gap-2">Login</span>
+                </button>
+                <div class="notif_login" align="center" style="margin-top:10px;color:red;font-size: 13px;"></div>
+              </div>
+              <div class="mt-4 text-center">
+                <a href="#" onclick="lupa_passwd_diklik(this)" class="text-blue-500 hover:underline text-sm">
+                  Lupa password?
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+<script>
+function lupa_passwd_diklik(that) {
+  // Ubah tampilan form
+  document.querySelector('h2').innerHTML = "Lupa Password";
+  document.querySelector('.passwd').classList.add('hide');
+  document.querySelector('.user_email').setAttribute("placeholder", "Email Anda");
+  document.querySelector('#mulai_kerjakan_btn').setAttribute("onclick", "kirim_passwd_ke_email(this)");
+  document.querySelector('#mulai_kerjakan_btn').innerHTML = "Kirim ke email";
+  
+  // Tambahkan tombol kembali ke login
+  if (!document.getElementById('back_to_login')) {
+    const backLink = document.createElement('a');
+    backLink.id = 'back_to_login';
+    backLink.href = '#';
+    backLink.onclick = login_form_diklik;
+    backLink.className = 'text-blue-500 hover:underline text-sm block mt-2';
+    backLink.innerHTML = 'Kembali ke login';
+    document.querySelector('.notif_login').parentNode.appendChild(backLink);
+  }
+}
+
+function login_form_diklik() {
+  document.querySelector('h2').innerHTML = "Login";
+  document.querySelector('.passwd').classList.remove('hide');
+  document.querySelector('.user_email').setAttribute("placeholder", "Email");
+  document.querySelector('#mulai_kerjakan_btn').setAttribute("onclick", "return do_form_login(this)");
+  document.querySelector('#mulai_kerjakan_btn').innerHTML = "Login";
+  document.querySelector('.notif_login').innerHTML = "";
+  
+  // Hapus tombol kembali
+  const backBtn = document.getElementById('back_to_login');
+  if (backBtn) backBtn.remove();
+}
+
+function kirim_passwd_ke_email(that) {
+  that.innerHTML = "Mengirim...";
+  that.disabled = true;
+
+  const data = JSON.stringify({
+    user_id: document.querySelector('.user_email').value
+  });
+
+  fetch(BASE_URL + '/api/lupa_passwd', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json; charset=UTF-8'
+    },
+    body: data
+  })
+  .then(response => response.text())
+  .then(response => {
+    if (tryParseJSONObject(response)) {
+      const r = JSON.parse(response);
+      if (r.success) {
+        document.querySelector('.notif_login').innerHTML = 
+          '<span class="text-green-500">Mohon cek email Anda untuk instruksi selanjutnya</span>';
+      } else {
+        document.querySelector('.notif_login').innerHTML = 
+          '<span class="text-red-500">' + (r.msg || 'Terjadi kesalahan') + '</span>';
+      }
+    }
+    that.innerHTML = "Kirim ke email";
+    that.disabled = false;
+  })
+  .catch(error => {
+    console.error('Error:', error);
+    document.querySelector('.notif_login').innerHTML = 
+      '<span class="text-red-500">Terjadi kesalahan. Silakan coba lagi.</span>';
+    that.innerHTML = "Kirim ke email";
+    that.disabled = false;
+  });
+
+  return false;
+}
+
+// Helper function untuk cek JSON
+function tryParseJSONObject(jsonString) {
+  try {
+    const o = JSON.parse(jsonString);
+    if (o && typeof o === "object") {
+      return true;
+    }
+  }
+  catch (e) { }
+  return false;
+}
+</script>

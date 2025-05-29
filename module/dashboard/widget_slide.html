@@ -1,0 +1,97 @@
+<!-- Section Slide -->
+        <div id="widget_slide" class="widget mb-4 rounded-2xl mx-auto bg-white p-4 max-w-[90%]">
+          <!-- Container Dashboard -->
+          <div class="glide-05 relative w-full">
+            <!-- Slides -->
+            <div
+              class="cursor-pointer overflow-hidden rounded-lg"
+              data-glide-el="track"
+            >
+              <ul
+                class="whitespace-no-wrap flex-no-wrap [backface-visibility: hidden] [transform-style: preserve-3d] [touch-action: pan-Y] [will-change: transform] relative flex w-full overflow-hidden p-0"
+              >
+                <li>
+                  <img
+                    src="<?php echo BASE_URL;?>/asset/img/slide1.png"
+                    class="m-auto aspect-video h-full w-full overflow-hidden object-cover"
+                   alt=""/>
+                </li>
+                <li>
+                  <img
+                    src="<?php echo BASE_URL;?>/asset/img/slide2.png"
+                    class="m-auto aspect-video h-full w-full overflow-hidden object-cover"
+                   alt=""/>
+                </li>
+                <li>
+                  <img
+                    src="<?php echo BASE_URL;?>/asset/img/slide3.png"
+                    class="m-auto aspect-video h-full w-full overflow-hidden object-cover"
+                   alt=""/>
+                </li> 
+              </ul>
+            </div>
+            <!-- Indicators -->
+            <div
+              class="mt-2 flex items-center justify-center gap-2"
+              data-glide-el="controls[nav]"
+            >
+              <button
+                class="group"
+                data-glide-dir="=0"
+                aria-label="goto slide 1"
+              >
+                <span
+                  class="block h-2 w-2 rounded-full bg-slate-500 transition-colors duration-300"
+                ></span>
+              </button>
+              <button
+                class="group"
+                data-glide-dir="=1"
+                aria-label="goto slide 2"
+              >
+                <span
+                  class="block h-2 w-2 rounded-full bg-slate-500 transition-colors duration-300"
+                ></span>
+              </button>
+              <button
+                class="group"
+                data-glide-dir="=2"
+                aria-label="goto slide 3"
+              >
+                <span
+                  class="block h-2 w-2 rounded-full bg-slate-500 transition-colors duration-300"
+                ></span>
+              </button> 
+            </div>
+          </div>
+          <!-- end slider -->
+          <!-- Desc Dashboard -->
+          <div class="p-4 text-center">
+            
+            <div class="mt-7">
+              <h2 class=" ilm-hs-medium sl:text-[16px] text-[14px]">
+                Selamat datang, silahkan masuk
+              </h2>
+              <div><br>
+                <input type=text class='user_email' placeholder='email' value='demo.admin@gmail.com'><br>
+                <input type=password class='passwd' placeholder='password' value='c4lQfTeowz'><br>
+                <button id="mulai_kerjakan_btn" style="background: darkorange;color: white;" onclick="return do_form_login(this);" class=" m-auto mt-4 flex w-full rounded-lg border-2 border-ilm-orange py-4" >
+                  <span class="m-auto flex gap-2">Login</span>
+                </button>
+                <div class="notif_login" align="center" style="margin-top:10px;color:red;font-size: 13px;"></div>
+              </div>
+              <div><br>atau</div>
+              <a href="<?php echo BASE_URL;?>/login_proses"><button
+                class="ilm-cd-semibold m-auto mt-4 flex w-full rounded-lg border-2 border-ilm-orange py-4"
+              >
+                <span class="m-auto flex gap-2"
+                  ><img
+                    class="inline"
+                    src="<?php echo BASE_URL;?>/asset/icon/Icons-Google.svg"
+                    alt=""
+                  />Login</span
+                >
+              </button></a>
+            </div>
+          </div>
+        </div>

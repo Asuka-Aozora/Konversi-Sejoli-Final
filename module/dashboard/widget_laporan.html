@@ -1,0 +1,80 @@
+<!-- Statistik Dashboard-->
+        <div id="widget_laporan" class="hide widget rounded-[12px] bg-ilm-white p-4 mt-4 mb-5 max-w-[90%] mx-auto">
+          <h2
+            class="ilm-cd-semibold mb-4 text-center text-base tracking-wider"
+          >
+            Laporan
+          </h2>
+          <div class="grid grid-cols-2 gap-2">
+            <!-- Status Statistik -->
+            <div
+              class="w-full flex items-center gap-2 rounded-[12px] bg-ilm-pearl p-2 cursor-pointer"
+              onclick="show_laporan_widget('nilai')"
+            >
+              <!-- Icon Statistik -->
+              <div class="rounded-[4px] p-1">
+                <img src="<?php echo BASE_URL;?>/asset/icon/Icons-Task.svg" alt="" style="width: 24px;filter: brightness(0.5);" />
+              </div>
+              <!-- Desc Statistik -->
+              <div>
+                <p id="jml_nilai" class="ilm-cd-semibold text-xs sl:text-[14px]">001</p>
+                <p class="font-weight-500 ilm-hs-medium text-[10px] sl:text-[12px]">
+                  Nilai
+                </p>
+              </div>
+            </div>
+            <!-- Status Statistik -->
+            <div
+              class="flex w-full items-center gap-2 rounded-[12px] bg-ilm-pearl p-2 cursor-pointer"
+              onclick="show_laporan_pembayaran()"
+            >
+              <!-- Icon Statistik -->
+              <div class="rounded-[4px]   p-1">
+                <img src="<?php echo BASE_URL;?>/asset/icon/sack-dollar-solid.svg" alt="" style="width: 21px;filter: brightness(3) grayscale(1);"/>
+              </div>
+              <!-- Desc Statistik -->
+              <div>
+                <p id="jml_pembayaran" class="ilm-cd-semibold text-xs sl:text-[14px]">001</p>
+                <p class="font-weight-500 ilm-hs-medium text-[10px] sl:text-[12px]">
+                  Pembayaran
+                </p>
+              </div>
+            </div>
+            <!-- Status Statistik -->
+            <div
+              class="flex w-full items-center gap-2 rounded-[12px] bg-ilm-pearl p-2 cursor-pointer"
+              onclick="show_laporan_widget('ujian')"
+            >
+              <!-- Icon Statistik -->
+              <div class="rounded-[4px]   p-1">
+                <img src="<?php echo BASE_URL;?>/asset/icon/setting.png" alt="" style="width: 24px;filter: opacity(0.5);"/>
+              </div>
+              <!-- Desc Statistik -->
+              <div>
+                <p id="jml_ujian" class="ilm-cd-semibold text-xs sl:text-[14px]">001</p>
+                <p class="font-weight-500 ilm-hs-medium text-[10px] sl:text-[12px]">
+                  Ujian
+                </p>
+              </div>
+            </div>
+            <!-- Status Statistik -->
+            <div
+              class="flex w-full items-center gap-2 rounded-[12px] bg-ilm-pearl p-2 cursor-pointer"
+              onclick="show_laporan_widget('presensi')"
+            >
+              <!-- Icon Statistik -->
+              <div class="rounded-[4px]  ">
+                <img src="<?php echo BASE_URL;?>/asset/icon/presensi.png" alt="" style="width: 32px;    filter: grayscale(1);"/>
+              </div>
+              <!-- Desc Statistik -->
+              <div>
+                <p id="jml_presensi" class="ilm-cd-semibold text-xs sl:text-[14px]">001</p>
+                <p class="font-weight-500 ilm-hs-medium text-[10px] sl:text-[12px]">
+                  Presensi
+                </p>
+              </div>
+            </div>
+            <!-- Status Statistik -->
+            
+          </div>
+        </div>

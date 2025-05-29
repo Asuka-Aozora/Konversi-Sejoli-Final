@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html class="theme-3" lang="en">
+  <!-- BEGIN: Head -->
+  <?php include(__DIR__.'/../layout/view_head.html');?>
+  <!-- END: Head -->
+  <body class="main">
+    <div
+      class="icewall px-5 sm:px-8 py-5 relative after:content-[''] after:bg-gradient-to-b after:from-theme-1 after:to-theme-2 dark:after:from-darkmode-800 dark:after:to-darkmode-800 after:fixed after:inset-0 after:z-[-2]"
+    >
+      <!-- BEGIN: Mobile Menu -->
+      <?php include(__DIR__.'/../layout/view_mobile_menu.html');?>
+
+      <!-- END: Mobile Menu -->
+      <!-- BEGIN: Top Bar -->
+      <?php include(__DIR__.'/../layout/view_top_bar.html');?>
+      <!-- END: Top Bar -->
+
+      <div class="wrapper">
+        <div class="wrapper-box">
+          <!-- BEGIN: Side Menu -->
+          <?php include(__DIR__.'/../layout/view_side_menu.html');?>
+
+          <!-- END: Side Menu -->
+          <!-- BEGIN: Content -->
+          <div class="content">
+            <?php include(__DIR__.'/../dashboard/page_dashboard.html');?>
+            <?php include(__DIR__.'/../license/page_license.html');?>
+            <?php include(__DIR__.'/../bank_soal/page_bank_soal.html');?>
+            <?php include(__DIR__.'/../tagihan/page_tagihan.html');?>
+          </div>
+          <!-- END: Content -->
+        </div>
+      </div>
+    </div>
+
+    <!-- BEGIN: Vendor JS Assets-->
+    <?php include(__DIR__.'/../layout/view_js_footer.html');?>
+    <!-- BEGIN: Pages, layouts, components JS Assets-->
+    <!-- END: Pages, layouts, components JS Assets-->
+  </body>
+</html>

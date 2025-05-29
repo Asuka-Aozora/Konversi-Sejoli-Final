@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <?php include(__DIR__.'/../layout/view_head.html');?>	
+	<script>
+	if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations()
+      .then(registrations => {
+        registrations.forEach(registration => {
+          registration.unregister()
+        }) 
+      }) 
+    }
+  localStorage.removeItem('is_login');
+  localStorage.removeItem('user_id');
+  window.location.href='<?php echo BASE_URL;?>';
+  </script>
+
+<body>
+  <div id="wrapper" >
+      <?php include(__DIR__.'/../layout/view_icon_menu.html');?>
+      <div id="content" >
+        
+      </div>
+      <div class="clear"></div>
+    </div><!-- wrapper -->
+</body>
+</html>
