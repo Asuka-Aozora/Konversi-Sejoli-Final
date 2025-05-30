@@ -8,16 +8,16 @@
     </div>
   </div>
 
-  <!-- Form Wrapper -->
+  <!-- Form -->
   <form id="checkoutForm" class="px-6 pb-6 space-y-6">
-    <!-- Responsive Flex Container for Form & Payment -->
     <div
-      class="flex flex-col flex-col lg:flex-row lg:space-x-6 space-y-6 lg:space-y-0 gap-6"
+      class="flex flex-col lg:flex-row lg:space-x-6 space-y-6 lg:space-y-0 gap-6"
     >
       <!-- Form Section -->
       <div class="flex-1 space-y-6">
         <h2 class="text-lg font-bold pb-2 mb-3">Complete the Information</h2>
-        <!-- Product Selection -->
+
+        <!-- Product & Quantity -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div class="space-y-2">
             <label for="product">Product</label>
@@ -27,10 +27,15 @@
               required
               class="usr-input w-full px-4 py-3"
             >
-              <!-- option generated from data -->
+              <option value="">Select Product</option>
+              <option value="woowa-monthly">
+                Woowa CRM Monthly (Rp 179,000)
+              </option>
+              <option value="woowa-yearly">
+                Woowa CRM Yearly (Rp 1,790,000)
+              </option>
             </select>
           </div>
-
           <div class="space-y-2">
             <label for="quantity">Quantity</label>
             <input
@@ -47,7 +52,7 @@
         </div>
 
         <!-- Customer Info -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div class="space-y-2">
             <label for="name">Name</label>
             <input
@@ -72,7 +77,6 @@
               class="usr-input w-full px-4 py-3"
             />
           </div>
-
           <div id="password-wrapper" class="hidden space-y-2">
             <label for="password">Password</label>
             <div class="flex usr-input justify-between items-center px-4 py-3">
@@ -96,6 +100,7 @@
                 stroke-linecap="round"
                 stroke-linejoin="round"
                 id="password-toggle"
+                class="cursor-pointer"
               >
                 <path d="m15 18-.722-3.25" />
                 <path d="M2 8a10.645 10.645 0 0 0 20 0" />
@@ -105,36 +110,32 @@
               </svg>
             </div>
           </div>
-
           <div class="space-y-2">
-            <div class="flex flex-col">
-              <label for="phone">Phone Number</label>
+            <label for="phone">Phone Number</label>
+            <div class="flex flex-col gap-2">
               <input
                 type="tel"
                 id="phone"
                 name="phone"
                 required
-                placeholder=""
                 class="usr-input w-full px-4 py-3"
               />
-            </div>
-            <div class="mt-2">
-              <i class="text-xs">
-                *(This number has nothing to do with the number that will be
-                automated. automation, fill in your most active number for
-                payment reminders or important announcements. or important
-                announcement, don't worry, it can be changed later again)
-              </i>
+              <i class="text-xs"
+                >*(This number has nothing to do with the number that will be
+                automated. Fill in your most active number for payment reminders
+                or important announcements. Don't worry, it can be changed
+                later)</i
+              >
             </div>
           </div>
         </div>
 
-        <!-- Kupon -->
+        <!-- Coupon -->
         <div>
           <div class="mt-4">
             <span
               >Have a coupon?
-              <a class="link" id="show-coupon" href="">Click here</a></span
+              <a class="link" id="show-coupon" href="#">Click here</a></span
             >
           </div>
           <div class="inp-coupon hidden kupon-cont flex space-x-2 mt-2">
@@ -149,24 +150,25 @@
           </div>
         </div>
 
-        <!-- Ringkasan -->
+        <!-- Summary -->
         <div class="total mt-4 mb-6 rounded-lg space-y-3 flex flex-col gap-2">
           <div class="flex total-items">
-            <span>Product:</span
-            ><span id="product-count" class="font-medium"
+            <span>Product:</span>
+            <span id="product-count" class="font-medium"
               >Woowa CRM Monthly (Rp 179,000) <span>x</span> 1</span
             >
           </div>
           <div class="flex total-items">
-            <span>Subtotal:</span
-            ><span id="subtotal" class="font-medium">Rp 179,000</span>
+            <span>Subtotal:</span>
+            <span id="subtotal" class="font-medium">Rp 179,000</span>
           </div>
           <div class="flex total-items text-green-600">
-            <span>Unique Code:</span
-            ><span id="coupon-discount">-Rp 10,000</span>
+            <span>Unique Code:</span>
+            <span id="coupon-discount">-Rp 10,000</span>
           </div>
           <div class="total-items border-t pt-3 flex text-lg font-bold">
-            <span>Total:</span><span id="total">Rp 169,000</span>
+            <span>Total:</span>
+            <span id="total">Rp 169,000</span>
           </div>
         </div>
       </div>
@@ -176,14 +178,14 @@
         <h2 class="text-lg font-bold pb-2 mb-2">Select Payment Method</h2>
         <div class="space-y-3">
           <div class="grid grid-cols-1 gap-2">
-            <!-- Payment Option Repeatable -->
-            <label class="block1">
+            <!-- Direct Transfer -->
+            <label class="block1 cursor-pointer">
               <div class="p-4">
-                <div class="flex items-center gap-3 space-x-3">
+                <div class="flex items-center gap-3">
                   <input
                     type="radio"
                     name="payment"
-                    value="bca"
+                    value="bca-direct"
                     class="sr-only"
                     required
                   />
@@ -196,8 +198,10 @@
                 </div>
               </div>
             </label>
-            <label class="block">
-              <div class="bank">
+
+            <!-- Virtual Account Options -->
+            <label class="block cursor-pointer">
+              <div class="bank p-4">
                 <div class="flex items-center gap-3">
                   <input
                     type="radio"
@@ -210,14 +214,15 @@
                 <div class="w-12 h-[25px] overflow-hidden">
                   <img
                     src="/asset/icon/Bank_Central_Asia.svg"
-                    alt=""
+                    alt="BCA"
                     class="object-contain h-full w-full"
                   />
                 </div>
               </div>
             </label>
-            <label class="block">
-              <div class="bank">
+
+            <label class="block cursor-pointer">
+              <div class="bank p-4">
                 <div class="flex items-center gap-3">
                   <input
                     type="radio"
@@ -230,14 +235,15 @@
                 <div class="w-12 h-[25px] overflow-hidden">
                   <img
                     src="/asset/icon/BNI_logo.svg.png"
-                    alt=""
+                    alt="BNI"
                     class="object-contain h-full w-full"
                   />
                 </div>
               </div>
             </label>
-            <label class="block">
-              <div class="bank">
+
+            <label class="block cursor-pointer">
+              <div class="bank p-4">
                 <div class="flex items-center gap-3">
                   <input
                     type="radio"
@@ -250,14 +256,15 @@
                 <div class="w-12 h-[25px] overflow-hidden">
                   <img
                     src="/asset/icon/BRIVA-BRI-removebg-preview.png"
-                    alt=""
-                    class="object-cober h-full w-full"
+                    alt="BRI"
+                    class="object-contain h-full w-full"
                   />
                 </div>
               </div>
             </label>
-            <label class="block">
-              <div class="bank">
+
+            <label class="block cursor-pointer">
+              <div class="bank p-4">
                 <div class="flex items-center gap-3">
                   <input
                     type="radio"
@@ -270,34 +277,36 @@
                 <div class="w-12 h-[25px] overflow-hidden">
                   <img
                     src="/asset/icon/Bank_Mandiri_logo_2016.svg"
-                    alt=""
+                    alt="Mandiri"
                     class="object-contain h-full w-full"
                   />
                 </div>
               </div>
             </label>
-            <label class="block">
-              <div class="bank">
+
+            <label class="block cursor-pointer">
+              <div class="bank p-4">
                 <div class="flex items-center gap-3">
                   <input
                     type="radio"
                     name="payment"
-                    value="clinb-niaga"
+                    value="cimb-niaga"
                     class="sr-only"
                   />
-                  <span>CLIMB NIAGA VA</span>
+                  <span>CIMB NIAGA VA</span>
                 </div>
                 <div class="w-12 h-[25px] overflow-hidden">
                   <img
                     src="/asset/icon/CIMB_Niaga_logo.svg"
-                    alt=""
+                    alt="CIMB Niaga"
                     class="object-contain h-full w-full"
                   />
                 </div>
               </div>
             </label>
-            <label class="block">
-              <div class="bank">
+
+            <label class="block cursor-pointer">
+              <div class="bank p-4">
                 <div class="flex items-center gap-3">
                   <input
                     type="radio"
@@ -310,14 +319,15 @@
                 <div class="w-12 h-[25px] overflow-hidden">
                   <img
                     src="/asset/icon/Permata_Bank_(2024).svg"
-                    alt=""
+                    alt="Permata"
                     class="object-contain h-full w-full"
                   />
                 </div>
               </div>
             </label>
-            <label class="block">
-              <div class="bank">
+
+            <label class="block cursor-pointer">
+              <div class="bank p-4">
                 <div class="flex items-center gap-3">
                   <input
                     type="radio"
@@ -330,14 +340,15 @@
                 <div class="w-12 h-[25px] overflow-hidden">
                   <img
                     src="/asset/icon/Muamalat_Logo.png"
-                    alt=""
+                    alt="Muamalat"
                     class="object-contain h-full w-full"
                   />
                 </div>
               </div>
             </label>
-            <label class="block">
-              <div class="bank">
+
+            <label class="block cursor-pointer">
+              <div class="bank p-4">
                 <div class="flex items-center gap-3">
                   <input
                     type="radio"
@@ -350,27 +361,28 @@
                 <div class="w-12 h-[25px] overflow-hidden">
                   <img
                     src="/asset/icon/Logo_QRIS.svg"
-                    alt=""
+                    alt="QRIS"
                     class="object-contain h-full w-full"
                   />
                 </div>
               </div>
             </label>
-            <label class="block">
-              <div class="bank">
+
+            <label class="block cursor-pointer">
+              <div class="bank p-4">
                 <div class="flex items-center gap-3">
                   <input
                     type="radio"
                     name="payment"
-                    value="mybank"
+                    value="maybank"
                     class="sr-only"
                   />
-                  <span>Mybank Virtual Account</span>
+                  <span>Maybank Virtual Account</span>
                 </div>
                 <div class="w-12 h-[25px] overflow-hidden">
                   <img
                     src="/asset/icon/maybank-va.png"
-                    alt=""
+                    alt="Maybank"
                     class="object-contain h-full w-full"
                   />
                 </div>
@@ -380,9 +392,7 @@
         </div>
 
         <!-- Terms -->
-        <div
-          class="flex gap-3 items-start space-x-3 p-4 bg-gray-50 rounded-lg mt-5 mb-5"
-        >
+        <div class="flex gap-3 items-start p-4 bg-gray-50 rounded-lg mt-5 mb-5">
           <input
             type="checkbox"
             id="tnc"
@@ -391,7 +401,7 @@
           />
           <label for="tnc" class="text-sm text-gray-700">
             I have read and agree to the website
-            <a class="link" href="">terms and conditions</a>
+            <a class="link" href="#" target="_blank">terms and conditions</a>
           </label>
         </div>
       </div>
