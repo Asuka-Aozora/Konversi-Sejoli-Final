@@ -24,7 +24,8 @@ define("ENC_KEY","sipasikjossssss"); // dalam jam
 define('LOAD_MODULE',[
   'account',
   'dashboard',
-  'device'
+  'device',
+  'checkout',
 ]);
 
 /* nginx conf
