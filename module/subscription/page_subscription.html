@@ -1,0 +1,343 @@
+<div class="wrap">
+    <!-- Header -->
+    <h1 class="heading">Subscription Data</h1>
+
+    <div class="sejoli-table-wrapper">
+        <!-- Action Controls -->
+        <div class="sejoli-form-action-holder">
+            <div class="action-controls">
+                <!-- Bulk Actions -->
+                <div class="sejoli-update-subscription box">
+                    <select class="update-subscription-select" name="update-subscription-select">
+                        <option value="">Action options on the selected subscription</option>
+                        <option value="pending">Change subscription status to Not Active</option>
+                        <option value="inactive">Change subscription status to Inactive</option>
+                        <option value="active">Change subscription status to Active</option>
+                    </select>
+                    <button type="button" name="button" class="update-subscription">Update
+                        Subscription</button>
+                </div>
+
+                <!-- Filter and Export -->
+                <div class="filter-export-controls">
+                    <div class="sejoli-form-filter box">
+                        <button type="button" name="button" class="button toggle-search">
+                            <svg class="button-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.707A1 1 0 013 7V4z">
+                                </path>
+                            </svg>
+                            Filter Data
+                        </button>
+                    </div>
+
+                    <div class="sejoli-form-filter box">
+                        <button type="button" name="button" class="button toggle-export">
+                            <svg class="button-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                                </path>
+                            </svg>
+                            Export Data
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Data Table -->
+        <div class="sejoli-table-holder">
+            <div id="sejoli-subscription_wrapper" class="dataTables_wrapper">
+                <!-- Table Controls -->
+                <div class="dataTables_length" id="sejoli-subscription_length">
+                    <label>
+                        Displaying
+                        <select name="sejoli-subscription_length" aria-controls="sejoli-subscription">
+                            <option value="10">10</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                            <option value="200">200</option>
+                            <option value="-1">All</option>
+                        </select>
+                        data
+                    </label>
+                </div>
+
+                <!-- Table -->
+                <div class="table-container">
+                    <table id="sejoli-subscription" role="grid">
+                        <thead>
+                            <tr role="row">
+                                <th class="checkbox-column">
+                                    <input type="checkbox" class="parent-checkbox">
+                                </th>
+                                <th>Detail</th>
+                                <th>Buyer</th>
+                                <th>Last Active</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Row 1 -->
+                            <tr role="row">
+                                <td>
+                                    <input type="checkbox" value="9" data-id="9">
+                                </td>
+                                <td>
+                                    <div class="detail-cell">
+                                        <button type="button" class="order-detail-trigger" data-id="14">DETAIL</button>
+                                        <div class="product-name">otomasiCS integrasi woowa</div>
+                                        <div class="detail-tags">
+                                            <span class="tag green-tag">INV 14</span>
+                                            <span class="tag teal-tag">
+                                                <svg class="tag-icon" fill="none" stroke="currentColor"
+                                                    viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
+                                                    </path>
+                                                </svg>
+                                                9 Mei 2025
+                                            </span>
+                                            <span class="tag amber-tag uppercase">
+                                                <svg class="tag-icon" fill="none" stroke="currentColor"
+                                                    viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z">
+                                                    </path>
+                                                </svg>
+                                                regular
+                                            </span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>Devi Indah Pramesti</td>
+                                <td>
+                                    <div>8 Jun 2025</div>
+                                    <div class="days-ago">(12 hari)</div>
+                                </td>
+                                <td>
+                                    <span class="status-badge active">Active</span>
+                                </td>
+                            </tr>
+
+                            <!-- Row 2 -->
+                            <tr role="row">
+                                <td>
+                                    <input type="checkbox" value="8" data-id="8">
+                                </td>
+                                <td>
+                                    <div class="detail-cell">
+                                        <button type="button" class="order-detail-trigger" data-id="12">DETAIL</button>
+                                        <div class="product-name">otomasiCS integrasi woowa</div>
+                                        <div class="detail-tags">
+                                            <span class="tag green-tag">INV 12</span>
+                                            <span class="tag teal-tag">
+                                                <svg class="tag-icon" fill="none" stroke="currentColor"
+                                                    viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
+                                                    </path>
+                                                </svg>
+                                                25 Apr 2025
+                                            </span>
+                                            <span class="tag amber-tag uppercase">
+                                                <svg class="tag-icon" fill="none" stroke="currentColor"
+                                                    viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z">
+                                                    </path>
+                                                </svg>
+                                                regular
+                                            </span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>Devi Indah Pramesti</td>
+                                <td>
+                                    <div>25 Mei 2025</div>
+                                    <div class="days-ago">(0 hari)</div>
+                                </td>
+                                <td>
+                                    <span class="status-badge end">End</span>
+                                </td>
+                            </tr>
+
+                            <!-- Row 3 -->
+                            <tr role="row">
+                                <td>
+                                    <input type="checkbox" value="7" data-id="7">
+                                </td>
+                                <td>
+                                    <div class="detail-cell">
+                                        <button type="button" class="order-detail-trigger" data-id="13">DETAIL</button>
+                                        <div class="product-name">otomasiCS integrasi woowa</div>
+                                        <div class="detail-tags">
+                                            <span class="tag green-tag">INV 13</span>
+                                            <span class="tag teal-tag">
+                                                <svg class="tag-icon" fill="none" stroke="currentColor"
+                                                    viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
+                                                    </path>
+                                                </svg>
+                                                25 Apr 2025
+                                            </span>
+                                            <span class="tag amber-tag uppercase">
+                                                <svg class="tag-icon" fill="none" stroke="currentColor"
+                                                    viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z">
+                                                    </path>
+                                                </svg>
+                                                regular
+                                            </span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>Devi Indah Pramesti</td>
+                                <td>
+                                    <div>25 Mei 2025</div>
+                                    <div class="days-ago">(0 hari)</div>
+                                </td>
+                                <td>
+                                    <span class="status-badge end">End</span>
+                                </td>
+                            </tr>
+
+                            <!-- Row 4 -->
+                            <tr role="row">
+                                <td>
+                                    <input type="checkbox" value="6" data-id="6">
+                                </td>
+                                <td>
+                                    <div class="detail-cell">
+                                        <button type="button" class="order-detail-trigger" data-id="11">DETAIL</button>
+                                        <div class="product-name">otomasiCS integrasi woowa</div>
+                                        <div class="detail-tags">
+                                            <span class="tag green-tag">INV 11</span>
+                                            <span class="tag teal-tag">
+                                                <svg class="tag-icon" fill="none" stroke="currentColor"
+                                                    viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
+                                                    </path>
+                                                </svg>
+                                                13 Mei 2025
+                                            </span>
+                                            <span class="tag amber-tag uppercase">
+                                                <svg class="tag-icon" fill="none" stroke="currentColor"
+                                                    viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z">
+                                                    </path>
+                                                </svg>
+                                                regular
+                                            </span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>adhit</td>
+                                <td>
+                                    <div>12 Mei 2025</div>
+                                    <div class="days-ago">(0 hari)</div>
+                                </td>
+                                <td>
+                                    <span class="status-badge end">End</span>
+                                </td>
+                            </tr>
+
+                            <!-- Row 5 -->
+                            <tr role="row">
+                                <td>
+                                    <input type="checkbox" value="5" data-id="5">
+                                </td>
+                                <td>
+                                    <div class="detail-cell">
+                                        <button type="button" class="order-detail-trigger" data-id="9">DETAIL</button>
+                                        <div class="product-name">otomasiCS integrasi woowa</div>
+                                        <div class="detail-tags">
+                                            <span class="tag green-tag">INV 9</span>
+                                            <span class="tag teal-tag">
+                                                <svg class="tag-icon" fill="none" stroke="currentColor"
+                                                    viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
+                                                    </path>
+                                                </svg>
+                                                5 Apr 2025
+                                            </span>
+                                            <span class="tag amber-tag uppercase">
+                                                <svg class="tag-icon" fill="none" stroke="currentColor"
+                                                    viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z">
+                                                    </path>
+                                                </svg>
+                                                regular
+                                            </span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>demo akun</td>
+                                <td>
+                                    <div>5 Apr 2025</div>
+                                    <div class="days-ago">(0 hari)</div>
+                                </td>
+                                <td>
+                                    <span class="status-badge end">End</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th class="checkbox-column">
+                                    <input type="checkbox" class="parent-checkbox">
+                                </th>
+                                <th>Detail</th>
+                                <th>Buyer</th>
+                                <th>Last Active</th>
+                                <th>Status</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination-container">
+                    <div class="pagination-info">
+                        Displays 1 to 9 of 9 data
+                    </div>
+                    <div class="pagination-controls">
+                        <button class="pagination-button disabled" disabled>Previous</button>
+                        <button class="pagination-button active">1</button>
+                        <button class="pagination-button disabled" disabled>Next</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Actions -->
+        <div class="sejoli-form-action-holder bottom">
+            <div class="sejoli-update-subscription box">
+                <select class="update-subscription-select" name="update-subscription-select">
+                    <option value="">Action options on the selected subscription</option>
+                    <option value="pending">Change subscription status to Not Active</option>
+                    <option value="inactive">Change subscription status to Inactive</option>
+                    <option value="active">Change subscription status to Active</option>
+                </select>
+                <button type="button" name="button" class="update-subscription">Update
+                    Subscription</button>
+            </div>
+        </div>
+    </div>
+</div>
