@@ -5,8 +5,6 @@
   border-radius: 0.5rem;
   padding: 0.5rem;
   box-shadow: 0 4px 1px 0 rgba(0, 0, 0, 0.05);
-  max-width: 100%;
-  box-sizing: border-box;
 }
 
 .info-notice {
@@ -16,17 +14,10 @@
 
 .notice-container {
   display: flex;
-  flex-direction: column;
+  align-items: flex-start;
   gap: 0.5rem;
   position: relative;
   padding: 0 0.5rem;
-}
-
-@media (min-width: 640px) {
-  .notice-container {
-    flex-direction: row;
-    align-items: flex-start;
-  }
 }
 
 .close-button {
@@ -57,7 +48,6 @@
 .notice-content {
   flex: 1;
   margin: 1rem 0;
-  width: 100%;
 }
 
 .notice-header {
@@ -75,7 +65,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
 }
 
 .info-icon {
@@ -115,20 +104,6 @@
   text-decoration: none;
   transition: all 0.2s;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  flex: 1 1 calc(50% - 0.5rem);
-  box-sizing: border-box;
-}
-
-@media (min-width: 768px) {
-  .action-button {
-    flex: 1 1 calc(33.333% - 0.5rem);
-  }
-}
-
-@media (min-width: 1024px) {
-  .action-button {
-    flex: 1 1 calc(20% - 0.5rem);
-  }
 }
 
 .action-button:last-child {
