@@ -1,1 +1,1 @@
-Sejoli adalah sebuah Plugin SistEm Jual Beli OnLine, Membership, Affiliasi dan Komisi Multi Tier. Sejoli kami dirancang khusus untuk pebisnis online Indonesia supaya memberikan pengalaman transaksi yang paling MUDAH dan NYAMAN bagi pelanggan Anda.
+Sejoli is an Online Buying, Membership, Affiliate and Multi Tier Commission Plugin. Our Sejoli is specially designed for Indonesian online businesses to provide the easiest and most convenient transaction experience for your customers.
