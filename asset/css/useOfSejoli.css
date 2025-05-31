@@ -1,0 +1,135 @@
+/* Base Container */
+.notice {
+  position: relative;
+  margin-top: 2rem;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  box-shadow: 0 4px 1px 0 rgba(0, 0, 0, 0.05);
+}
+
+.info-notice {
+  background: #edfcfc;
+  border-left: 4px solid #134254;
+}
+
+.notice-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  position: relative;
+  padding: 0 0.5rem;
+}
+
+.close-button {
+  flex-shrink: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+  background-color: #dbeafe;
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #134254;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+}
+
+.close-button:hover {
+  background-color: #a8d1e0b9;
+  color: #134254;
+}
+
+.notice-content {
+  flex: 1;
+  margin: 1rem 0;
+}
+
+.notice-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.icon-circle {
+  width: 2rem;
+  height: 2rem;
+  background-color: #134254;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.info-icon {
+  width: 1rem;
+  height: 1rem;
+  color: white;
+}
+
+.notice-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #0f3747;
+}
+
+.notice-text {
+  color: #134254;
+  margin-bottom: 0.5rem;
+  line-height: 1.625;
+}
+
+.action-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.action-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #2e6073;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.action-button:last-child {
+  background-color: #0d9488;
+}
+
+.action-button:last-child:hover {
+  background-color: #0d8076;
+}
+
+.action-button:hover {
+  background-color: #134254;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.button-icon {
+  width: 1rem;
+  height: 1rem;
+  transition: transform 0.2s;
+}
+
+.action-button:hover .button-icon {
+  transform: scale(1.1);
+}
+
+.facebook-icon {
+  fill: currentColor;
+}
