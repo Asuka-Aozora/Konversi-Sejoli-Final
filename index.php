@@ -7,9 +7,9 @@ include_once('config/role.php');
 include_once('config/route.php');
 include_all_module();
 $dt = parsing_input($dt);
- 
+
 $dt = otorisasi($dt);
-$dt = cek_remember_me($dt);
+$dt = cek_remember_me($dt); 
 $dt = otentikasi_jwt($dt);;
 $dt = otentikasi_user($dt);
 $dt = call_service($dt);

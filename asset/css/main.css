@@ -1,3 +1,22 @@
 .hide{
     display: none;
 }
+.chart-container {
+    position: relative;
+    height: 400px;
+    width: 100%;
+}
+
+.legend-item {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.legend-color {
+    width: 16px;
+    height: 12px;
+    margin-right: 0.5rem;
+    border-radius: 2px;
+}
