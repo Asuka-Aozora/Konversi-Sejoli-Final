@@ -1,0 +1,420 @@
+<div class="form-container">
+  <!-- Header -->
+  <div class="px-6 text-center p-4">
+    <div
+      class="w-[90px] h-[90px] mx-auto bg-white rounded-full flex items-center justify-center"
+    >
+      <img src="/asset/icon/woowacrm.png" alt="Logo" class="w-full h-full" />
+    </div>
+  </div>
+
+  <!-- Form -->
+  <form id="checkoutForm" class="px-6 pb-6 space-y-6">
+    <div
+      class="flex flex-col lg:flex-row lg:space-x-6 space-y-6 lg:space-y-0 gap-6"
+    >
+      <!-- Form Section -->
+      <div class="flex-1 space-y-6">
+        <h2 class="text-lg font-bold pb-2 mb-3">Complete the Information</h2>
+
+        <!-- Product & Quantity -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="space-y-2">
+            <label for="product">Product</label>
+            <select
+              id="product"
+              name="product"
+              required
+              class="usr-input w-full px-4 py-3"
+            >
+              <option value="">Select Product</option>
+              <option value="woowa-monthly">
+                Woowa CRM Monthly (Rp 179,000)
+              </option>
+              <option value="woowa-yearly">
+                Woowa CRM Yearly (Rp 1,790,000)
+              </option>
+            </select>
+          </div>
+          <div class="space-y-2">
+            <label for="quantity">Quantity</label>
+            <input
+              type="number"
+              id="quantity"
+              name="quantity"
+              placeholder="1"
+              min="1"
+              max="3"
+              required
+              class="usr-input w-full px-4 py-3"
+            />
+          </div>
+        </div>
+
+        <!-- Customer Info -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="space-y-2">
+            <label for="name">Name</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              required
+              placeholder="Your name"
+              class="usr-input w-full px-4 py-3"
+            />
+          </div>
+          <div class="space-y-2">
+            <label for="email"
+              >Email <i class="text-xs">*(input with active email)</i></label
+            >
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              placeholder="youremail@email.com"
+              class="usr-input w-full px-4 py-3"
+            />
+          </div>
+          <div id="password-wrapper" class="hidden space-y-2">
+            <label for="password">Password</label>
+            <div class="flex usr-input justify-between items-center px-4 py-3">
+              <input
+                type="password"
+                id="password"
+                name="password"
+                autocomplete="off"
+                required
+                placeholder="Enter your password"
+                class="inp-pass w-full"
+              />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                id="password-toggle"
+                class="cursor-pointer"
+              >
+                <path d="m15 18-.722-3.25" />
+                <path d="M2 8a10.645 10.645 0 0 0 20 0" />
+                <path d="m20 15-1.726-2.05" />
+                <path d="m4 15 1.726-2.05" />
+                <path d="m9 18 .722-3.25" />
+              </svg>
+            </div>
+          </div>
+          <div class="space-y-2">
+            <label for="phone">Phone Number</label>
+            <div class="flex flex-col gap-2">
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                required
+                class="usr-input w-full px-4 py-3"
+              />
+              <i class="text-xs"
+                >*(This number has nothing to do with the number that will be
+                automated. Fill in your most active number for payment reminders
+                or important announcements. Don't worry, it can be changed
+                later)</i
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- Coupon -->
+        <div>
+          <div class="mt-4">
+            <span
+              >Have a coupon?
+              <a class="link" id="show-coupon" href="#">Click here</a></span
+            >
+          </div>
+          <div class="inp-coupon hidden kupon-cont flex space-x-2 mt-2">
+            <input
+              type="text"
+              id="coupon"
+              name="coupon"
+              placeholder="Enter coupon code"
+              class="kupon usr-input flex-1 w-full px-4 py-3"
+            />
+            <button type="button" class="apply px-6">Apply</button>
+          </div>
+        </div>
+
+        <!-- Summary -->
+        <div class="total mt-4 mb-6 rounded-lg space-y-3 flex flex-col gap-2">
+          <div class="flex total-items">
+            <span>Product:</span>
+            <span id="product-count" class="font-medium"
+              >Woowa CRM Monthly (Rp 179,000) <span>x</span> 1</span
+            >
+          </div>
+          <div class="flex total-items">
+            <span>Subtotal:</span>
+            <span id="subtotal" class="font-medium">Rp 179,000</span>
+          </div>
+          <div class="flex total-items text-green-600">
+            <span>Unique Code:</span>
+            <span id="coupon-discount">-Rp 10,000</span>
+          </div>
+          <div class="total-items border-t pt-3 flex text-lg font-bold">
+            <span>Total:</span>
+            <span id="total">Rp 169,000</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Payment Section -->
+      <div class="flex-1 space-y-6">
+        <h2 class="text-lg font-bold pb-2 mb-2">Select Payment Method</h2>
+        <div class="space-y-3">
+          <div class="grid grid-cols-1 gap-2">
+            <!-- Direct Transfer -->
+            <label class="block1 cursor-pointer">
+              <div class="p-4">
+                <div class="flex items-center gap-3">
+                  <input
+                    type="radio"
+                    name="payment"
+                    value="bca-direct"
+                    class="sr-only"
+                    required
+                  />
+                  <span>Bank Transfer to BCA</span>
+                </div>
+                <div class="direct mt-3 px-5 pb-3 text-sm">
+                  Direct Transfer to Personal BCA Account a/n dr Yudha Febrian
+                  (automatically confirmed but safer if help send proof of
+                  manual transfer also to CS)
+                </div>
+              </div>
+            </label>
+
+            <!-- Virtual Account Options -->
+            <label class="block cursor-pointer">
+              <div class="bank p-4">
+                <div class="flex items-center gap-3">
+                  <input
+                    type="radio"
+                    name="payment"
+                    value="bca"
+                    class="sr-only"
+                  />
+                  <span>BCA VA (by Xendit)</span>
+                </div>
+                <div class="w-12 h-[25px] overflow-hidden">
+                  <img
+                    src="/asset/icon/Bank_Central_Asia.svg"
+                    alt="BCA"
+                    class="object-contain h-full w-full"
+                  />
+                </div>
+              </div>
+            </label>
+
+            <label class="block cursor-pointer">
+              <div class="bank p-4">
+                <div class="flex items-center gap-3">
+                  <input
+                    type="radio"
+                    name="payment"
+                    value="bni"
+                    class="sr-only"
+                  />
+                  <span>BNI VA</span>
+                </div>
+                <div class="w-12 h-[25px] overflow-hidden">
+                  <img
+                    src="/asset/icon/BNI_logo.svg.png"
+                    alt="BNI"
+                    class="object-contain h-full w-full"
+                  />
+                </div>
+              </div>
+            </label>
+
+            <label class="block cursor-pointer">
+              <div class="bank p-4">
+                <div class="flex items-center gap-3">
+                  <input
+                    type="radio"
+                    name="payment"
+                    value="bri"
+                    class="sr-only"
+                  />
+                  <span>BRI VA</span>
+                </div>
+                <div class="w-12 h-[25px] overflow-hidden">
+                  <img
+                    src="/asset/icon/BRIVA-BRI-removebg-preview.png"
+                    alt="BRI"
+                    class="object-contain h-full w-full"
+                  />
+                </div>
+              </div>
+            </label>
+
+            <label class="block cursor-pointer">
+              <div class="bank p-4">
+                <div class="flex items-center gap-3">
+                  <input
+                    type="radio"
+                    name="payment"
+                    value="mandiri"
+                    class="sr-only"
+                  />
+                  <span>MANDIRI VA</span>
+                </div>
+                <div class="w-12 h-[25px] overflow-hidden">
+                  <img
+                    src="/asset/icon/Bank_Mandiri_logo_2016.svg"
+                    alt="Mandiri"
+                    class="object-contain h-full w-full"
+                  />
+                </div>
+              </div>
+            </label>
+
+            <label class="block cursor-pointer">
+              <div class="bank p-4">
+                <div class="flex items-center gap-3">
+                  <input
+                    type="radio"
+                    name="payment"
+                    value="cimb-niaga"
+                    class="sr-only"
+                  />
+                  <span>CIMB NIAGA VA</span>
+                </div>
+                <div class="w-12 h-[25px] overflow-hidden">
+                  <img
+                    src="/asset/icon/CIMB_Niaga_logo.svg"
+                    alt="CIMB Niaga"
+                    class="object-contain h-full w-full"
+                  />
+                </div>
+              </div>
+            </label>
+
+            <label class="block cursor-pointer">
+              <div class="bank p-4">
+                <div class="flex items-center gap-3">
+                  <input
+                    type="radio"
+                    name="payment"
+                    value="permata"
+                    class="sr-only"
+                  />
+                  <span>PERMATA VA</span>
+                </div>
+                <div class="w-12 h-[25px] overflow-hidden">
+                  <img
+                    src="/asset/icon/Permata_Bank_(2024).svg"
+                    alt="Permata"
+                    class="object-contain h-full w-full"
+                  />
+                </div>
+              </div>
+            </label>
+
+            <label class="block cursor-pointer">
+              <div class="bank p-4">
+                <div class="flex items-center gap-3">
+                  <input
+                    type="radio"
+                    name="payment"
+                    value="muamalat"
+                    class="sr-only"
+                  />
+                  <span>MUAMALAT VA</span>
+                </div>
+                <div class="w-12 h-[25px] overflow-hidden">
+                  <img
+                    src="/asset/icon/Muamalat_Logo.png"
+                    alt="Muamalat"
+                    class="object-contain h-full w-full"
+                  />
+                </div>
+              </div>
+            </label>
+
+            <label class="block cursor-pointer">
+              <div class="bank p-4">
+                <div class="flex items-center gap-3">
+                  <input
+                    type="radio"
+                    name="payment"
+                    value="qris"
+                    class="sr-only"
+                  />
+                  <span>QRIS</span>
+                </div>
+                <div class="w-12 h-[25px] overflow-hidden">
+                  <img
+                    src="/asset/icon/Logo_QRIS.svg"
+                    alt="QRIS"
+                    class="object-contain h-full w-full"
+                  />
+                </div>
+              </div>
+            </label>
+
+            <label class="block cursor-pointer">
+              <div class="bank p-4">
+                <div class="flex items-center gap-3">
+                  <input
+                    type="radio"
+                    name="payment"
+                    value="maybank"
+                    class="sr-only"
+                  />
+                  <span>Maybank Virtual Account</span>
+                </div>
+                <div class="w-12 h-[25px] overflow-hidden">
+                  <img
+                    src="/asset/icon/maybank-va.png"
+                    alt="Maybank"
+                    class="object-contain h-full w-full"
+                  />
+                </div>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- Terms -->
+        <div class="flex gap-3 items-start p-4 bg-gray-50 rounded-lg mt-5 mb-5">
+          <input
+            type="checkbox"
+            id="tnc"
+            required
+            class="mt-1 rounded text-blue-600"
+          />
+          <label for="tnc" class="text-sm text-gray-700">
+            I have read and agree to the website
+            <a class="link" href="#" target="_blank">terms and conditions</a>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Submit -->
+    <div class="checkout mt-1 flex items-center justify-center">
+      <button
+        type="submit"
+        class="px-8 py-4 text-lg font-semibold cursor-pointer w-full"
+      >
+        Checkout
+      </button>
+    </div>
+  </form>
+</div>

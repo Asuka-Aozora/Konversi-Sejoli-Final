@@ -1,0 +1,106 @@
+.cont {
+  background-color: rgb(236, 236, 236);
+}
+.outer {
+  max-width: 62rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+}
+.form-container {
+  background-color: white;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.521);
+}
+::placeholder {
+  color: #929292;
+}
+.usr-input {
+  border: 1.5px solid #bfbfbf;
+  border-radius: 8px;
+  transition: all 100ms ease-in-out;
+}
+.usr-input:hover {
+  border: 1.5px solid #1657a4;
+}
+.usr-input:focus {
+  outline: none;
+  border: 1.5px solid #1657a4;
+  box-shadow: none;
+}
+.inp-pass {
+  border: none;
+  outline: none;
+  box-shadow: none;
+  padding: 0;
+}
+.inp-pass:hover {
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+.inp-pass:focus {
+  border: none;
+  outline: none;
+  box-shadow: none;
+}
+.isUser {
+  border: 1.5px solid rgba(0, 105, 0, 0.658);
+  border-radius: 8px;
+}
+.isNotUser {
+  border: 1.5px solid rgba(155, 28, 28, 0.664);
+  border-radius: 8px;
+}
+.link {
+  color: #1657a4;
+  text-decoration: underline;
+}
+.kupon {
+  border: 1.5px solid #bfbfbf;
+  border-radius: 8px 0 0 8px;
+}
+.apply {
+  background-color: rgb(22, 179, 22);
+  border: 2px solid rgb(1, 156, 1);
+  border-radius: 0 8px 8px 0;
+  color: white;
+  transition: all 100ms ease-in-out;
+}
+.apply:hover {
+  background-color: rgb(14, 145, 14);
+}
+.total {
+  background-color: #d6d8d5;
+  border: 1.5px solid gray;
+  padding: 1.5rem;
+}
+.total-items {
+  justify-content: space-between;
+}
+.direct {
+  border-bottom: 1.5px solid #bfbfbf;
+}
+.block {
+  border-bottom: 1.5px solid #bfbfbf;
+  height: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.bank {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.checkout {
+  background-color: #1657a4;
+  color: white;
+  border-radius: 0.3rem;
+  transition: all 100ms ease-in-out;
+}
+.checkout:hover {
+  background-color: #0f3c6c;
+}
