@@ -1,0 +1,346 @@
+/* Enhanced Mobile L (425px) Responsive Styles */
+
+/* Base responsive utilities for mobile L */
+@media (max-width: 425px) {
+  /* Container adjustments */
+  .content {
+    padding: 0.75rem;
+  }
+
+  /* Header section */
+  .intro-y.flex {
+    gap: 0.75rem;
+  }
+
+  /* Stats cards - make them more compact */
+  .report-box .box {
+    padding: 0.75rem !important;
+  }
+
+  .report-box__icon {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .report-box__indicator {
+    font-size: 0.625rem;
+    padding: 0.125rem 0.375rem;
+  }
+
+  .report-box__indicator i {
+    width: 0.75rem;
+    height: 0.75rem;
+  }
+
+  /* Text sizing for mobile L */
+  .text-xl {
+    font-size: 1.25rem;
+  }
+
+  .text-xs {
+    font-size: 0.625rem;
+  }
+
+  /* Button adjustments */
+  .btn {
+    padding: 0.375rem 0.75rem;
+    font-size: 0.75rem;
+  }
+
+  .btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.625rem;
+  }
+
+  /* Form controls */
+  .form-control,
+  .form-select {
+    padding: 0.375rem 0.75rem;
+    font-size: 0.75rem;
+  }
+
+  /* License cards for mobile */
+  .license-card {
+    padding: 0.75rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .license-card-key {
+    font-size: 0.75rem;
+    line-height: 1.2;
+  }
+
+  .license-card-body {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .license-card-actions {
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+
+  .license-card-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  /* Table adjustments for mobile L */
+  .table-report th,
+  .table-report td {
+    padding: 0.375rem 0.25rem;
+    font-size: 0.625rem;
+  }
+
+  .table-report th:first-child,
+  .table-report td:first-child {
+    width: 2rem;
+  }
+
+  /* License tags */
+  .license-tag {
+    font-size: 0.625rem;
+    padding: 0.125rem 0.375rem;
+    margin-right: 0.25rem;
+    margin-bottom: 0.125rem;
+  }
+
+  /* Status badges */
+  .license-card-status {
+    font-size: 0.625rem;
+    padding: 0.125rem 0.5rem;
+  }
+
+  /* Modal adjustments */
+  .modal-dialog {
+    margin: 0.5rem;
+    max-width: calc(100vw - 1rem);
+  }
+
+  .modal-xl {
+    max-width: calc(100vw - 1rem);
+  }
+
+  .modal-header,
+  .modal-body,
+  .modal-footer {
+    padding: 0.75rem;
+  }
+
+  .modal-header h2 {
+    font-size: 1rem;
+  }
+
+  /* Grid adjustments */
+  .grid.grid-cols-2 {
+    gap: 0.5rem;
+  }
+
+  .grid.grid-cols-1.sm\\:grid-cols-2 {
+    grid-template-columns: 1fr;
+  }
+
+  /* Pagination */
+  .pagination {
+    font-size: 0.75rem;
+  }
+
+  .pagination .page-link {
+    padding: 0.25rem 0.5rem;
+  }
+
+  /* Input groups */
+  .input-group .form-control {
+    font-size: 0.75rem;
+  }
+
+  .input-group-text {
+    font-size: 0.75rem;
+    padding: 0.375rem 0.5rem;
+  }
+
+  /* Dropdown menu */
+  .dropdown-menu {
+    font-size: 0.75rem;
+  }
+
+  .dropdown-item {
+    padding: 0.375rem 0.75rem;
+  }
+
+  /* Timeline adjustments */
+  .timeline-item {
+    padding-left: 1.5rem;
+    padding-bottom: 1rem;
+  }
+
+  .timeline-content {
+    padding: 0.75rem;
+  }
+
+  .timeline-title {
+    font-size: 0.875rem;
+  }
+
+  .timeline-description {
+    font-size: 0.75rem;
+  }
+
+  /* QR code container */
+  .qr-code-container {
+    min-height: 150px;
+  }
+
+  /* Form switch */
+  .form-switch-label {
+    font-size: 0.75rem;
+  }
+
+  /* Avatar sizing */
+  .w-9.h-9 {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  /* Icon sizing */
+  .w-4.h-4 {
+    width: 0.875rem;
+    height: 0.875rem;
+  }
+
+  .w-3.h-3 {
+    width: 0.75rem;
+    height: 0.75rem;
+  }
+}
+
+/* Additional responsive improvements for all mobile sizes */
+@media (max-width: 640px) {
+  /* Ensure proper spacing */
+  .space-y-3 > * + * {
+    margin-top: 0.75rem;
+  }
+
+  .space-y-2 > * + * {
+    margin-top: 0.5rem;
+  }
+
+  /* Flex improvements */
+  .flex-1 {
+    flex: 1 1 0%;
+  }
+
+  /* Text truncation for small screens */
+  .truncate-mobile {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 150px;
+  }
+
+  /* Hide less important elements on very small screens */
+  .hide-mobile-s {
+    display: none;
+  }
+}
+
+/* Tablet adjustments */
+@media (min-width: 641px) and (max-width: 1023px) {
+  .table-report th,
+  .table-report td {
+    padding: 0.5rem;
+    font-size: 0.875rem;
+  }
+
+  .btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+  }
+
+  .license-card {
+    padding: 1rem;
+  }
+}
+
+/* Improved hover states for touch devices */
+@media (hover: none) {
+  .table-report tbody tr:hover {
+    transform: none;
+    box-shadow: none;
+  }
+
+  .report-box:hover {
+    transform: none;
+  }
+
+  .license-card:hover {
+    transform: none;
+  }
+}
+
+/* Focus states for accessibility */
+.btn:focus,
+.form-control:focus,
+.form-select:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Loading states */
+.loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.loading::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1rem;
+  height: 1rem;
+  margin: -0.5rem 0 0 -0.5rem;
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid #3b82f6;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Notification positioning for mobile */
+@media (max-width: 640px) {
+  .notification {
+    top: 0.5rem;
+    right: 0.5rem;
+    left: 0.5rem;
+    max-width: none;
+    font-size: 0.875rem;
+  }
+}
+
+/* Print styles */
+@media print {
+  .btn,
+  .dropdown,
+  .modal,
+  .notification {
+    display: none !important;
+  }
+
+  .table-report {
+    font-size: 0.75rem;
+  }
+
+  .license-card {
+    break-inside: avoid;
+    margin-bottom: 1rem;
+  }
+}
