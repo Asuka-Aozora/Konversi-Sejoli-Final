@@ -207,36 +207,23 @@ const salesChart = new Chart(ctx, {
     elements: {
       point: {
         radius: function (context) {
-          const idx = context.datasetIndex;
-          const value = context.parsed.y;
-          // Hanya jika datasetIndex = 4 (Completed) ATAU 5 (Refund)
-          // DAN value > 0, maka gambar titik dengan radius 4.
-          if ((idx === 4 || idx === 5) && value > 0) {
-            return 4;
-          }
-          return 0; // selain itu: tidak tampilkan titik sama sekali
+          return context.datasetIndex === 4 || context.datasetIndex === 5
+            ? 4
+            : 0;
         },
         hoverRadius: function (context) {
-          const idx = context.datasetIndex;
-          const value = context.parsed.y;
-          if ((idx === 4 || idx === 5) && value > 0) {
-            return 7; // misalnya kalau di-hover bulatannya jadi lebih besar
-          }
-          return 0;
+          return context.datasetIndex === 4 || context.datasetIndex === 5
+            ? 7
+            : 0;
         },
         hitRadius: function (context) {
-          const idx = context.datasetIndex;
-          const value = context.parsed.y;
-          if ((idx === 4 || idx === 5) && value > 0) {
-            return 10; // area sensitif klik/hover
-          }
-          return 0;
+          return context.datasetIndex === 4 || context.datasetIndex === 5
+            ? 10
+            : 0;
         },
       },
       line: {
         borderWidth: function (context) {
-          // Buat “Completed” (index 4) garis lebih tebal 3,
-          // “Refund” (index 5) 2, sisanya 1
           if (context.datasetIndex === 4) return 3;
           if (context.datasetIndex === 5) return 2;
           return 1;
