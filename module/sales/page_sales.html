@@ -4,7 +4,6 @@
             
             <!-- Sales Data Chart Card -->
             <div class="col-span-12 mt-8">
-                <div class="bg-white rounded-lg shadow-sm p-6">
                     <!-- Header -->
                     <div class="flex justify-between items-center mb-6">
                         <h2 class="text-xl font-semibold text-gray-800">Sales Data</h2>
@@ -53,7 +52,6 @@
                     <div class="chart-container">
                         <canvas id="salesChart"></canvas>
                     </div>
-                </div>
             </div>
             
              <!-- Orders Table Section -->
@@ -163,7 +161,7 @@
                                         Rp. 99.015
                                     </td>
                                     <td class="py-4 px-4">
-                                        <span class="status-badge status-completed">Completed</span>
+                                        <span class="status-badge status-completed">{{ data.status }}</span>
                                     </td>
                                 </tr>
                                 
