@@ -1,0 +1,172 @@
+.chart-container {
+    position: relative;
+    height: 400px;
+    width: 100%;
+}
+
+.legend-item {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.legend-color {
+    width: 16px;
+    height: 12px;
+    margin-right: 0.5rem;
+    border-radius: 2px;
+}
+.legend-color.bg-gray-400 {
+    background-color: #9ca3af;
+}
+.legend-color.bg-green-400 {
+    background-color: #22c55e;
+}
+.legend-color.bg-blue-400 {
+    background-color: #3b82f6;
+}
+.legend-color.bg-teal-400 {
+    background-color: #16a34a;
+}
+.legend-color.bg-green-500 {
+    background-color: #10b981;
+}
+.legend-color.bg-red-400 {
+    background-color: #ef4444;
+}
+.legend-color.bg-orange-400 {
+    background-color: #fb923c;
+}
+.justify-between {
+    justify-content: space-between;
+}
+.table-row:hover {
+    background-color: rgba(243, 244, 246, 0.5);
+}
+
+.pagination-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2rem;
+    height: 2rem;
+    padding: 0 0.5rem;
+    border: 1px solid #e5e7eb;
+    background-color: white;
+    color: #374151;
+    font-size: 0.875rem;
+    cursor: pointer;
+}
+
+.pagination-btn.active {
+    background-color: #f3f4f6;
+    font-weight: 600;
+}
+
+.status-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.status-completed {
+    background-color: #10b981;
+    color: white;
+}
+
+.invoice-badge {
+    display: inline-block;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-align: center;
+    background-color: #eab308;
+    color: white;
+}
+
+.date-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+    background-color: #06b6d4;
+    color: white;
+}
+
+.tag-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.75rem;
+    background-color: #b45309;
+    color: white;
+}
+
+  
+  .completed-item .chartjs-tooltip-value {
+    color: #10b981;
+    font-weight: 600;
+  }
+  
+  /* Highlight garis hijau saat dihover */
+  #salesChart:hover {
+    .chartjs-dataset-4 {
+      stroke-width: 3px;
+    }
+  }
+
+  .custom-tooltip {
+    position: fixed;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+    z-index: 10000;
+    pointer-events: none;
+    max-width: 300px;
+    display: none;
+  }
+  
+  .tooltip-header {
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 8px;
+    color: #1e293b;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 6px;
+  }
+  
+  .tooltip-content {
+    font-size: 13px;
+  }
+  
+  .tooltip-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 4px;
+  }
+  
+  .tooltip-label {
+    font-weight: 500;
+  }
+  
+  .tooltip-value {
+    font-weight: 500;
+    color: #1e293b;
+  }
+  
+  /* Highlight warna saat Completed */
+  .tooltip-item .tooltip-value.highlight {
+    color: #10b981;
+    font-weight: 600;
+  }

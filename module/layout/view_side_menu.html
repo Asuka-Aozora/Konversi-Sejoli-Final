@@ -1,6 +1,14 @@
 <nav class="side-nav">
     <ul>
         <li>
+            <a href="javascript:;" id="dashboard-side-menu" class="side-menu side-menu--active" onclick="side_menu_click(this,'dashboard')">
+                <div class="side-menu__icon"> 
+                    <i data-lucide="home"></i> 
+                </div>
+                <div class="side-menu__title"> Dashboard </div>
+            </a>
+        </li>
+        <li>
             <a href="javascript:;" class="side-menu">
                 <div class="side-menu__icon"> 
                     <i data-lucide="share2"></i> 
@@ -30,7 +38,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="javascript:;" id="sales-side-menu" class="side-menu" onclick="side_menu_click(this,'dashboard/sales')">
+                    <a href="javascript:;" id="sales-side-menu" class="side-menu" onclick="side_menu_click(this,'dashboard/sales'); getOrder();">
                         <div class="side-menu__icon"> 
                             <i data-lucide="shopping-cart"></i> 
                         </div>

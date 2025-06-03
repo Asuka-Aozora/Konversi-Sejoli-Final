@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function(event) { 
 
-    localStorage.setItem("theme-color","theme-1");
-    localStorage.setItem("layout","top-menu");
+    localStorage.setItem("theme-color","theme-3");
+    localStorage.setItem("layout","side-menu");
     localStorage.setItem("theme","icewall");
 
     if(document.getElementById("loading_awal")){ 
@@ -10,7 +10,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
         },1000);
     }
     
-    localStorage.setItem("base_url", "http://zoomagix.local");
+    localStorage.setItem("base_url", "http://server.local:8082");
+    localStorage.setItem("base_url_api", "http://localhost:4000");
     load_page_url();
 
     if(document.getElementById("loading_awal")){ 
