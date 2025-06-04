@@ -31,7 +31,7 @@ function login() {
     })
     .then((r) => {
       // data di sini sudah berupa objek hasil parse JSON dari server
-    //   console.log("Login response:", r.data.token);
+      //   console.log("Login response:", r.data.token);
       if (r.status === "success") {
         setCookie("token", r.data.token, 1);
         window.location.href = "/dashboard";

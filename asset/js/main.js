@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         },1000);
     }
     
-    localStorage.setItem("base_url", "http://server.local:8082");
+    localStorage.setItem("base_url", "http://sejoli.local");
     localStorage.setItem("base_url_api", "http://localhost:4000");
     load_page_url();
 
