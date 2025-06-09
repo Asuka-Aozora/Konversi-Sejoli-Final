@@ -4,39 +4,103 @@
 
     <div class="sejoli-table-wrapper">
         <div class="container">
-            <div class="search-filter">
-              <div class="search-box">
-                <input type="text" placeholder="Search..." id="searchInput">
-                <span class="search-icon">&#128269;</span>
-              </div>
-              <select id="statusFilter">
-                <option>Status</option>
-                <option>Waiting Payment</option>
-                <option>Confirmed</option>
-                <option>Packing</option>
-                <option>Delivered</option>
-                <option>Completed</option>
-              </select>
-            </div>
-          
-            <div class="entries-info">
-              Showing 1 to 10 of 150 entries
-            </div>
-          
-            <div class="actions">
-              <button onclick="exportToExcel()">Export to Excel</button>
-              <button onclick="exportToPDF()">Export to PDF</button>
-              <div class="dropdown">
-                <button onclick="toggleDropdown()">+</button>
-                <div id="dropdownMenu" class="dropdown-menu">
-                  <a href="#" onclick="window.print()">Print</a>
-                  <a href="#" onclick="exportToExcel()">Export to Excel</a>
-                  <a href="#" onclick="exportToPDF()">Export to PDF</a>
+            <div class="top-bar">
+                <!-- Left Section -->
+                <div class="left-section">
+                    <div class="status-dropdown-container">
+                        <select class="status-dropdown">
+                            <option>Action option on the selection subscription</option>
+                            <option>Change subscription status to Not Active</option>
+                            <option>Change subscription status to Inactive</option>
+                            <option>Change subscription status to Active</option>
+                        </select>
+                    </div>
+                    <button class="update-subscription button button-primary">Update subscription</button>
                 </div>
-              </div>
+
+
+                <!-- Center Section -->
+                <div class="center-section">
+                    Showing 1 to 10 of 150 entries
+                </div>
+
+                <!-- Right Section -->
+                <div class="right-section">
+                    <div class="dropdown">
+                        <button class="export-btn" onclick="toggleDropdown('exportDropdown')">
+                            <span>Export Data</span>
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </button>
+                        <div id="exportDropdown" class="dropdown-menu">
+                            <a href="#" onclick="exportTo('excel')">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <polyline points="7 10 12 15 17 10"></polyline>
+                                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                                </svg>
+                                Export to Excel
+                            </a>
+                            <a href="#" onclick="exportTo('csv')">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <polyline points="7 10 12 15 17 10"></polyline>
+                                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                                </svg>
+                                Export to CSV
+                            </a>
+                            <a href="#" onclick="exportTo('pdf')">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <polyline points="7 10 12 15 17 10"></polyline>
+                                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                                </svg>
+                                Export to PDF
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="dropdown">
+                        <button class="filter-btn" onclick="toggleDropdown('filterDropdown')">
+                            <span>Filter Data</span>
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 12 15 18 9"></polyline>
+                            </svg>
+                        </button>
+                        <div id="filterDropdown" class="dropdown-menu">
+                            <div class="filter-section">
+                                <label>Status</label>
+                                <select class="filter-select">
+                                    <option value="">All Status</option>
+                                    <option value="active">Active</option>
+                                    <option value="inactive">Inactive</option>
+                                    <option value="pending">Pending</option>
+                                </select>
+                            </div>
+                            <div class="filter-section">
+                                <label>Date Range</label>
+                                <div class="date-range">
+                                    <input type="date" class="filter-date">
+                                    <span>to</span>
+                                    <input type="date" class="filter-date">
+                                </div>
+                            </div>
+                            <div class="filter-actions">
+                                <button class="apply-filter" onclick="applyFilters()">Apply Filter</button>
+                                <button class="reset-filter" onclick="resetFilters()">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
-          
+        </div>
+
 
         <!-- Data Table -->
         <div class="sejoli-table-holder">
@@ -291,6 +355,8 @@
                                 </td>
                             </tr>
                         </tbody>
+
+
                         <tfoot>
                             <tr>
                                 <th class="checkbox-column">
@@ -304,6 +370,8 @@
                         </tfoot>
                     </table>
                 </div>
+
+
 
                 <!-- Pagination -->
                 <div class="pagination-container">
@@ -334,3 +402,13 @@
         </div>
     </div>
 </div>
+
+    <!-- Modal -->
+    <div id="detail-modal" class="modal hidden">
+        <div class="modal-content">
+          <span class="close-button">&times;</span>
+          <div id="modal-body">
+            <!-- Konten detail akan diisi lewat JS -->
+          </div>
+        </div>
+      </div>
