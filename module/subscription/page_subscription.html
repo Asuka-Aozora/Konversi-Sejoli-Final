@@ -3,47 +3,40 @@
     <h1 class="heading">Subscription Data</h1>
 
     <div class="sejoli-table-wrapper">
-        <!-- Action Controls -->
-        <div class="sejoli-form-action-holder">
-            <div class="action-controls">
-                <!-- Bulk Actions -->
-                <div class="sejoli-update-subscription box">
-                    <select class="update-subscription-select" name="update-subscription-select">
-                        <option value="">Action options on the selected subscription</option>
-                        <option value="pending">Change subscription status to Not Active</option>
-                        <option value="inactive">Change subscription status to Inactive</option>
-                        <option value="active">Change subscription status to Active</option>
-                    </select>
-                    <button type="button" name="button" class="update-subscription">Update
-                        Subscription</button>
-                </div>
-
-                <!-- Filter and Export -->
-                <div class="filter-export-controls">
-                    <div class="sejoli-form-filter box">
-                        <button type="button" name="button" class="button toggle-search">
-                            <svg class="button-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.707A1 1 0 013 7V4z">
-                                </path>
-                            </svg>
-                            Filter Data
-                        </button>
-                    </div>
-
-                    <div class="sejoli-form-filter box">
-                        <button type="button" name="button" class="button toggle-export">
-                            <svg class="button-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
-                                </path>
-                            </svg>
-                            Export Data
-                        </button>
-                    </div>
-                </div>
+        <div class="container">
+            <div class="search-filter">
+              <div class="search-box">
+                <input type="text" placeholder="Search..." id="searchInput">
+                <span class="search-icon">&#128269;</span>
+              </div>
+              <select id="statusFilter">
+                <option>Status</option>
+                <option>Waiting Payment</option>
+                <option>Confirmed</option>
+                <option>Packing</option>
+                <option>Delivered</option>
+                <option>Completed</option>
+              </select>
             </div>
-        </div>
+          
+            <div class="entries-info">
+              Showing 1 to 10 of 150 entries
+            </div>
+          
+            <div class="actions">
+              <button onclick="exportToExcel()">Export to Excel</button>
+              <button onclick="exportToPDF()">Export to PDF</button>
+              <div class="dropdown">
+                <button onclick="toggleDropdown()">+</button>
+                <div id="dropdownMenu" class="dropdown-menu">
+                  <a href="#" onclick="window.print()">Print</a>
+                  <a href="#" onclick="exportToExcel()">Export to Excel</a>
+                  <a href="#" onclick="exportToPDF()">Export to PDF</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          
 
         <!-- Data Table -->
         <div class="sejoli-table-holder">
