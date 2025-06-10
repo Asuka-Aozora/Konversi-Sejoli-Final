@@ -1,4 +1,5 @@
-document.addEventListener("DOMContentLoaded", function(event) { 
+document.addEventListener("DOMContentLoaded", function (event) { 
+    const base_url = window.APP_CONFIG.BASE_URL;
 
     localStorage.setItem("theme-color","theme-3");
     localStorage.setItem("layout","side-menu");
@@ -10,8 +11,9 @@ document.addEventListener("DOMContentLoaded", function(event) {
         },1000);
     }
     
-    localStorage.setItem("base_url", "http://sejoli.local");
+    localStorage.setItem("base_url", base_url);
     localStorage.setItem("base_url_api", "http://localhost:4000");
+    console.log("Base URL set:", base_url);
     load_page_url();
 
     if(document.getElementById("loading_awal")){ 
