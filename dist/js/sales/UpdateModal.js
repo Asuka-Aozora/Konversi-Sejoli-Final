@@ -1,5 +1,5 @@
 // Fungsi untuk membuka modal
-function openModal() {
+function openModal(id) {
   const overlay = document.getElementById("modalOverlay");
   const modal = document.getElementById("modal");
 
