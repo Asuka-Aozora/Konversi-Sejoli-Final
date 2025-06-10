@@ -1,268 +1,1272 @@
 <div id="sales-page" class="page hide grid grid-cols-12 gap-6">
-    <div class="col-span-12 2xl:col-span-9">
-        <div class="grid grid-cols-12 gap-6">
-            
-            <!-- Sales Data Chart Card -->
-            <div class="col-span-12 mt-8">
-                    <!-- Header -->
-                    <div class="flex justify-between items-center mb-6">
-                        <h2 class="text-xl font-semibold text-gray-800">Sales Data</h2>
-                        <div class="relative">
-                            <select class="bg-white border border-gray-300 rounded-md">
-                                <option>Based on total payment</option>
-                                <option>Based on order count</option>
-                                <option>Based on revenue</option>
-                            </select>
-                        </div>
-                    </div>
-                    
-                    <!-- Legend -->
-                    <div class="mb-4 ml-2 flex flex-wrap text-sm text-gray-600">
-                        <div class="legend-item">
-                            <div class="legend-color bg-gray-400"></div>
-                            <span>Waiting for payment</span>
-                        </div>
-                        <div class="legend-item">
-                            <div class="legend-color bg-green-400"></div>
-                            <span>Payment confirmed</span>
-                        </div>
-                        <div class="legend-item">
-                            <div class="legend-color bg-blue-400"></div>
-                            <span>Order processed</span>
-                        </div>
-                        <div class="legend-item">
-                            <div class="legend-color bg-teal-400"></div>
-                            <span>Delivery process</span>
-                        </div>
-                        <div class="legend-item">
-                            <div class="legend-color bg-green-500"></div>
-                            <span>Completed</span>
-                        </div>
-                        <div class="legend-item">
-                            <div class="legend-color bg-red-400"></div>
-                            <span>Refund</span>
-                        </div>
-                        <div class="legend-item">
-                            <div class="legend-color bg-orange-400"></div>
-                            <span>Cancelled</span>
-                        </div>
-                    </div>
-                    
-                    <!-- Chart Container -->
-                    <div class="chart-container">
-                        <canvas id="salesChart"></canvas>
-                    </div>
-            </div>
-            
-             <!-- Orders Table Section -->
-             <div class="col-span-12">
-                <div class="bg-white rounded-lg shadow-sm p-6">
-                    <!-- Table Controls -->
-                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
-                        <div class="flex items-center gap-2">
-                            <div class="relative">
-                                <select class="bg-white border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 w-48">
-                                    <option>Payment confirmed</option>
-                                    <option>Waiting for payment</option>
-                                    <option>Order processed</option>
-                                    <option>Delivery process</option>
-                                    <option>Completed</option>
-                                    <option>Refund</option>
-                                    <option>Cancelled</option>
-                                </select>
-                            </div>
-                            <button class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors">
-                                Update Order
-                            </button>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <button class="border border-blue-500 text-blue-500 hover:bg-blue-50 px-4 py-2 rounded-md text-sm font-medium transition-colors">
-                                Export CSV
-                            </button>
-                            <button class="border border-blue-500 text-blue-500 hover:bg-blue-50 px-4 py-2 rounded-md text-sm font-medium transition-colors">
-                                Filter Data
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <!-- Display Settings -->
-                    <div class="flex items-center mb-4 text-sm text-gray-600">
-                        <span class="mr-2">Displaying</span>
-                        <div class="relative">
-                            <select class="bg-white border border-gray-300 rounded-md px-3 py-1 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 w-20">
-                                <option>50</option>
-                                <option>100</option>
-                                <option>200</option>
-                                <option>All</option>
-                            </select>
-                        </div>
-                        <span class="ml-2">data</span>
-                    </div>
-                    
-                    <!-- Table -->
-                    <div class="overflow-x-auto">
-                        <table class="min-w-full divide-y divide-gray-200">
-                            <thead>
-                                <tr>
-                                    <th class="w-12 py-3 px-4">
-                                        <input type="checkbox" class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
-                                    </th>
-                                    <th class="py-3 px-4 text-left text-sm font-medium text-gray-700 uppercase tracking-wider">
-                                        Detail
-                                        <svg class="inline-block ml-1 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                                        </svg>
-                                    </th>
-                                    <th class="py-3 px-4 text-left text-sm font-medium text-gray-700 uppercase tracking-wider">
-                                        Buyer
-                                    </th>
-                                    <th class="py-3 px-4 text-left text-sm font-medium text-gray-700 uppercase tracking-wider">
-                                        Affiliate
-                                    </th>
-                                    <th class="py-3 px-4 text-left text-sm font-medium text-gray-700 uppercase tracking-wider">
-                                        Total
-                                    </th>
-                                    <th class="py-3 px-4 text-left text-sm font-medium text-gray-700 uppercase tracking-wider">
-                                        Status
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody class="bg-white divide-y divide-gray-200">
-                                <!-- Row 1 -->
-                                <tr class="table-row">
-                                    <td class="py-4 px-4">
-                                        <input type="checkbox" class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
-                                    </td>
-                                    <td class="py-4 px-4">
-                                        <div class="text-sm text-gray-900 font-medium mb-1">otomasiCS integrasi woowa</div>
-                                        <div class="flex flex-wrap gap-2">
-                                            <span class="invoice-badge">INV 15</span>
-                                            <span class="date-badge">
-                                                <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                                                </svg>
-                                                28 Mei 2023
-                                            </span>
-                                            <span class="tag-badge">
-                                                <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
-                                                </svg>
-                                                REGULAR
-                                            </span>
-                                        </div>
-                                    </td>
-                                    <td class="py-4 px-4 text-sm text-gray-900">
-                                        sukmaTesting
-                                    </td>
-                                    <td class="py-4 px-4 text-sm text-gray-900">
-                                        <!-- Empty affiliate column -->
-                                    </td>
-                                    <td class="py-4 px-4 text-sm text-gray-900 font-medium">
-                                        Rp. 99.015
-                                    </td>
-                                    <td class="py-4 px-4">
-                                        <span class="status-badge status-completed">{{ data.status }}</span>
-                                    </td>
-                                </tr>
-                                
-                                <!-- Row 2 -->
-                                <tr class="table-row">
-                                    <td class="py-4 px-4">
-                                        <input type="checkbox" class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
-                                    </td>
-                                    <td class="py-4 px-4">
-                                        <div class="text-sm text-gray-900 font-medium mb-1">otomasiCS integrasi woowa</div>
-                                        <div class="flex flex-wrap gap-2">
-                                            <span class="invoice-badge">INV 14</span>
-                                            <span class="date-badge">
-                                                <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                                                </svg>
-                                                9 Mei 2023
-                                            </span>
-                                            <span class="tag-badge">
-                                                <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
-                                                </svg>
-                                                REGULAR
-                                            </span>
-                                        </div>
-                                    </td>
-                                    <td class="py-4 px-4 text-sm text-gray-900">
-                                        Devi Indah Pramesti
-                                    </td>
-                                    <td class="py-4 px-4 text-sm text-gray-900">
-                                        <!-- Empty affiliate column -->
-                                    </td>
-                                    <td class="py-4 px-4 text-sm text-gray-900 font-medium">
-                                        Rp. 99.014
-                                    </td>
-                                    <td class="py-4 px-4">
-                                        <span class="status-badge status-completed">Completed</span>
-                                    </td>
-                                </tr>
-                                
-                                <!-- Empty row for spacing -->
-                                <tr>
-                                    <td class="py-4 px-4">
-                                        <input type="checkbox" class="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500">
-                                    </td>
-                                    <td class="py-4 px-4 text-sm text-gray-900 font-medium">
-                                        Detail
-                                    </td>
-                                    <td class="py-4 px-4 text-sm text-gray-900">
-                                        Buyer
-                                    </td>
-                                    <td class="py-4 px-4 text-sm text-gray-900">
-                                        Affiliate
-                                    </td>
-                                    <td class="py-4 px-4 text-sm text-gray-900 font-medium">
-                                        Total
-                                    </td>
-                                    <td class="py-4 px-4">
-                                        Status
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    
-                    <!-- Pagination -->
-                    <div class="flex flex-col md:flex-row justify-between items-center mt-6 text-sm">
-                        <div class="mb-4 md:mb-0">
-                            Displays 1 2 of 2 data
-                        </div>
-                        <div class="flex items-center">
-                            <button class="pagination-btn rounded-l-md" disabled>
-                                Previous
-                            </button>
-                            <button class="pagination-btn active">
-                                1
-                            </button>
-                            <button class="pagination-btn rounded-r-md">
-                                Next
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <!-- Bottom Action -->
-                    <div class="mt-6 flex items-center">
-                        <div class="relative">
-                            <select class="bg-white border border-gray-300 rounded-md ">
-                                <option>Action options on the selected order</option>
-                                <option>Mark as completed</option>
-                                <option>Mark as cancelled</option>
-                                <option>Send reminder</option>
-                                <option>Generate invoice</option>
-                            </select>
-                        </div>
-                        <button class="ml-2 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors">
-                            Update Order
-                        </button>
-                    </div>
-                </div>
-            </div>
-                        
+  <div class="col-span-12 2xl:col-span-9">
+    <div class="grid grid-cols-12 gap-6">
+      <!-- Sales Data Chart Card -->
+      <div class="col-span-12 mt-8">
+        <!-- Header -->
+        <div class="flex justify-between items-center mb-6">
+          <h2 class="text-xl font-semibold text-gray-800">Sales Data</h2>
+          <div class="relative">
+            <select class="bg-white border border-gray-300 rounded-md">
+              <option>Based on total orders</option>
+              <option>Based on order count</option>
+              <option>Based on revenue</option>
+            </select>
+          </div>
         </div>
+
+        <!-- Legend -->
+        <div class="mb-4 ml-2 flex flex-wrap text-sm text-gray-600">
+          <div class="legend-item">
+            <div class="legend-color bg-gray-400"></div>
+            <span>Waiting for payment</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color bg-green-400"></div>
+            <span>Payment confirmed</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color bg-blue-400"></div>
+            <span>Order processed</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color bg-teal-400"></div>
+            <span>Delivery process</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color bg-green-500"></div>
+            <span>Completed</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color bg-red-400"></div>
+            <span>Refund</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-color bg-orange-400"></div>
+            <span>Cancelled</span>
+          </div>
+        </div>
+
+        <!-- Chart Container -->
+        <div class="chart-container">
+          <canvas id="salesChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Orders Table Section -->
+      <div class="col-span-12">
+        <!-- other content -->
+        <h2 class="intro-y mt-10 text-lg font-medium">Transaction List</h2>
+        <div class="mt-5 grid grid-cols-12 gap-6">
+          <div
+            class="intro-y col-span-12 mt-2 flex flex-wrap items-center xl:flex-nowrap"
+          >
+            <div class="flex w-full sm:w-auto">
+              <div class="relative w-48 text-slate-500">
+                <input
+                  data-tw-merge=""
+                  type="text"
+                  placeholder="Search by invoice..."
+                  class="disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent transition duration-200 ease-in-out text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10 !box w-48 pr-10"
+                />
+                <i
+                  data-tw-merge=""
+                  data-lucide="search"
+                  class="stroke-1.5 absolute inset-y-0 right-0 my-auto mr-3 h-4 w-4"
+                ></i>
+              </div>
+              <select
+                data-tw-merge=""
+                class="disabled:bg-slate-100 disabled:cursor-not-allowed disabled:dark:bg-darkmode-800/50 [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md py-2 px-3 pr-8 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 group-[.form-inline]:flex-1 !box ml-2"
+              >
+                <option value="">Action options on the selected order</option>
+                <option value="on-hold">Waiting for payment</option>
+                <option value="payment-confirm">Payment confirmed</option>
+                <option value="in-progress">Order processed</option>
+                <option value="shipping">Delivery process</option>
+                <option value="completed">Completed</option>
+                <option value="refunded">Refund</option>
+                <option value="cancelled">Cancelled</option>
+                <option value="resend">Resend notification</option>
+              </select>
+            </div>
+            <div class="flex w-full sm:w-auto ml-2">
+              <button
+                data-tw-merge=""
+                onclick="openModal()"
+                class="transition duration-200 border inline-flex items-center justify-center py-2 px-3 rounded-md font-medium cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed bg-primary border-primary text-white dark:border-primary mr-2 shadow-md"
+              >
+                Update Order
+              </button>
+            </div>
+
+            <div class="mx-auto hidden text-slate-500 xl:block">
+              Showing 1 to 10 of 150 entries
+            </div>
+            <div class="mt-3 flex w-full items-center xl:mt-0 xl:w-auto">
+              <button
+                data-tw-merge=""
+                class="transition duration-200 border inline-flex items-center justify-center py-2 px-3 rounded-md font-medium cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed bg-primary border-primary text-white dark:border-primary mr-2 shadow-md"
+              >
+                <i
+                  data-tw-merge=""
+                  data-lucide="file-text"
+                  class="stroke-1.5 mr-2 h-4 w-4"
+                ></i>
+                Export CSV
+              </button>
+              <button
+                data-tw-merge=""
+                class="transition duration-200 border inline-flex items-center justify-center py-2 px-3 rounded-md font-medium cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed bg-primary border-primary text-white dark:border-primary mr-2 shadow-md"
+              >
+                <i
+                  data-tw-merge=""
+                  data-lucide="file-text"
+                  class="stroke-1.5 mr-2 h-4 w-4"
+                ></i>
+                Filter Data
+              </button>
+            </div>
+          </div>
+          <!-- BEGIN: Data List -->
+          <div class="intro-y col-span-12 overflow-auto 2xl:overflow-visible">
+            <table
+              data-tw-merge=""
+              class="w-full text-left -mt-2 border-separate border-spacing-y-[10px]"
+            >
+              <thead data-tw-merge="" class="">
+                <tr data-tw-merge="" class="">
+                  <th
+                    data-tw-merge=""
+                    class="font-medium px-5 py-3 dark:border-darkmode-300 whitespace-nowrap border-b-0"
+                  >
+                    <input
+                      data-tw-merge=""
+                      type="checkbox"
+                      class="transition-all duration-100 ease-in-out shadow-sm border-slate-200 cursor-pointer rounded focus:ring-4 focus:ring-offset-0 focus:ring-primary focus:ring-opacity-20 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&[type='radio']]:checked:bg-primary [&[type='radio']]:checked:border-primary [&[type='radio']]:checked:border-opacity-10 [&[type='checkbox']]:checked:bg-primary [&[type='checkbox']]:checked:border-primary [&[type='checkbox']]:checked:border-opacity-10 [&:disabled:not(:checked)]:bg-slate-100 [&:disabled:not(:checked)]:cursor-not-allowed [&:disabled:not(:checked)]:dark:bg-darkmode-800/50 [&:disabled:checked]:opacity-70 [&:disabled:checked]:cursor-not-allowed [&:disabled:checked]:dark:bg-darkmode-800/50"
+                    />
+                  </th>
+                  <th
+                    data-tw-merge=""
+                    class="font-medium px-5 py-3 dark:border-darkmode-300 whitespace-nowrap border-b-0"
+                  >
+                    INVOICE
+                  </th>
+                  <th
+                    data-tw-merge=""
+                    class="font-medium px-5 py-3 dark:border-darkmode-300 whitespace-nowrap border-b-0"
+                  >
+                    BUYER NAME
+                  </th>
+                  <th
+                    data-tw-merge=""
+                    class="font-medium px-5 py-3 dark:border-darkmode-300 whitespace-nowrap border-b-0 text-center"
+                  >
+                    STATUS
+                  </th>
+                  <th
+                    data-tw-merge=""
+                    class="font-medium px-5 py-3 dark:border-darkmode-300 whitespace-nowrap border-b-0"
+                  >
+                    PAYMENT
+                  </th>
+                  <th
+                    data-tw-merge=""
+                    class="font-medium px-5 py-3 dark:border-darkmode-300 whitespace-nowrap border-b-0 text-right"
+                  >
+                    <div class="pr-16">TOTAL TRANSACTION</div>
+                  </th>
+                  <th
+                    data-tw-merge=""
+                    class="font-medium px-5 py-3 dark:border-darkmode-300 whitespace-nowrap border-b-0 text-center"
+                  >
+                    ACTIONS
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr data-tw-merge="" class="intro-x">
+                  <td
+                    data-tw-merge=""
+                    class="px-5 py-3 border-b dark:border-darkmode-300 box w-10 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600"
+                  >
+                    <input
+                      data-tw-merge=""
+                      type="checkbox"
+                      class="transition-all duration-100 ease-in-out shadow-sm border-slate-200 cursor-pointer rounded focus:ring-4 focus:ring-offset-0 focus:ring-primary focus:ring-opacity-20 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&[type='radio']]:checked:bg-primary [&[type='radio']]:checked:border-primary [&[type='radio']]:checked:border-opacity-10 [&[type='checkbox']]:checked:bg-primary [&[type='checkbox']]:checked:border-primary [&[type='checkbox']]:checked:border-opacity-10 [&:disabled:not(:checked)]:bg-slate-100 [&:disabled:not(:checked)]:cursor-not-allowed [&:disabled:not(:checked)]:dark:bg-darkmode-800/50 [&:disabled:checked]:opacity-70 [&:disabled:checked]:cursor-not-allowed [&:disabled:checked]:dark:bg-darkmode-800/50"
+                    />
+                  </td>
+                  <td
+                    data-tw-merge=""
+                    class="px-5 py-3 border-b dark:border-darkmode-300 box w-40 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600"
+                  >
+                    <a
+                      class="whitespace-nowrap underline decoration-dotted"
+                      href=""
+                    >
+                      #INV-91807556
+                    </a>
+                  </td>
+                  <td
+                    data-tw-merge=""
+                    class="px-5 py-3 border-b dark:border-darkmode-300 box w-40 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600"
+                  >
+                    <a class="whitespace-nowrap font-medium" href="">
+                      Morgan Freeman
+                    </a>
+                    <div
+                      class="mt-0.5 whitespace-nowrap text-xs text-slate-500"
+                      v-if="faker.true_false[0]"
+                    >
+                      Ohio, Ohio
+                    </div>
+                  </td>
+                  <td
+                    data-tw-merge=""
+                    class="px-5 py-3 border-b dark:border-darkmode-300 box whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600"
+                  >
+                    <div
+                      class="flex items-center justify-center whitespace-nowrap text-success"
+                    >
+                      <i
+                        data-tw-merge=""
+                        data-lucide="check-square"
+                        class="stroke-1.5 mr-2 h-4 w-4"
+                      ></i>
+                      Active
+                    </div>
+                  </td>
+                  <td
+                    data-tw-merge=""
+                    class="px-5 py-3 border-b dark:border-darkmode-300 box whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600"
+                  >
+                    <div class="whitespace-nowrap">REGULAR</div>
+                    <div
+                      class="mt-0.5 whitespace-nowrap text-xs text-slate-500"
+                    >
+                      25 March, 12:55
+                    </div>
+                  </td>
+                  <td
+                    data-tw-merge=""
+                    class="px-5 py-3 border-b dark:border-darkmode-300 box w-40 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 text-right shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600"
+                  >
+                    <div class="pr-16">$91,000,00</div>
+                  </td>
+                  <td
+                    data-tw-merge=""
+                    class="px-5 py-3 border-b dark:border-darkmode-300 box rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600 before:absolute before:inset-y-0 before:left-0 before:my-auto before:block before:h-8 before:w-px before:bg-slate-200 before:dark:bg-darkmode-400"
+                  >
+                    <div class="flex items-center justify-center">
+                      <a
+                        class="mr-5 flex items-center whitespace-nowrap text-primary"
+                        href="#"
+                      >
+                        <i
+                          data-tw-merge=""
+                          data-lucide="check-square"
+                          class="stroke-1.5 mr-1 h-4 w-4"
+                        ></i>
+                        View Details
+                      </a>
+                      <a
+                        class="flex items-center whitespace-nowrap text-primary"
+                        data-tw-toggle="modal"
+                        data-tw-target="#delete-confirmation-modal"
+                        href="#"
+                      >
+                        <i
+                          data-tw-merge=""
+                          data-lucide="arrow-left-right"
+                          class="stroke-1.5 mr-1 h-4 w-4"
+                        ></i>
+                        Change Status
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+                <tr data-tw-merge="" class="intro-x">
+                  <td
+                    data-tw-merge=""
+                    class="px-5 py-3 border-b dark:border-darkmode-300 box w-10 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600"
+                  >
+                    <input
+                      data-tw-merge=""
+                      type="checkbox"
+                      class="transition-all duration-100 ease-in-out shadow-sm border-slate-200 cursor-pointer rounded focus:ring-4 focus:ring-offset-0 focus:ring-primary focus:ring-opacity-20 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&[type='radio']]:checked:bg-primary [&[type='radio']]:checked:border-primary [&[type='radio']]:checked:border-opacity-10 [&[type='checkbox']]:checked:bg-primary [&[type='checkbox']]:checked:border-primary [&[type='checkbox']]:checked:border-opacity-10 [&:disabled:not(:checked)]:bg-slate-100 [&:disabled:not(:checked)]:cursor-not-allowed [&:disabled:not(:checked)]:dark:bg-darkmode-800/50 [&:disabled:checked]:opacity-70 [&:disabled:checked]:cursor-not-allowed [&:disabled:checked]:dark:bg-darkmode-800/50"
+                    />
+                  </td>
+                  <td
+                    data-tw-merge=""
+                    class="px-5 py-3 border-b dark:border-darkmode-300 box w-40 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600"
+                  >
+                    <a
+                      class="whitespace-nowrap underline decoration-dotted"
+                      href=""
+                    >
+                      #INV-77807556
+                    </a>
+                  </td>
+                  <td
+                    data-tw-merge=""
+                    class="px-5 py-3 border-b dark:border-darkmode-300 box w-40 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600"
+                  >
+                    <a class="whitespace-nowrap font-medium" href="">
+                      Al Pacino
+                    </a>
+                    <div
+                      class="mt-0.5 whitespace-nowrap text-xs text-slate-500"
+                      v-if="faker.true_false[0]"
+                    >
+                      Ohio, Ohio
+                    </div>
+                  </td>
+                  <td
+                    data-tw-merge=""
+                    class="px-5 py-3 border-b dark:border-darkmode-300 box whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600"
+                  >
+                    <div
+                      class="flex items-center justify-center whitespace-nowrap text-success"
+                    >
+                      <i
+                        data-tw-merge=""
+                        data-lucide="check-square"
+                        class="stroke-1.5 mr-2 h-4 w-4"
+                      ></i>
+                      Active
+                    </div>
+                  </td>
+                  <td
+                    data-tw-merge=""
+                    class="px-5 py-3 border-b dark:border-darkmode-300 box whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600"
+                  >
+                    <div class="whitespace-nowrap">REGULAR</div>
+                    <div
+                      class="mt-0.5 whitespace-nowrap text-xs text-slate-500"
+                    >
+                      25 March, 12:55
+                    </div>
+                  </td>
+                  <td
+                    data-tw-merge=""
+                    class="px-5 py-3 border-b dark:border-darkmode-300 box w-40 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 text-right shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600"
+                  >
+                    <div class="pr-16">$77,000,00</div>
+                  </td>
+                  <td
+                    data-tw-merge=""
+                    class="px-5 py-3 border-b dark:border-darkmode-300 box rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600 before:absolute before:inset-y-0 before:left-0 before:my-auto before:block before:h-8 before:w-px before:bg-slate-200 before:dark:bg-darkmode-400"
+                  >
+                    <div class="flex items-center justify-center">
+                      <a
+                        class="mr-5 flex items-center whitespace-nowrap text-primary"
+                        href="#"
+                      >
+                        <i
+                          data-tw-merge=""
+                          data-lucide="check-square"
+                          class="stroke-1.5 mr-1 h-4 w-4"
+                        ></i>
+                        View Details
+                      </a>
+                      <a
+                        class="flex items-center whitespace-nowrap text-primary"
+                        data-tw-toggle="modal"
+                        data-tw-target="#delete-confirmation-modal"
+                        href="#"
+                      >
+                        <i
+                          data-tw-merge=""
+                          data-lucide="arrow-left-right"
+                          class="stroke-1.5 mr-1 h-4 w-4"
+                        ></i>
+                        Change Status
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+                <tr data-tw-merge="" class="intro-x">
+                  <td
+                    data-tw-merge=""
+                    class="px-5 py-3 border-b dark:border-darkmode-300 box w-10 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600"
+                  >
+                    <input
+                      data-tw-merge=""
+                      type="checkbox"
+                      class="transition-all duration-100 ease-in-out shadow-sm border-slate-200 cursor-pointer rounded focus:ring-4 focus:ring-offset-0 focus:ring-primary focus:ring-opacity-20 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&[type='radio']]:checked:bg-primary [&[type='radio']]:checked:border-primary [&[type='radio']]:checked:border-opacity-10 [&[type='checkbox']]:checked:bg-primary [&[type='checkbox']]:checked:border-primary [&[type='checkbox']]:checked:border-opacity-10 [&:disabled:not(:checked)]:bg-slate-100 [&:disabled:not(:checked)]:cursor-not-allowed [&:disabled:not(:checked)]:dark:bg-darkmode-800/50 [&:disabled:checked]:opacity-70 [&:disabled:checked]:cursor-not-allowed [&:disabled:checked]:dark:bg-darkmode-800/50"
+                    />
+                  </td>
+                  <td
+                    data-tw-merge=""
+                    class="px-5 py-3 border-b dark:border-darkmode-300 box w-40 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600"
+                  >
+                    <a
+                      class="whitespace-nowrap underline decoration-dotted"
+                      href=""
+                    >
+                      #INV-53807556
+                    </a>
+                  </td>
+                  <td
+                    data-tw-merge=""
+                    class="px-5 py-3 border-b dark:border-darkmode-300 box w-40 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600"
+                  >
+                    <a class="whitespace-nowrap font-medium" href="">
+                      Denzel Washington
+                    </a>
+                    <div
+                      class="mt-0.5 whitespace-nowrap text-xs text-slate-500"
+                      v-if="faker.true_false[0]"
+                    >
+                      Ohio, Ohio
+                    </div>
+                  </td>
+                  <td
+                    data-tw-merge=""
+                    class="px-5 py-3 border-b dark:border-darkmode-300 box whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600"
+                  >
+                    <div
+                      class="flex items-center justify-center whitespace-nowrap text-success"
+                    >
+                      <i
+                        data-tw-merge=""
+                        data-lucide="check-square"
+                        class="stroke-1.5 mr-2 h-4 w-4"
+                      ></i>
+                      Active
+                    </div>
+                  </td>
+                  <td
+                    data-tw-merge=""
+                    class="px-5 py-3 border-b dark:border-darkmode-300 box whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600"
+                  >
+                    <div class="whitespace-nowrap">REGULAR</div>
+                    <div
+                      class="mt-0.5 whitespace-nowrap text-xs text-slate-500"
+                    >
+                      25 March, 12:55
+                    </div>
+                  </td>
+                  <td
+                    data-tw-merge=""
+                    class="px-5 py-3 border-b dark:border-darkmode-300 box w-40 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 text-right shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600"
+                  >
+                    <div class="pr-16">$53,000,00</div>
+                  </td>
+                  <td
+                    data-tw-merge=""
+                    class="px-5 py-3 border-b dark:border-darkmode-300 box rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600 before:absolute before:inset-y-0 before:left-0 before:my-auto before:block before:h-8 before:w-px before:bg-slate-200 before:dark:bg-darkmode-400"
+                  >
+                    <div class="flex items-center justify-center">
+                      <a
+                        class="mr-5 flex items-center whitespace-nowrap text-primary"
+                        href="#"
+                      >
+                        <i
+                          data-tw-merge=""
+                          data-lucide="check-square"
+                          class="stroke-1.5 mr-1 h-4 w-4"
+                        ></i>
+                        View Details
+                      </a>
+                      <a
+                        class="flex items-center whitespace-nowrap text-primary"
+                        data-tw-toggle="modal"
+                        data-tw-target="#delete-confirmation-modal"
+                        href="#"
+                      >
+                        <i
+                          data-tw-merge=""
+                          data-lucide="arrow-left-right"
+                          class="stroke-1.5 mr-1 h-4 w-4"
+                        ></i>
+                        Change Status
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+                <tr data-tw-merge="" class="intro-x">
+                  <td
+                    data-tw-merge=""
+                    class="px-5 py-3 border-b dark:border-darkmode-300 box w-10 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600"
+                  >
+                    <input
+                      data-tw-merge=""
+                      type="checkbox"
+                      class="transition-all duration-100 ease-in-out shadow-sm border-slate-200 cursor-pointer rounded focus:ring-4 focus:ring-offset-0 focus:ring-primary focus:ring-opacity-20 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&[type='radio']]:checked:bg-primary [&[type='radio']]:checked:border-primary [&[type='radio']]:checked:border-opacity-10 [&[type='checkbox']]:checked:bg-primary [&[type='checkbox']]:checked:border-primary [&[type='checkbox']]:checked:border-opacity-10 [&:disabled:not(:checked)]:bg-slate-100 [&:disabled:not(:checked)]:cursor-not-allowed [&:disabled:not(:checked)]:dark:bg-darkmode-800/50 [&:disabled:checked]:opacity-70 [&:disabled:checked]:cursor-not-allowed [&:disabled:checked]:dark:bg-darkmode-800/50"
+                    />
+                  </td>
+                  <td
+                    data-tw-merge=""
+                    class="px-5 py-3 border-b dark:border-darkmode-300 box w-40 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600"
+                  >
+                    <a
+                      class="whitespace-nowrap underline decoration-dotted"
+                      href=""
+                    >
+                      #INV-37807556
+                    </a>
+                  </td>
+                  <td
+                    data-tw-merge=""
+                    class="px-5 py-3 border-b dark:border-darkmode-300 box w-40 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600"
+                  >
+                    <a class="whitespace-nowrap font-medium" href="">
+                      Brad Pitt
+                    </a>
+                    <div
+                      class="mt-0.5 whitespace-nowrap text-xs text-slate-500"
+                      v-if="faker.true_false[0]"
+                    >
+                      Ohio, Ohio
+                    </div>
+                  </td>
+                  <td
+                    data-tw-merge=""
+                    class="px-5 py-3 border-b dark:border-darkmode-300 box whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600"
+                  >
+                    <div
+                      class="flex items-center justify-center whitespace-nowrap text-success"
+                    >
+                      <i
+                        data-tw-merge=""
+                        data-lucide="check-square"
+                        class="stroke-1.5 mr-2 h-4 w-4"
+                      ></i>
+                      Active
+                    </div>
+                  </td>
+                  <td
+                    data-tw-merge=""
+                    class="px-5 py-3 border-b dark:border-darkmode-300 box whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600"
+                  >
+                    <div class="whitespace-nowrap">REGULAR</div>
+                    <div
+                      class="mt-0.5 whitespace-nowrap text-xs text-slate-500"
+                    >
+                      25 March, 12:55
+                    </div>
+                  </td>
+                  <td
+                    data-tw-merge=""
+                    class="px-5 py-3 border-b dark:border-darkmode-300 box w-40 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 text-right shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600"
+                  >
+                    <div class="pr-16">$37,000,00</div>
+                  </td>
+                  <td
+                    data-tw-merge=""
+                    class="px-5 py-3 border-b dark:border-darkmode-300 box rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600 before:absolute before:inset-y-0 before:left-0 before:my-auto before:block before:h-8 before:w-px before:bg-slate-200 before:dark:bg-darkmode-400"
+                  >
+                    <div class="flex items-center justify-center">
+                      <a
+                        class="mr-5 flex items-center whitespace-nowrap text-primary"
+                        href="#"
+                      >
+                        <i
+                          data-tw-merge=""
+                          data-lucide="check-square"
+                          class="stroke-1.5 mr-1 h-4 w-4"
+                        ></i>
+                        View Details
+                      </a>
+                      <a
+                        class="flex items-center whitespace-nowrap text-primary"
+                        data-tw-toggle="modal"
+                        data-tw-target="#delete-confirmation-modal"
+                        href="#"
+                      >
+                        <i
+                          data-tw-merge=""
+                          data-lucide="arrow-left-right"
+                          class="stroke-1.5 mr-1 h-4 w-4"
+                        ></i>
+                        Change Status
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+                <tr data-tw-merge="" class="intro-x">
+                  <td
+                    data-tw-merge=""
+                    class="px-5 py-3 border-b dark:border-darkmode-300 box w-10 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600"
+                  >
+                    <input
+                      data-tw-merge=""
+                      type="checkbox"
+                      class="transition-all duration-100 ease-in-out shadow-sm border-slate-200 cursor-pointer rounded focus:ring-4 focus:ring-offset-0 focus:ring-primary focus:ring-opacity-20 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&[type='radio']]:checked:bg-primary [&[type='radio']]:checked:border-primary [&[type='radio']]:checked:border-opacity-10 [&[type='checkbox']]:checked:bg-primary [&[type='checkbox']]:checked:border-primary [&[type='checkbox']]:checked:border-opacity-10 [&:disabled:not(:checked)]:bg-slate-100 [&:disabled:not(:checked)]:cursor-not-allowed [&:disabled:not(:checked)]:dark:bg-darkmode-800/50 [&:disabled:checked]:opacity-70 [&:disabled:checked]:cursor-not-allowed [&:disabled:checked]:dark:bg-darkmode-800/50"
+                    />
+                  </td>
+                  <td
+                    data-tw-merge=""
+                    class="px-5 py-3 border-b dark:border-darkmode-300 box w-40 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600"
+                  >
+                    <a
+                      class="whitespace-nowrap underline decoration-dotted"
+                      href=""
+                    >
+                      #INV-33807556
+                    </a>
+                  </td>
+                  <td
+                    data-tw-merge=""
+                    class="px-5 py-3 border-b dark:border-darkmode-300 box w-40 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600"
+                  >
+                    <a class="whitespace-nowrap font-medium" href="">
+                      Russell Crowe
+                    </a>
+                    <div
+                      class="mt-0.5 whitespace-nowrap text-xs text-slate-500"
+                    >
+                      California, LA
+                    </div>
+                  </td>
+                  <td
+                    data-tw-merge=""
+                    class="px-5 py-3 border-b dark:border-darkmode-300 box whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600"
+                  >
+                    <div
+                      class="flex items-center justify-center whitespace-nowrap text-danger"
+                    >
+                      <i
+                        data-tw-merge=""
+                        data-lucide="check-square"
+                        class="stroke-1.5 mr-2 h-4 w-4"
+                      ></i>
+                      Inactive
+                    </div>
+                  </td>
+                  <td
+                    data-tw-merge=""
+                    class="px-5 py-3 border-b dark:border-darkmode-300 box whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600"
+                  >
+                    <div class="whitespace-nowrap">Checking payments</div>
+                    <div
+                      class="mt-0.5 whitespace-nowrap text-xs text-slate-500"
+                    >
+                      30 March, 11:00
+                    </div>
+                  </td>
+                  <td
+                    data-tw-merge=""
+                    class="px-5 py-3 border-b dark:border-darkmode-300 box w-40 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 text-right shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600"
+                  >
+                    <div class="pr-16">$33,000,00</div>
+                  </td>
+                  <td
+                    data-tw-merge=""
+                    class="px-5 py-3 border-b dark:border-darkmode-300 box rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600 before:absolute before:inset-y-0 before:left-0 before:my-auto before:block before:h-8 before:w-px before:bg-slate-200 before:dark:bg-darkmode-400"
+                  >
+                    <div class="flex items-center justify-center">
+                      <a
+                        class="mr-5 flex items-center whitespace-nowrap text-primary"
+                        href="#"
+                      >
+                        <i
+                          data-tw-merge=""
+                          data-lucide="check-square"
+                          class="stroke-1.5 mr-1 h-4 w-4"
+                        ></i>
+                        View Details
+                      </a>
+                      <a
+                        class="flex items-center whitespace-nowrap text-primary"
+                        data-tw-toggle="modal"
+                        data-tw-target="#delete-confirmation-modal"
+                        href="#"
+                      >
+                        <i
+                          data-tw-merge=""
+                          data-lucide="arrow-left-right"
+                          class="stroke-1.5 mr-1 h-4 w-4"
+                        ></i>
+                        Change Status
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+                <tr data-tw-merge="" class="intro-x">
+                  <td
+                    data-tw-merge=""
+                    class="px-5 py-3 border-b dark:border-darkmode-300 box w-10 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600"
+                  >
+                    <input
+                      data-tw-merge=""
+                      type="checkbox"
+                      class="transition-all duration-100 ease-in-out shadow-sm border-slate-200 cursor-pointer rounded focus:ring-4 focus:ring-offset-0 focus:ring-primary focus:ring-opacity-20 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&[type='radio']]:checked:bg-primary [&[type='radio']]:checked:border-primary [&[type='radio']]:checked:border-opacity-10 [&[type='checkbox']]:checked:bg-primary [&[type='checkbox']]:checked:border-primary [&[type='checkbox']]:checked:border-opacity-10 [&:disabled:not(:checked)]:bg-slate-100 [&:disabled:not(:checked)]:cursor-not-allowed [&:disabled:not(:checked)]:dark:bg-darkmode-800/50 [&:disabled:checked]:opacity-70 [&:disabled:checked]:cursor-not-allowed [&:disabled:checked]:dark:bg-darkmode-800/50"
+                    />
+                  </td>
+                  <td
+                    data-tw-merge=""
+                    class="px-5 py-3 border-b dark:border-darkmode-300 box w-40 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600"
+                  >
+                    <a
+                      class="whitespace-nowrap underline decoration-dotted"
+                      href=""
+                    >
+                      #INV-151807556
+                    </a>
+                  </td>
+                  <td
+                    data-tw-merge=""
+                    class="px-5 py-3 border-b dark:border-darkmode-300 box w-40 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600"
+                  >
+                    <a class="whitespace-nowrap font-medium" href="">
+                      Denzel Washington
+                    </a>
+                    <div
+                      class="mt-0.5 whitespace-nowrap text-xs text-slate-500"
+                      v-if="faker.true_false[0]"
+                    >
+                      Ohio, Ohio
+                    </div>
+                  </td>
+                  <td
+                    data-tw-merge=""
+                    class="px-5 py-3 border-b dark:border-darkmode-300 box whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600"
+                  >
+                    <div
+                      class="flex items-center justify-center whitespace-nowrap text-success"
+                    >
+                      <i
+                        data-tw-merge=""
+                        data-lucide="check-square"
+                        class="stroke-1.5 mr-2 h-4 w-4"
+                      ></i>
+                      Active
+                    </div>
+                  </td>
+                  <td
+                    data-tw-merge=""
+                    class="px-5 py-3 border-b dark:border-darkmode-300 box whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600"
+                  >
+                    <div class="whitespace-nowrap">REGULAR</div>
+                    <div
+                      class="mt-0.5 whitespace-nowrap text-xs text-slate-500"
+                    >
+                      25 March, 12:55
+                    </div>
+                  </td>
+                  <td
+                    data-tw-merge=""
+                    class="px-5 py-3 border-b dark:border-darkmode-300 box w-40 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 text-right shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600"
+                  >
+                    <div class="pr-16">$151,000,00</div>
+                  </td>
+                  <td
+                    data-tw-merge=""
+                    class="px-5 py-3 border-b dark:border-darkmode-300 box rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600 before:absolute before:inset-y-0 before:left-0 before:my-auto before:block before:h-8 before:w-px before:bg-slate-200 before:dark:bg-darkmode-400"
+                  >
+                    <div class="flex items-center justify-center">
+                      <a
+                        class="mr-5 flex items-center whitespace-nowrap text-primary"
+                        href="#"
+                      >
+                        <i
+                          data-tw-merge=""
+                          data-lucide="check-square"
+                          class="stroke-1.5 mr-1 h-4 w-4"
+                        ></i>
+                        View Details
+                      </a>
+                      <a
+                        class="flex items-center whitespace-nowrap text-primary"
+                        data-tw-toggle="modal"
+                        data-tw-target="#delete-confirmation-modal"
+                        href="#"
+                      >
+                        <i
+                          data-tw-merge=""
+                          data-lucide="arrow-left-right"
+                          class="stroke-1.5 mr-1 h-4 w-4"
+                        ></i>
+                        Change Status
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+                <tr data-tw-merge="" class="intro-x">
+                  <td
+                    data-tw-merge=""
+                    class="px-5 py-3 border-b dark:border-darkmode-300 box w-10 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600"
+                  >
+                    <input
+                      data-tw-merge=""
+                      type="checkbox"
+                      class="transition-all duration-100 ease-in-out shadow-sm border-slate-200 cursor-pointer rounded focus:ring-4 focus:ring-offset-0 focus:ring-primary focus:ring-opacity-20 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&[type='radio']]:checked:bg-primary [&[type='radio']]:checked:border-primary [&[type='radio']]:checked:border-opacity-10 [&[type='checkbox']]:checked:bg-primary [&[type='checkbox']]:checked:border-primary [&[type='checkbox']]:checked:border-opacity-10 [&:disabled:not(:checked)]:bg-slate-100 [&:disabled:not(:checked)]:cursor-not-allowed [&:disabled:not(:checked)]:dark:bg-darkmode-800/50 [&:disabled:checked]:opacity-70 [&:disabled:checked]:cursor-not-allowed [&:disabled:checked]:dark:bg-darkmode-800/50"
+                    />
+                  </td>
+                  <td
+                    data-tw-merge=""
+                    class="px-5 py-3 border-b dark:border-darkmode-300 box w-40 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600"
+                  >
+                    <a
+                      class="whitespace-nowrap underline decoration-dotted"
+                      href=""
+                    >
+                      #INV-170807556
+                    </a>
+                  </td>
+                  <td
+                    data-tw-merge=""
+                    class="px-5 py-3 border-b dark:border-darkmode-300 box w-40 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600"
+                  >
+                    <a class="whitespace-nowrap font-medium" href="">
+                      Johnny Depp
+                    </a>
+                    <div
+                      class="mt-0.5 whitespace-nowrap text-xs text-slate-500"
+                    >
+                      California, LA
+                    </div>
+                  </td>
+                  <td
+                    data-tw-merge=""
+                    class="px-5 py-3 border-b dark:border-darkmode-300 box whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600"
+                  >
+                    <div
+                      class="flex items-center justify-center whitespace-nowrap text-danger"
+                    >
+                      <i
+                        data-tw-merge=""
+                        data-lucide="check-square"
+                        class="stroke-1.5 mr-2 h-4 w-4"
+                      ></i>
+                      Inactive
+                    </div>
+                  </td>
+                  <td
+                    data-tw-merge=""
+                    class="px-5 py-3 border-b dark:border-darkmode-300 box whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600"
+                  >
+                    <div class="whitespace-nowrap">Checking payments</div>
+                    <div
+                      class="mt-0.5 whitespace-nowrap text-xs text-slate-500"
+                    >
+                      30 March, 11:00
+                    </div>
+                  </td>
+                  <td
+                    data-tw-merge=""
+                    class="px-5 py-3 border-b dark:border-darkmode-300 box w-40 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 text-right shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600"
+                  >
+                    <div class="pr-16">$170,000,00</div>
+                  </td>
+                  <td
+                    data-tw-merge=""
+                    class="px-5 py-3 border-b dark:border-darkmode-300 box rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600 before:absolute before:inset-y-0 before:left-0 before:my-auto before:block before:h-8 before:w-px before:bg-slate-200 before:dark:bg-darkmode-400"
+                  >
+                    <div class="flex items-center justify-center">
+                      <a
+                        class="mr-5 flex items-center whitespace-nowrap text-primary"
+                        href="#"
+                      >
+                        <i
+                          data-tw-merge=""
+                          data-lucide="check-square"
+                          class="stroke-1.5 mr-1 h-4 w-4"
+                        ></i>
+                        View Details
+                      </a>
+                      <a
+                        class="flex items-center whitespace-nowrap text-primary"
+                        data-tw-toggle="modal"
+                        data-tw-target="#delete-confirmation-modal"
+                        href="#"
+                      >
+                        <i
+                          data-tw-merge=""
+                          data-lucide="arrow-left-right"
+                          class="stroke-1.5 mr-1 h-4 w-4"
+                        ></i>
+                        Change Status
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+                <tr data-tw-merge="" class="intro-x">
+                  <td
+                    data-tw-merge=""
+                    class="px-5 py-3 border-b dark:border-darkmode-300 box w-10 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600"
+                  >
+                    <input
+                      data-tw-merge=""
+                      type="checkbox"
+                      class="transition-all duration-100 ease-in-out shadow-sm border-slate-200 cursor-pointer rounded focus:ring-4 focus:ring-offset-0 focus:ring-primary focus:ring-opacity-20 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&[type='radio']]:checked:bg-primary [&[type='radio']]:checked:border-primary [&[type='radio']]:checked:border-opacity-10 [&[type='checkbox']]:checked:bg-primary [&[type='checkbox']]:checked:border-primary [&[type='checkbox']]:checked:border-opacity-10 [&:disabled:not(:checked)]:bg-slate-100 [&:disabled:not(:checked)]:cursor-not-allowed [&:disabled:not(:checked)]:dark:bg-darkmode-800/50 [&:disabled:checked]:opacity-70 [&:disabled:checked]:cursor-not-allowed [&:disabled:checked]:dark:bg-darkmode-800/50"
+                    />
+                  </td>
+                  <td
+                    data-tw-merge=""
+                    class="px-5 py-3 border-b dark:border-darkmode-300 box w-40 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600"
+                  >
+                    <a
+                      class="whitespace-nowrap underline decoration-dotted"
+                      href=""
+                    >
+                      #INV-90807556
+                    </a>
+                  </td>
+                  <td
+                    data-tw-merge=""
+                    class="px-5 py-3 border-b dark:border-darkmode-300 box w-40 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600"
+                  >
+                    <a class="whitespace-nowrap font-medium" href="">
+                      Denzel Washington
+                    </a>
+                    <div
+                      class="mt-0.5 whitespace-nowrap text-xs text-slate-500"
+                      v-if="faker.true_false[0]"
+                    >
+                      Ohio, Ohio
+                    </div>
+                  </td>
+                  <td
+                    data-tw-merge=""
+                    class="px-5 py-3 border-b dark:border-darkmode-300 box whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600"
+                  >
+                    <div
+                      class="flex items-center justify-center whitespace-nowrap text-success"
+                    >
+                      <i
+                        data-tw-merge=""
+                        data-lucide="check-square"
+                        class="stroke-1.5 mr-2 h-4 w-4"
+                      ></i>
+                      Active
+                    </div>
+                  </td>
+                  <td
+                    data-tw-merge=""
+                    class="px-5 py-3 border-b dark:border-darkmode-300 box whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600"
+                  >
+                    <div class="whitespace-nowrap">REGULAR</div>
+                    <div
+                      class="mt-0.5 whitespace-nowrap text-xs text-slate-500"
+                    >
+                      25 March, 12:55
+                    </div>
+                  </td>
+                  <td
+                    data-tw-merge=""
+                    class="px-5 py-3 border-b dark:border-darkmode-300 box w-40 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 text-right shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600"
+                  >
+                    <div class="pr-16">$90,000,00</div>
+                  </td>
+                  <td
+                    data-tw-merge=""
+                    class="px-5 py-3 border-b dark:border-darkmode-300 box rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600 before:absolute before:inset-y-0 before:left-0 before:my-auto before:block before:h-8 before:w-px before:bg-slate-200 before:dark:bg-darkmode-400"
+                  >
+                    <div class="flex items-center justify-center">
+                      <a
+                        class="mr-5 flex items-center whitespace-nowrap text-primary"
+                        href="#"
+                      >
+                        <i
+                          data-tw-merge=""
+                          data-lucide="check-square"
+                          class="stroke-1.5 mr-1 h-4 w-4"
+                        ></i>
+                        View Details
+                      </a>
+                      <a
+                        class="flex items-center whitespace-nowrap text-primary"
+                        data-tw-toggle="modal"
+                        data-tw-target="#delete-confirmation-modal"
+                        href="#"
+                      >
+                        <i
+                          data-tw-merge=""
+                          data-lucide="arrow-left-right"
+                          class="stroke-1.5 mr-1 h-4 w-4"
+                        ></i>
+                        Change Status
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+                <tr data-tw-merge="" class="intro-x">
+                  <td
+                    data-tw-merge=""
+                    class="px-5 py-3 border-b dark:border-darkmode-300 box w-10 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600"
+                  >
+                    <input
+                      data-tw-merge=""
+                      type="checkbox"
+                      class="transition-all duration-100 ease-in-out shadow-sm border-slate-200 cursor-pointer rounded focus:ring-4 focus:ring-offset-0 focus:ring-primary focus:ring-opacity-20 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&[type='radio']]:checked:bg-primary [&[type='radio']]:checked:border-primary [&[type='radio']]:checked:border-opacity-10 [&[type='checkbox']]:checked:bg-primary [&[type='checkbox']]:checked:border-primary [&[type='checkbox']]:checked:border-opacity-10 [&:disabled:not(:checked)]:bg-slate-100 [&:disabled:not(:checked)]:cursor-not-allowed [&:disabled:not(:checked)]:dark:bg-darkmode-800/50 [&:disabled:checked]:opacity-70 [&:disabled:checked]:cursor-not-allowed [&:disabled:checked]:dark:bg-darkmode-800/50"
+                    />
+                  </td>
+                  <td
+                    data-tw-merge=""
+                    class="px-5 py-3 border-b dark:border-darkmode-300 box w-40 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600"
+                  >
+                    <a
+                      class="whitespace-nowrap underline decoration-dotted"
+                      href=""
+                    >
+                      #INV-20807556
+                    </a>
+                  </td>
+                  <td
+                    data-tw-merge=""
+                    class="px-5 py-3 border-b dark:border-darkmode-300 box w-40 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600"
+                  >
+                    <a class="whitespace-nowrap font-medium" href="">
+                      Johnny Depp
+                    </a>
+                    <div
+                      class="mt-0.5 whitespace-nowrap text-xs text-slate-500"
+                      v-if="faker.true_false[0]"
+                    >
+                      Ohio, Ohio
+                    </div>
+                  </td>
+                  <td
+                    data-tw-merge=""
+                    class="px-5 py-3 border-b dark:border-darkmode-300 box whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600"
+                  >
+                    <div
+                      class="flex items-center justify-center whitespace-nowrap text-success"
+                    >
+                      <i
+                        data-tw-merge=""
+                        data-lucide="check-square"
+                        class="stroke-1.5 mr-2 h-4 w-4"
+                      ></i>
+                      Active
+                    </div>
+                  </td>
+                  <td
+                    data-tw-merge=""
+                    class="px-5 py-3 border-b dark:border-darkmode-300 box whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600"
+                  >
+                    <div class="whitespace-nowrap">REGULAR</div>
+                    <div
+                      class="mt-0.5 whitespace-nowrap text-xs text-slate-500"
+                    >
+                      25 March, 12:55
+                    </div>
+                  </td>
+                  <td
+                    data-tw-merge=""
+                    class="px-5 py-3 border-b dark:border-darkmode-300 box w-40 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 text-right shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600"
+                  >
+                    <div class="pr-16">$20,000,00</div>
+                  </td>
+                  <td
+                    data-tw-merge=""
+                    class="px-5 py-3 border-b dark:border-darkmode-300 box rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600 before:absolute before:inset-y-0 before:left-0 before:my-auto before:block before:h-8 before:w-px before:bg-slate-200 before:dark:bg-darkmode-400"
+                  >
+                    <div class="flex items-center justify-center">
+                      <a
+                        class="mr-5 flex items-center whitespace-nowrap text-primary"
+                        href="#"
+                      >
+                        <i
+                          data-tw-merge=""
+                          data-lucide="check-square"
+                          class="stroke-1.5 mr-1 h-4 w-4"
+                        ></i>
+                        View Details
+                      </a>
+                      <a
+                        class="flex items-center whitespace-nowrap text-primary"
+                        data-tw-toggle="modal"
+                        data-tw-target="#delete-confirmation-modal"
+                        href="#"
+                      >
+                        <i
+                          data-tw-merge=""
+                          data-lucide="arrow-left-right"
+                          class="stroke-1.5 mr-1 h-4 w-4"
+                        ></i>
+                        Change Status
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- END: Data List -->
+          <!-- BEGIN: Pagination -->
+          <div
+            class="intro-y col-span-12 flex flex-wrap items-center sm:flex-row sm:flex-nowrap"
+          >
+            <nav class="w-full sm:mr-auto sm:w-auto">
+              <ul class="flex w-full mr-0 sm:mr-auto sm:w-auto">
+                <li class="flex-1 sm:flex-initial">
+                  <a
+                    data-tw-merge=""
+                    class="transition duration-200 border items-center justify-center py-2 rounded-md cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed min-w-0 sm:min-w-[40px] shadow-none font-normal flex border-transparent text-slate-800 sm:mr-2 dark:text-slate-300 px-1 sm:px-3"
+                    ><i
+                      data-tw-merge=""
+                      data-lucide="chevrons-left"
+                      class="stroke-1.5 h-4 w-4"
+                    ></i
+                  ></a>
+                </li>
+                <li class="flex-1 sm:flex-initial">
+                  <a
+                    data-tw-merge=""
+                    class="transition duration-200 border items-center justify-center py-2 rounded-md cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed min-w-0 sm:min-w-[40px] shadow-none font-normal flex border-transparent text-slate-800 sm:mr-2 dark:text-slate-300 px-1 sm:px-3"
+                    ><i
+                      data-tw-merge=""
+                      data-lucide="chevron-left"
+                      class="stroke-1.5 h-4 w-4"
+                    ></i
+                  ></a>
+                </li>
+                <li class="flex-1 sm:flex-initial">
+                  <a
+                    data-tw-merge=""
+                    class="transition duration-200 border items-center justify-center py-2 rounded-md cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed min-w-0 sm:min-w-[40px] shadow-none font-normal flex border-transparent text-slate-800 sm:mr-2 dark:text-slate-300 px-1 sm:px-3"
+                    >...</a
+                  >
+                </li>
+                <li class="flex-1 sm:flex-initial">
+                  <a
+                    data-tw-merge=""
+                    class="transition duration-200 border items-center justify-center py-2 rounded-md cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed min-w-0 sm:min-w-[40px] shadow-none font-normal flex border-transparent text-slate-800 sm:mr-2 dark:text-slate-300 px-1 sm:px-3"
+                    >1</a
+                  >
+                </li>
+                <li class="flex-1 sm:flex-initial">
+                  <a
+                    data-tw-merge=""
+                    class="transition duration-200 border items-center justify-center py-2 rounded-md cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed min-w-0 sm:min-w-[40px] shadow-none font-normal flex border-transparent text-slate-800 sm:mr-2 dark:text-slate-300 px-1 sm:px-3 !box dark:bg-darkmode-400"
+                    >2</a
+                  >
+                </li>
+                <li class="flex-1 sm:flex-initial">
+                  <a
+                    data-tw-merge=""
+                    class="transition duration-200 border items-center justify-center py-2 rounded-md cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed min-w-0 sm:min-w-[40px] shadow-none font-normal flex border-transparent text-slate-800 sm:mr-2 dark:text-slate-300 px-1 sm:px-3"
+                    >3</a
+                  >
+                </li>
+                <li class="flex-1 sm:flex-initial">
+                  <a
+                    data-tw-merge=""
+                    class="transition duration-200 border items-center justify-center py-2 rounded-md cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed min-w-0 sm:min-w-[40px] shadow-none font-normal flex border-transparent text-slate-800 sm:mr-2 dark:text-slate-300 px-1 sm:px-3"
+                    >...</a
+                  >
+                </li>
+                <li class="flex-1 sm:flex-initial">
+                  <a
+                    data-tw-merge=""
+                    class="transition duration-200 border items-center justify-center py-2 rounded-md cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed min-w-0 sm:min-w-[40px] shadow-none font-normal flex border-transparent text-slate-800 sm:mr-2 dark:text-slate-300 px-1 sm:px-3"
+                    ><i
+                      data-tw-merge=""
+                      data-lucide="chevron-right"
+                      class="stroke-1.5 h-4 w-4"
+                    ></i
+                  ></a>
+                </li>
+                <li class="flex-1 sm:flex-initial">
+                  <a
+                    data-tw-merge=""
+                    class="transition duration-200 border items-center justify-center py-2 rounded-md cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed min-w-0 sm:min-w-[40px] shadow-none font-normal flex border-transparent text-slate-800 sm:mr-2 dark:text-slate-300 px-1 sm:px-3"
+                    ><i
+                      data-tw-merge=""
+                      data-lucide="chevrons-right"
+                      class="stroke-1.5 h-4 w-4"
+                    ></i
+                  ></a>
+                </li>
+              </ul>
+            </nav>
+            <select
+              data-tw-merge=""
+              class="disabled:bg-slate-100 disabled:cursor-not-allowed disabled:dark:bg-darkmode-800/50 [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 transition duration-200 ease-in-out text-sm border-slate-200 shadow-sm rounded-md py-2 px-3 pr-8 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 group-[.form-inline]:flex-1 !box mt-3 w-20 sm:mt-0"
+            >
+              <option>10</option>
+              <option>25</option>
+              <option>35</option>
+              <option>50</option>
+            </select>
+          </div>
+          <!-- END: Pagination -->
+        </div>
+
+        <!-- BEGIN: Modal Overlay -->
+        <div class="modal-overlay" id="modalOverlay" onclick="closeModal()">
+          <!-- Modal Container -->
+          <div class="modal2" id="modal" onclick="event.stopPropagation()">
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h2 class="modal-title">Order Detail 17</h2>
+              <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+              <div class="detail-row">
+                <div class="detail-label">Date</div>
+                <div class="detail-value">2 Jun 2025</div>
+              </div>
+
+              <div class="detail-row">
+                <div class="detail-label">Buyer Name</div>
+                <div class="detail-value">admin</div>
+              </div>
+
+              <div class="detail-row">
+                <div class="detail-label">Contact</div>
+                <div class="detail-value">
+                  <div class="contact-info">
+                    <a href="tel:+62123456789" class="contact-phone">📞</a>
+                    <a href="mailto:admin@otomasics.com" class="contact-email"
+                      >admin@otomasics.com</a
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <div class="detail-row">
+                <div class="detail-label">Product</div>
+                <div class="detail-value">otomasiCS integrasi woowa X1</div>
+              </div>
+
+              <div class="detail-row">
+                <div class="detail-label">Transaction Fees</div>
+                <div class="detail-value">Rp. 17</div>
+              </div>
+
+              <div class="detail-row">
+                <div class="detail-label">Total</div>
+                <div class="detail-value"><strong>Rp. 99.017</strong></div>
+              </div>
+
+              <div class="detail-row">
+                <div class="detail-label">Status</div>
+                <div class="detail-value">
+                  <span class="status-badge status-waiting"
+                    >Waiting for payment</span
+                  >
+                </div>
+              </div>
+
+              <div class="detail-row">
+                <div class="detail-label">Subscription Type</div>
+                <div class="detail-value">
+                  <span class="status-badge subscription-regular">REGULAR</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+              <select class="action-dropdown">
+                <option>Action options</option>
+                <option>Edit Order</option>
+                <option>Cancel Order</option>
+                <option>Send Reminder</option>
+              </select>
+              <button class="update-btn">Update Order</button>
+            </div>
+          </div>
+        </div>
+        <!-- END: Modal Overlay -->
+      </div>
     </div>
+  </div>
 </div>
