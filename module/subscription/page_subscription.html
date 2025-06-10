@@ -3,47 +3,104 @@
     <h1 class="heading">Subscription Data</h1>
 
     <div class="sejoli-table-wrapper">
-        <!-- Action Controls -->
-        <div class="sejoli-form-action-holder">
-            <div class="action-controls">
-                <!-- Bulk Actions -->
-                <div class="sejoli-update-subscription box">
-                    <select class="update-subscription-select" name="update-subscription-select">
-                        <option value="">Action options on the selected subscription</option>
-                        <option value="pending">Change subscription status to Not Active</option>
-                        <option value="inactive">Change subscription status to Inactive</option>
-                        <option value="active">Change subscription status to Active</option>
-                    </select>
-                    <button type="button" name="button" class="update-subscription">Update
-                        Subscription</button>
+        <div class="container">
+            <div class="top-bar">
+                <!-- Left Section -->
+                <div class="left-section">
+                    <div class="status-dropdown-container">
+                        <select class="status-dropdown">
+                            <option>Action option on the selection subscription</option>
+                            <option>Change subscription status to Not Active</option>
+                            <option>Change subscription status to Inactive</option>
+                            <option>Change subscription status to Active</option>
+                        </select>
+                    </div>
+                    <button class="update-subscription button button-primary">Update subscription</button>
                 </div>
 
-                <!-- Filter and Export -->
-                <div class="filter-export-controls">
-                    <div class="sejoli-form-filter box">
-                        <button type="button" name="button" class="button toggle-search">
-                            <svg class="button-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.707A1 1 0 013 7V4z">
-                                </path>
+
+                <!-- Center Section -->
+                <div class="center-section">
+                    Showing 1 to 10 of 150 entries
+                </div>
+
+                <!-- Right Section -->
+                <div class="right-section">
+                    <div class="dropdown">
+                        <button class="export-btn" onclick="toggleDropdown('exportDropdown')">
+                            <span>Export Data</span>
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 12 15 18 9"></polyline>
                             </svg>
-                            Filter Data
                         </button>
+                        <div id="exportDropdown" class="dropdown-menu">
+                            <a href="#" onclick="exportTo('excel')">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <polyline points="7 10 12 15 17 10"></polyline>
+                                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                                </svg>
+                                Export to Excel
+                            </a>
+                            <a href="#" onclick="exportTo('csv')">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <polyline points="7 10 12 15 17 10"></polyline>
+                                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                                </svg>
+                                Export to CSV
+                            </a>
+                            <a href="#" onclick="exportTo('pdf')">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                    <polyline points="7 10 12 15 17 10"></polyline>
+                                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                                </svg>
+                                Export to PDF
+                            </a>
+                        </div>
                     </div>
 
-                    <div class="sejoli-form-filter box">
-                        <button type="button" name="button" class="button toggle-export">
-                            <svg class="button-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
-                                </path>
+                    <div class="dropdown">
+                        <button class="filter-btn" onclick="toggleDropdown('filterDropdown')">
+                            <span>Filter Data</span>
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="6 9 12 15 18 9"></polyline>
                             </svg>
-                            Export Data
                         </button>
+                        <div id="filterDropdown" class="dropdown-menu">
+                            <div class="filter-section">
+                                <label>Status</label>
+                                <select class="filter-select">
+                                    <option value="">All Status</option>
+                                    <option value="active">Active</option>
+                                    <option value="inactive">Inactive</option>
+                                    <option value="pending">Pending</option>
+                                </select>
+                            </div>
+                            <div class="filter-section">
+                                <label>Date Range</label>
+                                <div class="date-range">
+                                    <input type="date" class="filter-date">
+                                    <span>to</span>
+                                    <input type="date" class="filter-date">
+                                </div>
+                            </div>
+                            <div class="filter-actions">
+                                <button class="apply-filter" onclick="applyFilters()">Apply Filter</button>
+                                <button class="reset-filter" onclick="resetFilters()">Reset</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
 
         <!-- Data Table -->
         <div class="sejoli-table-holder">
@@ -298,6 +355,8 @@
                                 </td>
                             </tr>
                         </tbody>
+
+
                         <tfoot>
                             <tr>
                                 <th class="checkbox-column">
@@ -311,6 +370,8 @@
                         </tfoot>
                     </table>
                 </div>
+
+
 
                 <!-- Pagination -->
                 <div class="pagination-container">
@@ -341,3 +402,13 @@
         </div>
     </div>
 </div>
+
+    <!-- Modal -->
+    <div id="detail-modal" class="modal hidden">
+        <div class="modal-content">
+          <span class="close-button">&times;</span>
+          <div id="modal-body">
+            <!-- Konten detail akan diisi lewat JS -->
+          </div>
+        </div>
+      </div>
