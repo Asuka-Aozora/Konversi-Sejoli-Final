@@ -1,3 +1,4 @@
+import { openModal } from "./DetailModal.js";
 
 async function getOrder() {
   const BASE_URL = localStorage.getItem("base_url_api");
@@ -19,86 +20,6 @@ async function getOrder() {
   return json;
 }
 console.log("script loaded");
-
-// function renderOrders(data) {
-//   console.log("renderOrders()");
-
-//   const tbody = document.getElementById("orders-tbody");
-//   console.log(document.getElementById("orders-tbody"));
-//   tbody.innerHTML = "";
-  
-
-//   data.forEach((item) => {
-//     // format tanggal & waktu
-//     const dt = new Date(item.created_at);
-//     const dateStr = dt.toLocaleDateString("en-US", {
-//       day: "2-digit",
-//       month: "short",
-//     }); // e.g. "31 Jan"
-//     const timeStr = dt.toLocaleTimeString("en-US", {
-//       hour: "2-digit",
-//       minute: "2-digit",
-//     }); // e.g. "07:23"
-
-//     // ambil tipe (ambil bagian setelah '-')
-//     const typeLabel = item.type.split("-").pop().toUpperCase(); // "REGULAR"
-
-//     // status icon & kelas
-//     const isCompleted = item.status === "completed";
-//     const statusHtml = `
-//       <div class="flex items-center justify-center whitespace-nowrap ${
-//         isCompleted ? "text-success" : "text-warning"
-//       }">
-//         <i data-lucide="${isCompleted ? "check-square" : "alert-triangle"}"
-//            class="stroke-1.5 mr-2 h-4 w-4"></i>
-//         ${isCompleted ? "Active" : item.status}
-//       </div>
-//     `;
-
-//     // grand total format (ribuan, pakai toLocaleString)
-//     const totalStr = item.grand_total.toLocaleString();
-
-//     // bangun template row
-//     const tr = document.createElement("tr");
-//     tr.classList.add("intro-x");
-//     tr.innerHTML = `
-//       <td class="px-5 py-3 border-b box w-10">
-//         <input type="checkbox" class="rounded cursor-pointer" />
-//       </td>
-//       <td class="px-5 py-3 border-b box w-40">
-//         <a class="underline decoration-dotted" href="#">#INV-${item.ID}</a>
-//       </td>
-//       <td class="px-5 py-3 border-b box w-40">
-//         <!-- misal nama user nanti kamu replace sendiri -->
-//         <a class="font-medium" href="#">User #${item.user_id}</a>
-//         <div class="mt-0.5 text-xs text-slate-500">Location</div>
-//       </td>
-//       <td class="px-5 py-3 border-b box">
-//         ${statusHtml}
-//       </td>
-//       <td class="px-5 py-3 border-b box">
-//         <div class="whitespace-nowrap">${typeLabel}</div>
-//         <div class="mt-0.5 text-xs text-slate-500">${dateStr}, ${timeStr}</div>
-//       </td>
-//       <td class="px-5 py-3 border-b box w-40 text-right">
-//         <div class="pr-16">$${totalStr}</div>
-//       </td>
-//       <td class="px-5 py-3 border-b box">
-//         <div class="flex items-center justify-center">
-//           <a class="mr-5 flex items-center text-primary" href="#">
-//             <i data-lucide="check-square" class="stroke-1.5 mr-1 h-4 w-4"></i>
-//             View Details
-//           </a>
-//           <a class="flex items-center text-primary" href="#" data-tw-toggle="modal" data-tw-target="#delete-confirmation-modal">
-//             <i data-lucide="arrow-left-right" class="stroke-1.5 mr-1 h-4 w-4"></i>
-//             Change Status
-//           </a>
-//         </div>
-//       </td>
-//     `;
-//     tbody.appendChild(tr);
-//   });
-// }
 
 function renderOrders(data) {
   const tbody = document.getElementById("orders-tbody");
@@ -132,7 +53,7 @@ function renderOrders(data) {
         <a class="whitespace-nowrap underline decoration-dotted" href="#">#INV-${item.ID}</a>
       </td>
       <td data-tw-merge class="px-5 py-3 border-b dark:border-darkmode-300 box w-40 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
-        <a class="whitespace-nowrap font-medium" href="#">User #${item.user_id}</a>
+        <a class="whitespace-nowrap font-medium" href="#">${item.display_name}</a>
         <div class="mt-0.5 whitespace-nowrap text-xs text-slate-500">Location</div>
       </td>
       <td data-tw-merge class="px-5 py-3 border-b dark:border-darkmode-300 box whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
@@ -150,7 +71,7 @@ function renderOrders(data) {
       </td>
       <td data-tw-merge class="px-5 py-3 border-b dark:border-darkmode-300 box rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600 before:absolute before:inset-y-0 before:left-0 before:my-auto before:block before:h-8 before:w-px before:bg-slate-200 before:dark:bg-darkmode-400">
         <div class="flex items-center justify-center">
-          <a class="mr-5 flex items-center whitespace-nowrap text-primary" href="#" onclick="openModal(${item.ID})">
+          <a class="mr-5 flex items-center whitespace-nowrap text-primary view-detail" href="#">
             <i data-tw-merge data-lucide="check-square" class="stroke-1.5 mr-1 h-4 w-4"></i>
             View Details
           </a>
@@ -159,13 +80,16 @@ function renderOrders(data) {
     `;
 
     tbody.appendChild(tr);
+    // listener untuk tombol view detail
+    tr.querySelector(".view-detail").addEventListener("click", (e) => {
+      e.preventDefault();
+      openModal(item);
+    });
   });
 }
 
-
-
 async function init() {
-  console.log('>>> init() terpanggil');
+  console.log(">>> init() terpanggil");
   try {
     console.log(">>> memanggil getOrder()");
     const response = await getOrder(); // gunakan nama yang sama
