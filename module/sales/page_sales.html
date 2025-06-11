@@ -276,68 +276,48 @@
         </div>
 
         <!-- BEGIN: Modal Overlay -->
-        <div class="modal-overlay" id="modalOverlay" onclick="closeModal()">
+        <div class="modal-overlay modal-close-btn" id="modalOverlay">
           <!-- Modal Container -->
           <div class="modal2" id="modal" onclick="event.stopPropagation()">
             <!-- Modal Header -->
             <div class="modal-header">
-              <h2 class="modal-title">Order Detail 17</h2>
-              <button class="close-btn" onclick="closeModal()">&times;</button>
+              <h2 class="modal-title" id="modalTitle">Order Detail</h2>
+              <button class="close-btn modal-close-btn">&times;</button>
             </div>
 
             <!-- Modal Body -->
             <div class="modal-body">
               <div class="detail-row">
                 <div class="detail-label">Date</div>
-                <div class="detail-value">2 Jun 2025</div>
+                <div class="detail-value" id="modalDate"></div>
               </div>
-
               <div class="detail-row">
                 <div class="detail-label">Buyer Name</div>
-                <div class="detail-value">admin</div>
+                <div class="detail-value" id="modalBuyer"></div>
               </div>
-
               <div class="detail-row">
                 <div class="detail-label">Contact</div>
-                <div class="detail-value">
-                  <div class="contact-info">
-                    <a href="tel:+62123456789" class="contact-phone">📞</a>
-                    <a href="mailto:admin@otomasics.com" class="contact-email"
-                      >admin@otomasics.com</a
-                    >
-                  </div>
-                </div>
+                <div class="detail-value" id="modalContact"></div>
               </div>
-
               <div class="detail-row">
                 <div class="detail-label">Product</div>
-                <div class="detail-value">otomasiCS integrasi woowa X1</div>
+                <div class="detail-value" id="modalProduct"></div>
               </div>
-
               <div class="detail-row">
                 <div class="detail-label">Transaction Fees</div>
-                <div class="detail-value">Rp. 17</div>
+                <div class="detail-value" id="modalFees"></div>
               </div>
-
               <div class="detail-row">
                 <div class="detail-label">Total</div>
-                <div class="detail-value"><strong>Rp. 99.017</strong></div>
+                <div class="detail-value" id="modalTotal"></div>
               </div>
-
               <div class="detail-row">
                 <div class="detail-label">Status</div>
-                <div class="detail-value">
-                  <span class="status-badge status-waiting"
-                    >Waiting for payment</span
-                  >
-                </div>
+                <div class="detail-value" id="modalStatus"></div>
               </div>
-
               <div class="detail-row">
                 <div class="detail-label">Subscription Type</div>
-                <div class="detail-value">
-                  <span class="status-badge subscription-regular">REGULAR</span>
-                </div>
+                <div class="detail-value" id="modalType"></div>
               </div>
             </div>
 
