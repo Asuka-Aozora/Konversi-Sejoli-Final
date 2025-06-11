@@ -14,7 +14,7 @@ export function openModal(item) {
   document.getElementById("modalContact").innerHTML = `
     <div class="contact-info">
       <a href="tel:+62..." class="contact-phone">📞</a>
-      <a href="mailto:someone@example.com" class="contact-email">someone@example.com</a>
+      <a href="mailto:${item.user_email}" class="contact-email">${item.user_email}</a>
     </div>`;
   document.getElementById(
     "modalProduct"
