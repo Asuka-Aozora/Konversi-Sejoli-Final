@@ -18,7 +18,6 @@
                     <button class="update-subscription button button-primary">Update subscription</button>
                 </div>
 
-
                 <!-- Center Section -->
                 <div class="center-section">
                     Showing 1 to 10 of 150 entries
@@ -122,266 +121,577 @@
 
                 <!-- Table -->
                 <div class="table-container">
-                    <table id="sejoli-subscription" role="grid">
-                        <thead>
-                            <tr role="row">
-                                <th class="checkbox-column">
-                                    <input type="checkbox" class="parent-checkbox">
+                    <table data-tw-merge="" class="w-full text-left -mt-2 border-separate border-spacing-y-[10px]">
+                        <thead data-tw-merge="" class="">
+                            <tr data-tw-merge="" class="">
+                                <th data-tw-merge=""
+                                    class="font-medium px-5 py-3 dark:border-darkmode-300 whitespace-nowrap border-b-0">
+                                    <input data-tw-merge="" type="checkbox"
+                                        class="transition-all duration-100 ease-in-out shadow-sm border-slate-200 cursor-pointer rounded focus:ring-4 focus:ring-offset-0 focus:ring-primary focus:ring-opacity-20 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&[type='radio']]:checked:bg-primary [&[type='radio']]:checked:border-primary [&[type='radio']]:checked:border-opacity-10 [&[type='checkbox']]:checked:bg-primary [&[type='checkbox']]:checked:border-primary [&[type='checkbox']]:checked:border-opacity-10 [&:disabled:not(:checked)]:bg-slate-100 [&:disabled:not(:checked)]:cursor-not-allowed [&:disabled:not(:checked)]:dark:bg-darkmode-800/50 [&:disabled:checked]:opacity-70 [&:disabled:checked]:cursor-not-allowed [&:disabled:checked]:dark:bg-darkmode-800/50" />
                                 </th>
-                                <th>Detail</th>
-                                <th>Buyer</th>
-                                <th>Last Active</th>
-                                <th>Status</th>
+                                <th data-tw-merge=""
+                                    class="font-medium px-5 py-3 dark:border-darkmode-300 whitespace-nowrap border-b-0">
+                                    INVOICE
+                                </th>
+                                <th data-tw-merge=""
+                                    class="font-medium px-5 py-3 dark:border-darkmode-300 whitespace-nowrap border-b-0">
+                                    BUYER NAME
+                                </th>
+                                <th data-tw-merge=""
+                                    class="font-medium px-5 py-3 dark:border-darkmode-300 whitespace-nowrap border-b-0 text-center">
+                                    STATUS
+                                </th>
+                                <th data-tw-merge=""
+                                    class="font-medium px-5 py-3 dark:border-darkmode-300 whitespace-nowrap border-b-0">
+                                    PAYMENT
+                                </th>
+                                <th data-tw-merge=""
+                                    class="font-medium px-5 py-3 dark:border-darkmode-300 whitespace-nowrap border-b-0 text-right">
+                                    <div class="pr-16">TOTAL TRANSACTION</div>
+                                </th>
+                                <th data-tw-merge=""
+                                    class="font-medium px-5 py-3 dark:border-darkmode-300 whitespace-nowrap border-b-0 text-center">
+                                    ACTIONS
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- Row 1 -->
-                            <tr role="row">
-                                <td>
-                                    <input type="checkbox" value="9" data-id="9">
+                            <tr data-tw-merge="" class="intro-x">
+                                <td data-tw-merge=""
+                                    class="px-5 py-3 border-b dark:border-darkmode-300 box w-10 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
+                                    <input data-tw-merge="" type="checkbox"
+                                        class="transition-all duration-100 ease-in-out shadow-sm border-slate-200 cursor-pointer rounded focus:ring-4 focus:ring-offset-0 focus:ring-primary focus:ring-opacity-20 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&[type='radio']]:checked:bg-primary [&[type='radio']]:checked:border-primary [&[type='radio']]:checked:border-opacity-10 [&[type='checkbox']]:checked:bg-primary [&[type='checkbox']]:checked:border-primary [&[type='checkbox']]:checked:border-opacity-10 [&:disabled:not(:checked)]:bg-slate-100 [&:disabled:not(:checked)]:cursor-not-allowed [&:disabled:not(:checked)]:dark:bg-darkmode-800/50 [&:disabled:checked]:opacity-70 [&:disabled:checked]:cursor-not-allowed [&:disabled:checked]:dark:bg-darkmode-800/50" />
                                 </td>
-                                <td>
-                                    <div class="detail-cell">
-                                        <button type="button" class="order-detail-trigger" data-id="14">DETAIL</button>
-                                        <div class="product-name">otomasiCS integrasi woowa</div>
-                                        <div class="detail-tags">
-                                            <span class="tag green-tag">INV 14</span>
-                                            <span class="tag teal-tag">
-                                                <svg class="tag-icon" fill="none" stroke="currentColor"
-                                                    viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="2"
-                                                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
-                                                    </path>
-                                                </svg>
-                                                9 Mei 2025
-                                            </span>
-                                            <span class="tag amber-tag uppercase">
-                                                <svg class="tag-icon" fill="none" stroke="currentColor"
-                                                    viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="2"
-                                                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z">
-                                                    </path>
-                                                </svg>
-                                                regular
-                                            </span>
-                                        </div>
+                                <td data-tw-merge=""
+                                    class="px-5 py-3 border-b dark:border-darkmode-300 box w-40 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
+                                    <a class="whitespace-nowrap underline decoration-dotted" href="">
+                                        #INV-91807556
+                                    </a>
+                                </td>
+                                <td data-tw-merge=""
+                                    class="px-5 py-3 border-b dark:border-darkmode-300 box w-40 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
+                                    <a class="whitespace-nowrap font-medium" href="">
+                                        Morgan Freeman
+                                    </a>
+                                    <div class="mt-0.5 whitespace-nowrap text-xs text-slate-500"
+                                        v-if="faker.true_false[0]">
+                                        Ohio, Ohio
                                     </div>
                                 </td>
-                                <td>Devi Indah Pramesti</td>
-                                <td>
-                                    <div>8 Jun 2025</div>
-                                    <div class="days-ago">(12 hari)</div>
+                                <td data-tw-merge=""
+                                    class="px-5 py-3 border-b dark:border-darkmode-300 box whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
+                                    <div class="flex items-center justify-center whitespace-nowrap text-success">
+                                        <i data-tw-merge="" data-lucide="check-square"
+                                            class="stroke-1.5 mr-2 h-4 w-4"></i>
+                                        Active
+                                    </div>
                                 </td>
-                                <td>
-                                    <span class="status-badge active">Active</span>
+                                <td data-tw-merge=""
+                                    class="px-5 py-3 border-b dark:border-darkmode-300 box whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
+                                    <div class="whitespace-nowrap">REGULAR</div>
+                                    <div class="mt-0.5 whitespace-nowrap text-xs text-slate-500">
+                                        25 March, 12:55
+                                    </div>
+                                </td>
+                                <td data-tw-merge=""
+                                    class="px-5 py-3 border-b dark:border-darkmode-300 box w-40 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 text-right shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
+                                    <div class="pr-16">$91,000,00</div>
+                                </td>
+                                <td data-tw-merge=""
+                                    class="px-5 py-3 border-b dark:border-darkmode-300 box rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600 before:absolute before:inset-y-0 before:left-0 before:my-auto before:block before:h-8 before:w-px before:bg-slate-200 before:dark:bg-darkmode-400">
+                                    <div class="flex items-center justify-center">
+                                        <a class="mr-5 flex items-center whitespace-nowrap text-primary" href="#">
+                                            <i data-tw-merge="" data-lucide="check-square"
+                                                class="stroke-1.5 mr-1 h-4 w-4"></i>
+                                            View Details
+                                        </a>
+                                    </div>
                                 </td>
                             </tr>
-
-                            <!-- Row 2 -->
-                            <tr role="row">
-                                <td>
-                                    <input type="checkbox" value="8" data-id="8">
+                            <tr data-tw-merge="" class="intro-x">
+                                <td data-tw-merge=""
+                                    class="px-5 py-3 border-b dark:border-darkmode-300 box w-10 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
+                                    <input data-tw-merge="" type="checkbox"
+                                        class="transition-all duration-100 ease-in-out shadow-sm border-slate-200 cursor-pointer rounded focus:ring-4 focus:ring-offset-0 focus:ring-primary focus:ring-opacity-20 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&[type='radio']]:checked:bg-primary [&[type='radio']]:checked:border-primary [&[type='radio']]:checked:border-opacity-10 [&[type='checkbox']]:checked:bg-primary [&[type='checkbox']]:checked:border-primary [&[type='checkbox']]:checked:border-opacity-10 [&:disabled:not(:checked)]:bg-slate-100 [&:disabled:not(:checked)]:cursor-not-allowed [&:disabled:not(:checked)]:dark:bg-darkmode-800/50 [&:disabled:checked]:opacity-70 [&:disabled:checked]:cursor-not-allowed [&:disabled:checked]:dark:bg-darkmode-800/50" />
                                 </td>
-                                <td>
-                                    <div class="detail-cell">
-                                        <button type="button" class="order-detail-trigger" data-id="12">DETAIL</button>
-                                        <div class="product-name">otomasiCS integrasi woowa</div>
-                                        <div class="detail-tags">
-                                            <span class="tag green-tag">INV 12</span>
-                                            <span class="tag teal-tag">
-                                                <svg class="tag-icon" fill="none" stroke="currentColor"
-                                                    viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="2"
-                                                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
-                                                    </path>
-                                                </svg>
-                                                25 Apr 2025
-                                            </span>
-                                            <span class="tag amber-tag uppercase">
-                                                <svg class="tag-icon" fill="none" stroke="currentColor"
-                                                    viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="2"
-                                                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z">
-                                                    </path>
-                                                </svg>
-                                                regular
-                                            </span>
-                                        </div>
+                                <td data-tw-merge=""
+                                    class="px-5 py-3 border-b dark:border-darkmode-300 box w-40 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
+                                    <a class="whitespace-nowrap underline decoration-dotted" href="">
+                                        #INV-77807556
+                                    </a>
+                                </td>
+                                <td data-tw-merge=""
+                                    class="px-5 py-3 border-b dark:border-darkmode-300 box w-40 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
+                                    <a class="whitespace-nowrap font-medium" href="">
+                                        Al Pacino
+                                    </a>
+                                    <div class="mt-0.5 whitespace-nowrap text-xs text-slate-500"
+                                        v-if="faker.true_false[0]">
+                                        Ohio, Ohio
                                     </div>
                                 </td>
-                                <td>Devi Indah Pramesti</td>
-                                <td>
-                                    <div>25 Mei 2025</div>
-                                    <div class="days-ago">(0 hari)</div>
+                                <td data-tw-merge=""
+                                    class="px-5 py-3 border-b dark:border-darkmode-300 box whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
+                                    <div class="flex items-center justify-center whitespace-nowrap text-success">
+                                        <i data-tw-merge="" data-lucide="check-square"
+                                            class="stroke-1.5 mr-2 h-4 w-4"></i>
+                                        Active
+                                    </div>
                                 </td>
-                                <td>
-                                    <span class="status-badge end">End</span>
+                                <td data-tw-merge=""
+                                    class="px-5 py-3 border-b dark:border-darkmode-300 box whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
+                                    <div class="whitespace-nowrap">REGULAR</div>
+                                    <div class="mt-0.5 whitespace-nowrap text-xs text-slate-500">
+                                        25 March, 12:55
+                                    </div>
+                                </td>
+                                <td data-tw-merge=""
+                                    class="px-5 py-3 border-b dark:border-darkmode-300 box w-40 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 text-right shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
+                                    <div class="pr-16">$77,000,00</div>
+                                </td>
+                                <td data-tw-merge=""
+                                    class="px-5 py-3 border-b dark:border-darkmode-300 box rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600 before:absolute before:inset-y-0 before:left-0 before:my-auto before:block before:h-8 before:w-px before:bg-slate-200 before:dark:bg-darkmode-400">
+                                    <div class="flex items-center justify-center">
+                                        <a class="mr-5 flex items-center whitespace-nowrap text-primary" href="#">
+                                            <i data-tw-merge="" data-lucide="check-square"
+                                                class="stroke-1.5 mr-1 h-4 w-4"></i>
+                                            View Details
+                                        </a>
+
+                                    </div>
                                 </td>
                             </tr>
-
-                            <!-- Row 3 -->
-                            <tr role="row">
-                                <td>
-                                    <input type="checkbox" value="7" data-id="7">
+                            <tr data-tw-merge="" class="intro-x">
+                                <td data-tw-merge=""
+                                    class="px-5 py-3 border-b dark:border-darkmode-300 box w-10 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
+                                    <input data-tw-merge="" type="checkbox"
+                                        class="transition-all duration-100 ease-in-out shadow-sm border-slate-200 cursor-pointer rounded focus:ring-4 focus:ring-offset-0 focus:ring-primary focus:ring-opacity-20 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&[type='radio']]:checked:bg-primary [&[type='radio']]:checked:border-primary [&[type='radio']]:checked:border-opacity-10 [&[type='checkbox']]:checked:bg-primary [&[type='checkbox']]:checked:border-primary [&[type='checkbox']]:checked:border-opacity-10 [&:disabled:not(:checked)]:bg-slate-100 [&:disabled:not(:checked)]:cursor-not-allowed [&:disabled:not(:checked)]:dark:bg-darkmode-800/50 [&:disabled:checked]:opacity-70 [&:disabled:checked]:cursor-not-allowed [&:disabled:checked]:dark:bg-darkmode-800/50" />
                                 </td>
-                                <td>
-                                    <div class="detail-cell">
-                                        <button type="button" class="order-detail-trigger" data-id="13">DETAIL</button>
-                                        <div class="product-name">otomasiCS integrasi woowa</div>
-                                        <div class="detail-tags">
-                                            <span class="tag green-tag">INV 13</span>
-                                            <span class="tag teal-tag">
-                                                <svg class="tag-icon" fill="none" stroke="currentColor"
-                                                    viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="2"
-                                                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
-                                                    </path>
-                                                </svg>
-                                                25 Apr 2025
-                                            </span>
-                                            <span class="tag amber-tag uppercase">
-                                                <svg class="tag-icon" fill="none" stroke="currentColor"
-                                                    viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="2"
-                                                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z">
-                                                    </path>
-                                                </svg>
-                                                regular
-                                            </span>
-                                        </div>
+                                <td data-tw-merge=""
+                                    class="px-5 py-3 border-b dark:border-darkmode-300 box w-40 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
+                                    <a class="whitespace-nowrap underline decoration-dotted" href="">
+                                        #INV-53807556
+                                    </a>
+                                </td>
+                                <td data-tw-merge=""
+                                    class="px-5 py-3 border-b dark:border-darkmode-300 box w-40 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
+                                    <a class="whitespace-nowrap font-medium" href="">
+                                        Denzel Washington
+                                    </a>
+                                    <div class="mt-0.5 whitespace-nowrap text-xs text-slate-500"
+                                        v-if="faker.true_false[0]">
+                                        Ohio, Ohio
                                     </div>
                                 </td>
-                                <td>Devi Indah Pramesti</td>
-                                <td>
-                                    <div>25 Mei 2025</div>
-                                    <div class="days-ago">(0 hari)</div>
+                                <td data-tw-merge=""
+                                    class="px-5 py-3 border-b dark:border-darkmode-300 box whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
+                                    <div class="flex items-center justify-center whitespace-nowrap text-success">
+                                        <i data-tw-merge="" data-lucide="check-square"
+                                            class="stroke-1.5 mr-2 h-4 w-4"></i>
+                                        Active
+                                    </div>
                                 </td>
-                                <td>
-                                    <span class="status-badge end">End</span>
+                                <td data-tw-merge=""
+                                    class="px-5 py-3 border-b dark:border-darkmode-300 box whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
+                                    <div class="whitespace-nowrap">REGULAR</div>
+                                    <div class="mt-0.5 whitespace-nowrap text-xs text-slate-500">
+                                        25 March, 12:55
+                                    </div>
+                                </td>
+                                <td data-tw-merge=""
+                                    class="px-5 py-3 border-b dark:border-darkmode-300 box w-40 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 text-right shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
+                                    <div class="pr-16">$53,000,00</div>
+                                </td>
+                                <td data-tw-merge=""
+                                    class="px-5 py-3 border-b dark:border-darkmode-300 box rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600 before:absolute before:inset-y-0 before:left-0 before:my-auto before:block before:h-8 before:w-px before:bg-slate-200 before:dark:bg-darkmode-400">
+                                    <div class="flex items-center justify-center">
+                                        <a class="mr-5 flex items-center whitespace-nowrap text-primary" href="#">
+                                            <i data-tw-merge="" data-lucide="check-square"
+                                                class="stroke-1.5 mr-1 h-4 w-4"></i>
+                                            View Details
+                                        </a>
+
+                                    </div>
                                 </td>
                             </tr>
-
-                            <!-- Row 4 -->
-                            <tr role="row">
-                                <td>
-                                    <input type="checkbox" value="6" data-id="6">
+                            <tr data-tw-merge="" class="intro-x">
+                                <td data-tw-merge=""
+                                    class="px-5 py-3 border-b dark:border-darkmode-300 box w-10 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
+                                    <input data-tw-merge="" type="checkbox"
+                                        class="transition-all duration-100 ease-in-out shadow-sm border-slate-200 cursor-pointer rounded focus:ring-4 focus:ring-offset-0 focus:ring-primary focus:ring-opacity-20 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&[type='radio']]:checked:bg-primary [&[type='radio']]:checked:border-primary [&[type='radio']]:checked:border-opacity-10 [&[type='checkbox']]:checked:bg-primary [&[type='checkbox']]:checked:border-primary [&[type='checkbox']]:checked:border-opacity-10 [&:disabled:not(:checked)]:bg-slate-100 [&:disabled:not(:checked)]:cursor-not-allowed [&:disabled:not(:checked)]:dark:bg-darkmode-800/50 [&:disabled:checked]:opacity-70 [&:disabled:checked]:cursor-not-allowed [&:disabled:checked]:dark:bg-darkmode-800/50" />
                                 </td>
-                                <td>
-                                    <div class="detail-cell">
-                                        <button type="button" class="order-detail-trigger" data-id="11">DETAIL</button>
-                                        <div class="product-name">otomasiCS integrasi woowa</div>
-                                        <div class="detail-tags">
-                                            <span class="tag green-tag">INV 11</span>
-                                            <span class="tag teal-tag">
-                                                <svg class="tag-icon" fill="none" stroke="currentColor"
-                                                    viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="2"
-                                                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
-                                                    </path>
-                                                </svg>
-                                                13 Mei 2025
-                                            </span>
-                                            <span class="tag amber-tag uppercase">
-                                                <svg class="tag-icon" fill="none" stroke="currentColor"
-                                                    viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="2"
-                                                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z">
-                                                    </path>
-                                                </svg>
-                                                regular
-                                            </span>
-                                        </div>
+                                <td data-tw-merge=""
+                                    class="px-5 py-3 border-b dark:border-darkmode-300 box w-40 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
+                                    <a class="whitespace-nowrap underline decoration-dotted" href="">
+                                        #INV-37807556
+                                    </a>
+                                </td>
+                                <td data-tw-merge=""
+                                    class="px-5 py-3 border-b dark:border-darkmode-300 box w-40 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
+                                    <a class="whitespace-nowrap font-medium" href="">
+                                        Brad Pitt
+                                    </a>
+                                    <div class="mt-0.5 whitespace-nowrap text-xs text-slate-500"
+                                        v-if="faker.true_false[0]">
+                                        Ohio, Ohio
                                     </div>
                                 </td>
-                                <td>adhit</td>
-                                <td>
-                                    <div>12 Mei 2025</div>
-                                    <div class="days-ago">(0 hari)</div>
+                                <td data-tw-merge=""
+                                    class="px-5 py-3 border-b dark:border-darkmode-300 box whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
+                                    <div class="flex items-center justify-center whitespace-nowrap text-success">
+                                        <i data-tw-merge="" data-lucide="check-square"
+                                            class="stroke-1.5 mr-2 h-4 w-4"></i>
+                                        Active
+                                    </div>
                                 </td>
-                                <td>
-                                    <span class="status-badge end">End</span>
+                                <td data-tw-merge=""
+                                    class="px-5 py-3 border-b dark:border-darkmode-300 box whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
+                                    <div class="whitespace-nowrap">REGULAR</div>
+                                    <div class="mt-0.5 whitespace-nowrap text-xs text-slate-500">
+                                        25 March, 12:55
+                                    </div>
+                                </td>
+                                <td data-tw-merge=""
+                                    class="px-5 py-3 border-b dark:border-darkmode-300 box w-40 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 text-right shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
+                                    <div class="pr-16">$37,000,00</div>
+                                </td>
+                                <td data-tw-merge=""
+                                    class="px-5 py-3 border-b dark:border-darkmode-300 box rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600 before:absolute before:inset-y-0 before:left-0 before:my-auto before:block before:h-8 before:w-px before:bg-slate-200 before:dark:bg-darkmode-400">
+                                    <div class="flex items-center justify-center">
+                                        <a class="mr-5 flex items-center whitespace-nowrap text-primary" href="#">
+                                            <i data-tw-merge="" data-lucide="check-square"
+                                                class="stroke-1.5 mr-1 h-4 w-4"></i>
+                                            View Details
+                                        </a>
+
+                                    </div>
                                 </td>
                             </tr>
-
-                            <!-- Row 5 -->
-                            <tr role="row">
-                                <td>
-                                    <input type="checkbox" value="5" data-id="5">
+                            <tr data-tw-merge="" class="intro-x">
+                                <td data-tw-merge=""
+                                    class="px-5 py-3 border-b dark:border-darkmode-300 box w-10 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
+                                    <input data-tw-merge="" type="checkbox"
+                                        class="transition-all duration-100 ease-in-out shadow-sm border-slate-200 cursor-pointer rounded focus:ring-4 focus:ring-offset-0 focus:ring-primary focus:ring-opacity-20 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&[type='radio']]:checked:bg-primary [&[type='radio']]:checked:border-primary [&[type='radio']]:checked:border-opacity-10 [&[type='checkbox']]:checked:bg-primary [&[type='checkbox']]:checked:border-primary [&[type='checkbox']]:checked:border-opacity-10 [&:disabled:not(:checked)]:bg-slate-100 [&:disabled:not(:checked)]:cursor-not-allowed [&:disabled:not(:checked)]:dark:bg-darkmode-800/50 [&:disabled:checked]:opacity-70 [&:disabled:checked]:cursor-not-allowed [&:disabled:checked]:dark:bg-darkmode-800/50" />
                                 </td>
-                                <td>
-                                    <div class="detail-cell">
-                                        <button type="button" class="order-detail-trigger" data-id="9">DETAIL</button>
-                                        <div class="product-name">otomasiCS integrasi woowa</div>
-                                        <div class="detail-tags">
-                                            <span class="tag green-tag">INV 9</span>
-                                            <span class="tag teal-tag">
-                                                <svg class="tag-icon" fill="none" stroke="currentColor"
-                                                    viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="2"
-                                                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
-                                                    </path>
-                                                </svg>
-                                                5 Apr 2025
-                                            </span>
-                                            <span class="tag amber-tag uppercase">
-                                                <svg class="tag-icon" fill="none" stroke="currentColor"
-                                                    viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="2"
-                                                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z">
-                                                    </path>
-                                                </svg>
-                                                regular
-                                            </span>
-                                        </div>
+                                <td data-tw-merge=""
+                                    class="px-5 py-3 border-b dark:border-darkmode-300 box w-40 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
+                                    <a class="whitespace-nowrap underline decoration-dotted" href="">
+                                        #INV-33807556
+                                    </a>
+                                </td>
+                                <td data-tw-merge=""
+                                    class="px-5 py-3 border-b dark:border-darkmode-300 box w-40 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
+                                    <a class="whitespace-nowrap font-medium" href="">
+                                        Russell Crowe
+                                    </a>
+                                    <div class="mt-0.5 whitespace-nowrap text-xs text-slate-500">
+                                        California, LA
                                     </div>
                                 </td>
-                                <td>demo akun</td>
-                                <td>
-                                    <div>5 Apr 2025</div>
-                                    <div class="days-ago">(0 hari)</div>
+                                <td data-tw-merge=""
+                                    class="px-5 py-3 border-b dark:border-darkmode-300 box whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
+                                    <div class="flex items-center justify-center whitespace-nowrap text-danger">
+                                        <i data-tw-merge="" data-lucide="check-square"
+                                            class="stroke-1.5 mr-2 h-4 w-4"></i>
+                                        Inactive
+                                    </div>
                                 </td>
-                                <td>
-                                    <span class="status-badge end">End</span>
+                                <td data-tw-merge=""
+                                    class="px-5 py-3 border-b dark:border-darkmode-300 box whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
+                                    <div class="whitespace-nowrap">Checking payments</div>
+                                    <div class="mt-0.5 whitespace-nowrap text-xs text-slate-500">
+                                        30 March, 11:00
+                                    </div>
+                                </td>
+                                <td data-tw-merge=""
+                                    class="px-5 py-3 border-b dark:border-darkmode-300 box w-40 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 text-right shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
+                                    <div class="pr-16">$33,000,00</div>
+                                </td>
+                                <td data-tw-merge=""
+                                    class="px-5 py-3 border-b dark:border-darkmode-300 box rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600 before:absolute before:inset-y-0 before:left-0 before:my-auto before:block before:h-8 before:w-px before:bg-slate-200 before:dark:bg-darkmode-400">
+                                    <div class="flex items-center justify-center">
+                                        <a class="mr-5 flex items-center whitespace-nowrap text-primary" href="#">
+                                            <i data-tw-merge="" data-lucide="check-square"
+                                                class="stroke-1.5 mr-1 h-4 w-4"></i>
+                                            View Details
+                                        </a>
+
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr data-tw-merge="" class="intro-x">
+                                <td data-tw-merge=""
+                                    class="px-5 py-3 border-b dark:border-darkmode-300 box w-10 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
+                                    <input data-tw-merge="" type="checkbox"
+                                        class="transition-all duration-100 ease-in-out shadow-sm border-slate-200 cursor-pointer rounded focus:ring-4 focus:ring-offset-0 focus:ring-primary focus:ring-opacity-20 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&[type='radio']]:checked:bg-primary [&[type='radio']]:checked:border-primary [&[type='radio']]:checked:border-opacity-10 [&[type='checkbox']]:checked:bg-primary [&[type='checkbox']]:checked:border-primary [&[type='checkbox']]:checked:border-opacity-10 [&:disabled:not(:checked)]:bg-slate-100 [&:disabled:not(:checked)]:cursor-not-allowed [&:disabled:not(:checked)]:dark:bg-darkmode-800/50 [&:disabled:checked]:opacity-70 [&:disabled:checked]:cursor-not-allowed [&:disabled:checked]:dark:bg-darkmode-800/50" />
+                                </td>
+                                <td data-tw-merge=""
+                                    class="px-5 py-3 border-b dark:border-darkmode-300 box w-40 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
+                                    <a class="whitespace-nowrap underline decoration-dotted" href="">
+                                        #INV-151807556
+                                    </a>
+                                </td>
+                                <td data-tw-merge=""
+                                    class="px-5 py-3 border-b dark:border-darkmode-300 box w-40 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
+                                    <a class="whitespace-nowrap font-medium" href="">
+                                        Denzel Washington
+                                    </a>
+                                    <div class="mt-0.5 whitespace-nowrap text-xs text-slate-500"
+                                        v-if="faker.true_false[0]">
+                                        Ohio, Ohio
+                                    </div>
+                                </td>
+                                <td data-tw-merge=""
+                                    class="px-5 py-3 border-b dark:border-darkmode-300 box whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
+                                    <div class="flex items-center justify-center whitespace-nowrap text-success">
+                                        <i data-tw-merge="" data-lucide="check-square"
+                                            class="stroke-1.5 mr-2 h-4 w-4"></i>
+                                        Active
+                                    </div>
+                                </td>
+                                <td data-tw-merge=""
+                                    class="px-5 py-3 border-b dark:border-darkmode-300 box whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
+                                    <div class="whitespace-nowrap">REGULAR</div>
+                                    <div class="mt-0.5 whitespace-nowrap text-xs text-slate-500">
+                                        25 March, 12:55
+                                    </div>
+                                </td>
+                                <td data-tw-merge=""
+                                    class="px-5 py-3 border-b dark:border-darkmode-300 box w-40 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 text-right shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
+                                    <div class="pr-16">$151,000,00</div>
+                                </td>
+                                <td data-tw-merge=""
+                                    class="px-5 py-3 border-b dark:border-darkmode-300 box rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600 before:absolute before:inset-y-0 before:left-0 before:my-auto before:block before:h-8 before:w-px before:bg-slate-200 before:dark:bg-darkmode-400">
+                                    <div class="flex items-center justify-center">
+                                        <a class="mr-5 flex items-center whitespace-nowrap text-primary" href="#">
+                                            <i data-tw-merge="" data-lucide="check-square"
+                                                class="stroke-1.5 mr-1 h-4 w-4"></i>
+                                            View Details
+                                        </a>
+
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr data-tw-merge="" class="intro-x">
+                                <td data-tw-merge=""
+                                    class="px-5 py-3 border-b dark:border-darkmode-300 box w-10 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
+                                    <input data-tw-merge="" type="checkbox"
+                                        class="transition-all duration-100 ease-in-out shadow-sm border-slate-200 cursor-pointer rounded focus:ring-4 focus:ring-offset-0 focus:ring-primary focus:ring-opacity-20 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&[type='radio']]:checked:bg-primary [&[type='radio']]:checked:border-primary [&[type='radio']]:checked:border-opacity-10 [&[type='checkbox']]:checked:bg-primary [&[type='checkbox']]:checked:border-primary [&[type='checkbox']]:checked:border-opacity-10 [&:disabled:not(:checked)]:bg-slate-100 [&:disabled:not(:checked)]:cursor-not-allowed [&:disabled:not(:checked)]:dark:bg-darkmode-800/50 [&:disabled:checked]:opacity-70 [&:disabled:checked]:cursor-not-allowed [&:disabled:checked]:dark:bg-darkmode-800/50" />
+                                </td>
+                                <td data-tw-merge=""
+                                    class="px-5 py-3 border-b dark:border-darkmode-300 box w-40 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
+                                    <a class="whitespace-nowrap underline decoration-dotted" href="">
+                                        #INV-170807556
+                                    </a>
+                                </td>
+                                <td data-tw-merge=""
+                                    class="px-5 py-3 border-b dark:border-darkmode-300 box w-40 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
+                                    <a class="whitespace-nowrap font-medium" href="">
+                                        Johnny Depp
+                                    </a>
+                                    <div class="mt-0.5 whitespace-nowrap text-xs text-slate-500">
+                                        California, LA
+                                    </div>
+                                </td>
+                                <td data-tw-merge=""
+                                    class="px-5 py-3 border-b dark:border-darkmode-300 box whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
+                                    <div class="flex items-center justify-center whitespace-nowrap text-danger">
+                                        <i data-tw-merge="" data-lucide="check-square"
+                                            class="stroke-1.5 mr-2 h-4 w-4"></i>
+                                        Inactive
+                                    </div>
+                                </td>
+                                <td data-tw-merge=""
+                                    class="px-5 py-3 border-b dark:border-darkmode-300 box whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
+                                    <div class="whitespace-nowrap">Checking payments</div>
+                                    <div class="mt-0.5 whitespace-nowrap text-xs text-slate-500">
+                                        30 March, 11:00
+                                    </div>
+                                </td>
+                                <td data-tw-merge=""
+                                    class="px-5 py-3 border-b dark:border-darkmode-300 box w-40 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 text-right shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
+                                    <div class="pr-16">$170,000,00</div>
+                                </td>
+                                <td data-tw-merge=""
+                                    class="px-5 py-3 border-b dark:border-darkmode-300 box rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600 before:absolute before:inset-y-0 before:left-0 before:my-auto before:block before:h-8 before:w-px before:bg-slate-200 before:dark:bg-darkmode-400">
+                                    <div class="flex items-center justify-center">
+                                        <a class="mr-5 flex items-center whitespace-nowrap text-primary" href="#">
+                                            <i data-tw-merge="" data-lucide="check-square"
+                                                class="stroke-1.5 mr-1 h-4 w-4"></i>
+                                            View Details
+                                        </a>
+
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr data-tw-merge="" class="intro-x">
+                                <td data-tw-merge=""
+                                    class="px-5 py-3 border-b dark:border-darkmode-300 box w-10 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
+                                    <input data-tw-merge="" type="checkbox"
+                                        class="transition-all duration-100 ease-in-out shadow-sm border-slate-200 cursor-pointer rounded focus:ring-4 focus:ring-offset-0 focus:ring-primary focus:ring-opacity-20 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&[type='radio']]:checked:bg-primary [&[type='radio']]:checked:border-primary [&[type='radio']]:checked:border-opacity-10 [&[type='checkbox']]:checked:bg-primary [&[type='checkbox']]:checked:border-primary [&[type='checkbox']]:checked:border-opacity-10 [&:disabled:not(:checked)]:bg-slate-100 [&:disabled:not(:checked)]:cursor-not-allowed [&:disabled:not(:checked)]:dark:bg-darkmode-800/50 [&:disabled:checked]:opacity-70 [&:disabled:checked]:cursor-not-allowed [&:disabled:checked]:dark:bg-darkmode-800/50" />
+                                </td>
+                                <td data-tw-merge=""
+                                    class="px-5 py-3 border-b dark:border-darkmode-300 box w-40 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
+                                    <a class="whitespace-nowrap underline decoration-dotted" href="">
+                                        #INV-90807556
+                                    </a>
+                                </td>
+                                <td data-tw-merge=""
+                                    class="px-5 py-3 border-b dark:border-darkmode-300 box w-40 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
+                                    <a class="whitespace-nowrap font-medium" href="">
+                                        Denzel Washington
+                                    </a>
+                                    <div class="mt-0.5 whitespace-nowrap text-xs text-slate-500"
+                                        v-if="faker.true_false[0]">
+                                        Ohio, Ohio
+                                    </div>
+                                </td>
+                                <td data-tw-merge=""
+                                    class="px-5 py-3 border-b dark:border-darkmode-300 box whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
+                                    <div class="flex items-center justify-center whitespace-nowrap text-success">
+                                        <i data-tw-merge="" data-lucide="check-square"
+                                            class="stroke-1.5 mr-2 h-4 w-4"></i>
+                                        Active
+                                    </div>
+                                </td>
+                                <td data-tw-merge=""
+                                    class="px-5 py-3 border-b dark:border-darkmode-300 box whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
+                                    <div class="whitespace-nowrap">REGULAR</div>
+                                    <div class="mt-0.5 whitespace-nowrap text-xs text-slate-500">
+                                        25 March, 12:55
+                                    </div>
+                                </td>
+                                <td data-tw-merge=""
+                                    class="px-5 py-3 border-b dark:border-darkmode-300 box w-40 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 text-right shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
+                                    <div class="pr-16">$90,000,00</div>
+                                </td>
+                                <td data-tw-merge=""
+                                    class="px-5 py-3 border-b dark:border-darkmode-300 box rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600 before:absolute before:inset-y-0 before:left-0 before:my-auto before:block before:h-8 before:w-px before:bg-slate-200 before:dark:bg-darkmode-400">
+                                    <div class="flex items-center justify-center">
+                                        <a class="mr-5 flex items-center whitespace-nowrap text-primary" href="#">
+                                            <i data-tw-merge="" data-lucide="check-square"
+                                                class="stroke-1.5 mr-1 h-4 w-4"></i>
+                                            View Details
+                                        </a>
+
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr data-tw-merge="" class="intro-x">
+                                <td data-tw-merge=""
+                                    class="px-5 py-3 border-b dark:border-darkmode-300 box w-10 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
+                                    <input data-tw-merge="" type="checkbox"
+                                        class="transition-all duration-100 ease-in-out shadow-sm border-slate-200 cursor-pointer rounded focus:ring-4 focus:ring-offset-0 focus:ring-primary focus:ring-opacity-20 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&[type='radio']]:checked:bg-primary [&[type='radio']]:checked:border-primary [&[type='radio']]:checked:border-opacity-10 [&[type='checkbox']]:checked:bg-primary [&[type='checkbox']]:checked:border-primary [&[type='checkbox']]:checked:border-opacity-10 [&:disabled:not(:checked)]:bg-slate-100 [&:disabled:not(:checked)]:cursor-not-allowed [&:disabled:not(:checked)]:dark:bg-darkmode-800/50 [&:disabled:checked]:opacity-70 [&:disabled:checked]:cursor-not-allowed [&:disabled:checked]:dark:bg-darkmode-800/50" />
+                                </td>
+                                <td data-tw-merge=""
+                                    class="px-5 py-3 border-b dark:border-darkmode-300 box w-40 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
+                                    <a class="whitespace-nowrap underline decoration-dotted" href="">
+                                        #INV-20807556
+                                    </a>
+                                </td>
+                                <td data-tw-merge=""
+                                    class="px-5 py-3 border-b dark:border-darkmode-300 box w-40 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
+                                    <a class="whitespace-nowrap font-medium" href="">
+                                        Johnny Depp
+                                    </a>
+                                    <div class="mt-0.5 whitespace-nowrap text-xs text-slate-500"
+                                        v-if="faker.true_false[0]">
+                                        Ohio, Ohio
+                                    </div>
+                                </td>
+                                <td data-tw-merge=""
+                                    class="px-5 py-3 border-b dark:border-darkmode-300 box whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
+                                    <div class="flex items-center justify-center whitespace-nowrap text-success">
+                                        <i data-tw-merge="" data-lucide="check-square"
+                                            class="stroke-1.5 mr-2 h-4 w-4"></i>
+                                        Active
+                                    </div>
+                                </td>
+                                <td data-tw-merge=""
+                                    class="px-5 py-3 border-b dark:border-darkmode-300 box whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
+                                    <div class="whitespace-nowrap">REGULAR</div>
+                                    <div class="mt-0.5 whitespace-nowrap text-xs text-slate-500">
+                                        25 March, 12:55
+                                    </div>
+                                </td>
+                                <td data-tw-merge=""
+                                    class="px-5 py-3 border-b dark:border-darkmode-300 box w-40 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 text-right shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
+                                    <div class="pr-16">$20,000,00</div>
+                                </td>
+                                <td data-tw-merge=""
+                                    class="px-5 py-3 border-b dark:border-darkmode-300 box rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600 before:absolute before:inset-y-0 before:left-0 before:my-auto before:block before:h-8 before:w-px before:bg-slate-200 before:dark:bg-darkmode-400">
+                                    <div class="flex items-center justify-center">
+                                        <a class="mr-5 flex items-center whitespace-nowrap text-primary" href="#">
+                                            <i data-tw-merge="" data-lucide="check-square"
+                                                class="stroke-1.5 mr-1 h-4 w-4"></i>
+                                            View Details
+                                        </a>
+
+                                    </div>
                                 </td>
                             </tr>
                         </tbody>
-
-
-                        <tfoot>
-                            <tr>
-                                <th class="checkbox-column">
-                                    <input type="checkbox" class="parent-checkbox">
-                                </th>
-                                <th>Detail</th>
-                                <th>Buyer</th>
-                                <th>Last Active</th>
-                                <th>Status</th>
-                            </tr>
-                        </tfoot>
                     </table>
                 </div>
 
 
-
                 <!-- Pagination -->
                 <div class="pagination-container">
-                    <div class="pagination-info">
-                        Displays 1 to 9 of 9 data
+                    <div class="pagination-numbers">
+                        <div class="intro-y col-span-12 flex flex-wrap items-center sm:flex-row sm:flex-nowrap">
+                            <nav class="w-full sm:mr-auto sm:w-auto">
+                                <ul class="flex w-full mr-0 sm:mr-auto sm:w-auto">
+                                    <li class="flex-1 sm:flex-initial">
+                                        <a data-tw-merge=""
+                                            class="transition duration-200 border items-center justify-center py-2 rounded-md cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed min-w-0 sm:min-w-[40px] shadow-none font-normal flex border-transparent text-slate-800 sm:mr-2 dark:text-slate-300 px-1 sm:px-3"><i
+                                                data-tw-merge="" data-lucide="chevrons-left" class="stroke-1.5 h-4 w-4"></i></a>
+                                    </li>
+                                    <li class="flex-1 sm:flex-initial">
+                                        <a data-tw-merge=""
+                                            class="transition duration-200 border items-center justify-center py-2 rounded-md cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed min-w-0 sm:min-w-[40px] shadow-none font-normal flex border-transparent text-slate-800 sm:mr-2 dark:text-slate-300 px-1 sm:px-3"><i
+                                                data-tw-merge="" data-lucide="chevron-left" class="stroke-1.5 h-4 w-4"></i></a>
+                                    </li>
+                                    <li class="flex-1 sm:flex-initial">
+                                        <a data-tw-merge=""
+                                            class="transition duration-200 border items-center justify-center py-2 rounded-md cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed min-w-0 sm:min-w-[40px] shadow-none font-normal flex border-transparent text-slate-800 sm:mr-2 dark:text-slate-300 px-1 sm:px-3">...</a>
+                                    </li>
+                                    <li class="flex-1 sm:flex-initial">
+                                        <a data-tw-merge=""
+                                            class="transition duration-200 border items-center justify-center py-2 rounded-md cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed min-w-0 sm:min-w-[40px] shadow-none font-normal flex border-transparent text-slate-800 sm:mr-2 dark:text-slate-300 px-1 sm:px-3">1</a>
+                                    </li>
+                                    <li class="flex-1 sm:flex-initial">
+                                        <a data-tw-merge=""
+                                            class="transition duration-200 border items-center justify-center py-2 rounded-md cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed min-w-0 sm:min-w-[40px] shadow-none font-normal flex border-transparent text-slate-800 sm:mr-2 dark:text-slate-300 px-1 sm:px-3 !box dark:bg-darkmode-400">2</a>
+                                    </li>
+                                    <li class="flex-1 sm:flex-initial">
+                                        <a data-tw-merge=""
+                                            class="transition duration-200 border items-center justify-center py-2 rounded-md cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed min-w-0 sm:min-w-[40px] shadow-none font-normal flex border-transparent text-slate-800 sm:mr-2 dark:text-slate-300 px-1 sm:px-3">3</a>
+                                    </li>
+                                    <li class="flex-1 sm:flex-initial">
+                                        <a data-tw-merge=""
+                                            class="transition duration-200 border items-center justify-center py-2 rounded-md cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed min-w-0 sm:min-w-[40px] shadow-none font-normal flex border-transparent text-slate-800 sm:mr-2 dark:text-slate-300 px-1 sm:px-3">...</a>
+                                    </li>
+                                    <li class="flex-1 sm:flex-initial">
+                                        <a data-tw-merge=""
+                                            class="transition duration-200 border items-center justify-center py-2 rounded-md cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed min-w-0 sm:min-w-[40px] shadow-none font-normal flex border-transparent text-slate-800 sm:mr-2 dark:text-slate-300 px-1 sm:px-3"><i
+                                                data-tw-merge="" data-lucide="chevron-right" class="stroke-1.5 h-4 w-4"></i></a>
+                                    </li>
+                                    <li class="flex-1 sm:flex-initial">
+                                        <a data-tw-merge=""
+                                            class="transition duration-200 border items-center justify-center py-2 rounded-md cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed min-w-0 sm:min-w-[40px] shadow-none font-normal flex border-transparent text-slate-800 sm:mr-2 dark:text-slate-300 px-1 sm:px-3"><i
+                                                data-tw-merge="" data-lucide="chevrons-right" class="stroke-1.5 h-4 w-4"></i></a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
                     </div>
-                    <div class="pagination-controls">
-                        <button class="pagination-button disabled" disabled>Previous</button>
-                        <button class="pagination-button active">1</button>
-                        <button class="pagination-button disabled" disabled>Next</button>
+                    <div class="page-size-selector"> <select data-tw-merge=""
+                            class="disabled:bg-slate-100 disabled:cursor-not-allowed disabled:dark:bg-darkmode-800/50 [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 transition duration-200 ease-in-out text-sm border-slate-200 shadow-sm rounded-md py-2 px-3 pr-8 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 group-[.form-inline]:flex-1 !box mt-3 w-20 sm:mt-0">
+                            <option>10</option>
+                            <option>25</option>
+                            <option>35</option>
+                            <option>50</option>
+                        </select>
                     </div>
                 </div>
             </div>
@@ -403,12 +713,78 @@
     </div>
 </div>
 
-    <!-- Modal -->
-    <div id="detail-modal" class="modal hidden">
-        <div class="modal-content">
-          <span class="close-button">&times;</span>
-          <div id="modal-body">
-            <!-- Konten detail akan diisi lewat JS -->
-          </div>
+<!-- BEGIN: Modal Overlay -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal()">
+    <!-- Modal Container -->
+    <div class="modal2" id="modal" onclick="event.stopPropagation()">
+        <!-- Modal Header -->
+        <div class="modal-header">
+            <h2 class="modal-title">Order Detail 17</h2>
+            <button class="close-btn" onclick="closeModal()">&times;</button>
         </div>
-      </div>
+
+        <!-- Modal Body -->
+        <div class="modal-body">
+            <div class="detail-row">
+                <div class="detail-label">Date</div>
+                <div class="detail-value">2 Jun 2025</div>
+            </div>
+
+            <div class="detail-row">
+                <div class="detail-label">Buyer Name</div>
+                <div class="detail-value">admin</div>
+            </div>
+
+            <div class="detail-row">
+                <div class="detail-label">Contact</div>
+                <div class="detail-value">
+                    <div class="contact-info">
+                        <a href="tel:+62123456789" class="contact-phone">📞</a>
+                        <a href="mailto:admin@otomasics.com" class="contact-email">admin@otomasics.com</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="detail-row">
+                <div class="detail-label">Product</div>
+                <div class="detail-value">otomasiCS integrasi woowa X1</div>
+            </div>
+
+            <div class="detail-row">
+                <div class="detail-label">Transaction Fees</div>
+                <div class="detail-value">Rp. 17</div>
+            </div>
+
+            <div class="detail-row">
+                <div class="detail-label">Total</div>
+                <div class="detail-value"><strong>Rp. 99.017</strong></div>
+            </div>
+
+            <div class="detail-row">
+                <div class="detail-label">Status</div>
+                <div class="detail-value">
+                    <span class="status-badge status-waiting">Waiting for payment</span>
+                </div>
+            </div>
+
+            <div class="detail-row">
+                <div class="detail-label">Subscription Type</div>
+                <div class="detail-value">
+                    <span class="status-badge subscription-regular">REGULAR</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal Footer -->
+        <div class="modal-footer">
+            <select class="action-dropdown">
+                <option>Action options</option>
+                <option>Edit Order</option>
+                <option>Cancel Order</option>
+                <option>Send Reminder</option>
+            </select>
+            <button class="update-btn">Update Order</button>
+        </div>
+    </div>
+</div>
+<!-- END: Modal Overlay -->
