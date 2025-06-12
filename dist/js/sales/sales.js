@@ -1,5 +1,12 @@
 import { openModal } from "./DetailModal.js";
 
+const selectedOrderIds = new Set();
+
+function updateLocalStorageFromSet() {
+  const array = Array.from(selectedOrderIds);
+  localStorage.setItem("selectedOrderIds", JSON.stringify(array));
+}
+
 async function getOrder() {
   const BASE_URL = localStorage.getItem("base_url_api");
   const token = getCookie("token");
@@ -38,7 +45,6 @@ function renderOrders(data) {
     const typeLabel = item.type.split("-").pop().toUpperCase();
     const isCompleted = item.status === "completed";
     const statusIcon = isCompleted ? "check-square" : "alert-triangle";
-    const statusText = isCompleted ? "Active" : item.status;
     const totalStr = item.grand_total.toLocaleString();
 
     const tr = document.createElement("tr");
@@ -46,8 +52,8 @@ function renderOrders(data) {
     tr.classList.add("intro-x");
     tr.innerHTML = `
       <td data-tw-merge class="px-5 py-3 border-b dark:border-darkmode-300 box w-10 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
-        <input data-tw-merge type="checkbox"
-          class="transition-all duration-100 ease-in-out shadow-sm border-slate-200 cursor-pointer rounded focus:ring-4 focus:ring-offset-0 focus:ring-primary focus:ring-opacity-20 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&[type='radio']]:checked:bg-primary [&[type='radio']]:checked:border-primary [&[type='radio']]:checked:border-opacity-10 [&[type='checkbox']]:checked:bg-primary [&[type='checkbox']]:checked:border-primary [&[type='checkbox']]:checked:border-opacity-10 [&:disabled:not(:checked)]:bg-slate-100 [&:disabled:not(:checked)]:cursor-not-allowed [&:disabled:not(:checked)]:dark:bg-darkmode-800/50 [&:disabled:checked]:opacity-70 [&:disabled:checked]:cursor-not-allowed [&:disabled:checked]:dark:bg-darkmode-800/50" />
+        <input data-tw-merge type="checkbox" value="${item.ID}"
+          class="order-checkbox transition-all duration-100 ease-in-out shadow-sm border-slate-200 cursor-pointer rounded focus:ring-4 focus:ring-offset-0 focus:ring-primary focus:ring-opacity-20 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&[type='radio']]:checked:bg-primary [&[type='radio']]:checked:border-primary [&[type='radio']]:checked:border-opacity-10 [&[type='checkbox']]:checked:bg-primary [&[type='checkbox']]:checked:border-primary [&[type='checkbox']]:checked:border-opacity-10 [&:disabled:not(:checked)]:bg-slate-100 [&:disabled:not(:checked)]:cursor-not-allowed [&:disabled:not(:checked)]:dark:bg-darkmode-800/50 [&:disabled:checked]:opacity-70 [&:disabled:checked]:cursor-not-allowed [&:disabled:checked]:dark:bg-darkmode-800/50" />
       </td>
       <td data-tw-merge class="px-5 py-3 border-b dark:border-darkmode-300 box w-40 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
         <a class="whitespace-nowrap underline decoration-dotted" href="#">#INV-${item.ID}</a>
@@ -59,7 +65,7 @@ function renderOrders(data) {
       <td data-tw-merge class="px-5 py-3 border-b dark:border-darkmode-300 box whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
         <div class="flex items-center justify-center whitespace-nowrap text-success">
           <i data-tw-merge data-lucide="${statusIcon}" class="stroke-1.5 mr-2 h-4 w-4"></i>
-          ${statusText}
+          ${item.status}
         </div>
       </td>
       <td data-tw-merge class="px-5 py-3 border-b dark:border-darkmode-300 box whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
@@ -80,13 +86,53 @@ function renderOrders(data) {
     `;
 
     tbody.appendChild(tr);
+
     // listener untuk tombol view detail
     tr.querySelector(".view-detail").addEventListener("click", (e) => {
       e.preventDefault();
       openModal(item);
     });
+
+    // listener untuk checkbox
+    setupCheckboxListeners(tr);
   });
 }
+
+// Fungsi untuk setup listener checkbox per baris
+function setupCheckboxListeners(tr) {
+  const checkbox = tr.querySelector(".order-checkbox");
+
+  // Pastikan tidak double pasang
+  if (!checkbox.dataset.listenerAttached) {
+    checkbox.addEventListener("change", () => {
+      const id = checkbox.value;
+
+      if (checkbox.checked) {
+        selectedOrderIds.add(id);
+      } else {
+        selectedOrderIds.delete(id);
+      }
+
+      updateLocalStorageFromSet();
+      console.log("Selected IDs:", Array.from(selectedOrderIds));
+    });
+
+    checkbox.dataset.listenerAttached = "true";
+  }
+}
+
+// Listener untuk "Check All"
+const checkAll = document.getElementById("checkAll");
+checkAll.addEventListener("change", function () {
+  const isChecked = this.checked;
+
+  // Check/uncheck semua dan trigger event
+  document.querySelectorAll(".order-checkbox").forEach((cb) => {
+    cb.checked = isChecked;
+    cb.dispatchEvent(new Event("change"));
+  });
+});
+
 
 async function init() {
   console.log(">>> init() terpanggil");
@@ -109,4 +155,3 @@ async function init() {
 }
 
 init();
-
