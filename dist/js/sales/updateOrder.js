@@ -15,7 +15,7 @@ async function updateOrder() {
   }
 
   const confirmUpdate = confirm(
-    `Are you sure you want to update the selected order by ID ${orderIds.length}?\nStatus will be set to '${status}'?`
+    `Are you sure you want to update the selected order`
   );
 
   if (checkboxes.length === 0) {
