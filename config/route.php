@@ -8,6 +8,7 @@ $dt['route']=[
 'index 				| Account/login 				| public',
 'dashboard 			| Dashboard 					| public',
 'checkout 			| Checkout 					    | public',
+'confirm 	        | Confirm                       | public',
 
 
 'not_found			| StaticPage/not_found			| public', 
