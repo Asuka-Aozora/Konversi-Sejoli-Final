@@ -22,7 +22,8 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.589);
+  border-radius: 20px;
   z-index: 1000;
   opacity: 0;
   transition: opacity 0.3s ease;
@@ -37,26 +38,25 @@
   background-color: white;
   width: 90%;
   max-width: 1100px;
-  border-radius: 10px;
+  border-radius: 24px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   z-index: 1001;
   transition: transform 0.3s ease, opacity 0.3s ease;
+  overflow: hidden;
 }
 
 /* Modal header */
 .modal-header {
   background-color: #f8f9fa;
-  padding: 20px;
-  border-bottom: 1px solid #e9ecef;
-  border-radius: 10px 10px 0 0;
+  padding: 35px 30px 15px 30px;
   position: relative;
 }
 
 .modal-title {
-  font-size: 24px;
   font-weight: 600;
   color: #333;
   margin: 0;
+  font-size: 24px;
 }
 
 /* Tombol close */
@@ -85,28 +85,38 @@
 
 /* Modal body */
 .modal-body {
-  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 30px;
 }
 
 /* Detail rows */
 .detail-row {
   display: flex;
-  border-bottom: 1px solid #e9ecef;
+  border: 1.5px solid rgba(140, 140, 140, 0.4);
+  border-radius: 12px;
+  height: 60px;
+}
+
+.detail-row:first-child {
+  margin-top: 5px;
 }
 
 .detail-row:last-child {
-  border-bottom: none;
+  margin-top: 5px;
 }
 
 .detail-label {
-  background-color: #007bff;
+  background-color: #2e6073;
   color: white;
   padding: 15px 20px;
-  font-weight: 600;
-  width: 150px;
+  font-weight: 500;
+  width: 180px;
+  border-radius: 12px 0 0 12px;
   display: flex;
   align-items: center;
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .detail-value {
@@ -114,7 +124,7 @@
   flex: 1;
   display: flex;
   align-items: center;
-  font-size: 14px;
+  font-size: 16px;
   color: #333;
 }
 
@@ -154,16 +164,18 @@
 }
 
 .contact-phone {
-  background-color: #6c757d;
+  font-size: 16px;
+  margin: 0 -20px 0 -10px;
 }
 
 .contact-email {
-  background-color: #6c757d;
+  color: black;
+  font-size: 16px;
 }
 
 /* Modal footer */
 .modal-footer {
-  padding: 20px;
+  padding: 30px;
   border-top: 1px solid #e9ecef;
   display: flex;
   justify-content: space-between;
@@ -173,17 +185,20 @@
 }
 
 .action-dropdown {
+  height: 50px;
   padding: 8px 15px;
   border: 1px solid #ddd;
   border-radius: 5px;
   background-color: white;
   cursor: pointer;
+  width: 180px;
 }
 
 .update-btn {
-  background-color: #6c757d;
+  height: 50px;
+  background-color: #0d9488;
   color: white;
-  padding: 8px 20px;
+  padding: 8px 25px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -191,7 +206,7 @@
 }
 
 .update-btn:hover {
-  background-color: #5a6268;
+  background-color: #0d8076;
 }
 
 /* Animasi ketika modal terbuka */
@@ -214,6 +229,7 @@
 
   .detail-row {
     flex-direction: column;
+    height: auto;
   }
 
   .detail-label {
