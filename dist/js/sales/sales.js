@@ -11,7 +11,7 @@ async function getOrder() {
   const BASE_URL = localStorage.getItem("base_url_api");
   const token = getCookie("token");
 
-  const res = await fetch(`${BASE_URL}/get-order`, {
+  const res = await fetch(`${BASE_URL}/get-orders`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
