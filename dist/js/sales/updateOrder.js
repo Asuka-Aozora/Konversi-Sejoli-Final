@@ -38,13 +38,53 @@ async function updateOrder() {
     });
 
     const result = await response.json();
+
     if (result.err) {
       alert("❌ Gagal update status.");
-    } else {
-      alert("✅ Berhasil update status.");
-      console.log(result);
-      localStorage.removeItem("selectedOrderIds");
+      return;
     }
+
+    alert("✅ Berhasil update status.");
+    console.log("Response:", result);
+      
+      
+  // ——————— Update DOM tanpa reload ———————
+  const statusIconMap = {
+    completed:    "check-square",
+    cancelled:    "x-square",
+    "on-hold":    "pause-circle",
+    "payment-confirm": "check-circle",
+    "in-progress":"refresh-cw",
+    shipping:     "truck",
+    refunded:     "corner-down-left",
+    resend:       "bell",
+  };
+
+  checkboxes.forEach((cb) => {
+    const tr = cb.closest("tr");
+    if (!tr) return;
+
+    const cell = tr.querySelector(".status-cell");
+    if (!cell) return;
+
+    const iconName = statusIconMap[status] || "alert-triangle";
+
+    cell.innerHTML = `
+      <div class="flex items-center justify-center whitespace-nowrap text-success">
+        <i data-tw-merge data-lucide="${iconName}"
+           class="stroke-1.5 mr-2 h-4 w-4"></i>
+        ${status}
+      </div>
+    `;
+  });
+
+  // re‐init Lucide (jika pakai)
+  if (window.lucide?.replace) window.lucide.replace();
+
+  // ——————— Bersihkan seleksi ———————
+  localStorage.removeItem("selectedOrderIds");
+  document.querySelectorAll(".order-checkbox").forEach((c) => c.checked = false);
+  document.getElementById("checkAll").checked = false;
   } catch (err) {
     console.error(err);
     alert("❌ Server error.");

@@ -62,9 +62,14 @@ function renderOrders(data) {
         <a class="whitespace-nowrap font-medium" href="#">${item.display_name}</a>
         <div class="mt-0.5 whitespace-nowrap text-xs text-slate-500">Location</div>
       </td>
-      <td data-tw-merge class="px-5 py-3 border-b dark:border-darkmode-300 box whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
+      <td data-tw-merge
+          class="status-cell px-5 py-3 border-b dark:border-darkmode-300 box whitespace-nowrap
+                 rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005]
+                 first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r
+                 dark:bg-darkmode-600">
         <div class="flex items-center justify-center whitespace-nowrap text-success">
-          <i data-tw-merge data-lucide="${statusIcon}" class="stroke-1.5 mr-2 h-4 w-4"></i>
+          <i data-tw-merge data-lucide="${statusIcon}"
+             class="stroke-1.5 mr-2 h-4 w-4"></i>
           ${item.status}
         </div>
       </td>
