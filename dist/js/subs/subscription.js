@@ -1,5 +1,3 @@
-import { openModal } from "./DetailModal.js";
-
 const selectedOrderIds = new Set();
 
 function updateLocalStorageFromSet() {
@@ -11,7 +9,7 @@ async function getOrder() {
   const BASE_URL = localStorage.getItem("base_url_api");
   const token = getCookie("token");
 
-  const res = await fetch(`${BASE_URL}/get-orders`, {
+  const res = await fetch(`${BASE_URL}/get-subs`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -29,7 +27,7 @@ async function getOrder() {
 console.log("script loaded");
 
 function renderOrders(data) {
-  const tbody = document.getElementById("orders-tbody");
+  const tbody = document.getElementById("subs-tbody");
   tbody.innerHTML = ""; // kosongkan dulu
 
   data.forEach((item) => {
@@ -45,7 +43,6 @@ function renderOrders(data) {
     const typeLabel = item.type.split("-").pop().toUpperCase();
     const isCompleted = item.status === "completed";
     const statusIcon = isCompleted ? "check-square" : "alert-triangle";
-    const totalStr = item.grand_total.toLocaleString();
 
     const tr = document.createElement("tr");
     tr.setAttribute("data-tw-merge", "");
@@ -76,9 +73,6 @@ function renderOrders(data) {
       <td data-tw-merge class="px-5 py-3 border-b dark:border-darkmode-300 box whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
         <div class="whitespace-nowrap">${typeLabel}</div>
         <div class="mt-0.5 whitespace-nowrap text-xs text-slate-500">${dateStr}, ${timeStr}</div>
-      </td>
-      <td data-tw-merge class="px-5 py-3 border-b dark:border-darkmode-300 box w-40 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 text-right shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
-        <div class="pr-16">$${totalStr}</div>
       </td>
       <td data-tw-merge class="px-5 py-3 border-b dark:border-darkmode-300 box rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600 before:absolute before:inset-y-0 before:left-0 before:my-auto before:block before:h-8 before:w-px before:bg-slate-200 before:dark:bg-darkmode-400">
         <div class="flex items-center justify-center">
