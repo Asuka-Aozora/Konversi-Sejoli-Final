@@ -8,23 +8,19 @@ export function openModal(item) {
     month: "short",
     year: "numeric",
   });
-  document.getElementById(
-    "modalBuyer"
-  ).textContent = `${item.display_name}`;
+  document.getElementById("modalBuyer").textContent = `${item.display_name}`;
   document.getElementById("modalContact").innerHTML = `
     <div class="contact-info">
       <a href="tel:+62..." class="contact-phone">📞</a>
       <a href="mailto:${item.user_email}" class="contact-email">${item.user_email}</a>
     </div>`;
-  document.getElementById(
-    "modalProduct"
-  ).textContent = `${item.product_name}`;
+  document.getElementById("modalProduct").textContent = `${item.product_name}`;
   document.getElementById("modalFees").textContent = `Rp. ${
     item.meta_data?.manual?.unique_code || "0"
   }`;
   document.getElementById(
     "modalTotal"
-  ).innerHTML = `<strong>Rp. ${item.grand_total.toLocaleString()}</strong>`;
+  ).innerHTML = `<span>Rp. ${item.grand_total.toLocaleString()}</span>`;
   document.getElementById("modalStatus").innerHTML = `
     <span class="status-badge status-${item.status}">${item.status}</span>`;
   document.getElementById("modalType").innerHTML = `
@@ -40,8 +36,6 @@ export function openModal(item) {
     overlay.classList.add("show");
     modal.classList.add("show");
   }, 10);
-
-  document.body.style.overflow = "hidden";
 }
 
 // Fungsi untuk menutup modal
@@ -55,8 +49,6 @@ export function closeModal() {
   setTimeout(() => {
     overlay.style.display = "none";
   }, 300);
-
-  document.body.style.overflow = "auto";
 }
 
 function setupModalCloseButtons() {
