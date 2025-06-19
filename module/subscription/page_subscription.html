@@ -1,313 +1,282 @@
 <div id="subscription-page" class="wrap page hide">
-    <!-- Header -->
-    <h1 class="heading">Subscription Data</h1>
+  <!-- Header -->
+  <h1 class="heading">Subscription Data</h1>
 
-    <div class="sejoli-table-wrapper">
-        <div class="">
-            <div class="top-bar">
-                <!-- Left Section -->
-                <div class="left-section">
-                    <div class="status-dropdown-container">
-                        <select class="status-dropdown">
-                            <option>Action option on the selection subscription</option>
-                            <option>Change subscription status to Not Active</option>
-                            <option>Change subscription status to Inactive</option>
-                            <option>Change subscription status to Active</option>
-                        </select>
-                    </div>
-                    <button class="update-subscription button button-primary">Update subscription</button>
-                </div>
-
-                <!-- Center Section -->
-                <div class="center-section">
-                    Showing 1 to 10 of 150 entries
-                </div>
-
-                <!-- Right Section -->
-                <div class="right-section">
-                    <div class="dropdown">
-                        <button class="export-btn" onclick="toggleDropdown('exportDropdown')">
-                            <span>Export Data</span>
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="6 9 12 15 18 9"></polyline>
-                            </svg>
-                        </button>
-                        <div id="exportDropdown" class="dropdown-menu">
-                            <a href="#" onclick="exportTo('excel')">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                                    <polyline points="7 10 12 15 17 10"></polyline>
-                                    <line x1="12" y1="15" x2="12" y2="3"></line>
-                                </svg>
-                                Export to Excel
-                            </a>
-                            <a href="#" onclick="exportTo('csv')">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                                    <polyline points="7 10 12 15 17 10"></polyline>
-                                    <line x1="12" y1="15" x2="12" y2="3"></line>
-                                </svg>
-                                Export to CSV
-                            </a>
-                            <a href="#" onclick="exportTo('pdf')">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                                    <polyline points="7 10 12 15 17 10"></polyline>
-                                    <line x1="12" y1="15" x2="12" y2="3"></line>
-                                </svg>
-                                Export to PDF
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="dropdown">
-                        <button class="filter-btn" onclick="toggleDropdown('filterDropdown')">
-                            <span>Filter Data</span>
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <polyline points="6 9 12 15 18 9"></polyline>
-                            </svg>
-                        </button>
-                        <div id="filterDropdown" class="dropdown-menu">
-                            <div class="filter-section">
-                                <label>Status</label>
-                                <select class="filter-select">
-                                    <option value="">All Status</option>
-                                    <option value="active">Active</option>
-                                    <option value="inactive">Inactive</option>
-                                    <option value="pending">Pending</option>
-                                </select>
-                            </div>
-                            <div class="filter-section">
-                                <label>Date Range</label>
-                                <div class="date-range">
-                                    <input type="date" class="filter-date">
-                                    <span>to</span>
-                                    <input type="date" class="filter-date">
-                                </div>
-                            </div>
-                            <div class="filter-actions">
-                                <button class="apply-filter" onclick="applyFilters()">Apply Filter</button>
-                                <button class="reset-filter" onclick="resetFilters()">Reset</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+  <div class="sejoli-table-wrapper">
+    <div class="">
+      <div
+        class="intro-y mb-4 col-span-12 mt-2 flex flex-wrap items-center xl:flex-nowrap"
+      >
+        <div class="flex w-full sm:w-auto">
+          <select
+            id="statusSelector2"
+            data-tw-merge=""
+            class="disabled:bg-slate-100 disabled:cursor-not-allowed disabled:dark:bg-darkmode-800/50 [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md py-2 px-3 pr-8 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 group-[.form-inline]:flex-1 !box ml-2 action-status"
+            data-order-id="3"
+          >
+            <option value="">
+              Action option on the selection subscription
+            </option>
+            <option value="not-active">
+              Change subscription status to Not Active
+            </option>
+            <option value="inactive">
+              Change subscription status to Inactive
+            </option>
+            <option value="active">Change subscription status to Active</option>
+          </select>
+        </div>
+        <div class="flex w-full sm:w-auto ml-2">
+          <button
+            data-tw-merge=""
+            onclick="updateSubs()"
+            class="transition duration-200 border inline-flex items-center justify-center py-2 px-3 rounded-md font-medium cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed bg-primary border-primary text-white dark:border-primary mr-2 shadow-md"
+          >
+            Update Subscription
+          </button>
         </div>
 
-
-        <!-- Data Table -->
-        <div class="sejoli-table-holder">
-            <div id="sejoli-subscription_wrapper" class="dataTables_wrapper">
-                <!-- Table Controls -->
-                <div class="dataTables_length" id="sejoli-subscription_length">
-                    <label>
-                        Displaying
-                        <select name="sejoli-subscription_length" aria-controls="sejoli-subscription">
-                            <option value="10">10</option>
-                            <option value="50">50</option>
-                            <option value="100">100</option>
-                            <option value="200">200</option>
-                            <option value="-1">All</option>
-                        </select>
-                        data
-                    </label>
-                </div>
-
-                <!-- Table -->
-                <div class="table-container">
-                    <table data-tw-merge="" class="w-full text-left -mt-2 border-separate border-spacing-y-[10px]">
-                        <thead data-tw-merge="" class="">
-                            <tr data-tw-merge="" class="">
-                                <th data-tw-merge=""
-                                    class="font-medium px-5 py-3 dark:border-darkmode-300 whitespace-nowrap border-b-0">
-                                    <input data-tw-merge="" type="checkbox"
-                                        class="transition-all duration-100 ease-in-out shadow-sm border-slate-200 cursor-pointer rounded focus:ring-4 focus:ring-offset-0 focus:ring-primary focus:ring-opacity-20 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&[type='radio']]:checked:bg-primary [&[type='radio']]:checked:border-primary [&[type='radio']]:checked:border-opacity-10 [&[type='checkbox']]:checked:bg-primary [&[type='checkbox']]:checked:border-primary [&[type='checkbox']]:checked:border-opacity-10 [&:disabled:not(:checked)]:bg-slate-100 [&:disabled:not(:checked)]:cursor-not-allowed [&:disabled:not(:checked)]:dark:bg-darkmode-800/50 [&:disabled:checked]:opacity-70 [&:disabled:checked]:cursor-not-allowed [&:disabled:checked]:dark:bg-darkmode-800/50" />
-                                </th>
-                                <th data-tw-merge=""
-                                    class="font-medium px-5 py-3 dark:border-darkmode-300 whitespace-nowrap border-b-0">
-                                    INVOICE
-                                </th>
-                                <th data-tw-merge=""
-                                    class="font-medium px-5 py-3 dark:border-darkmode-300 whitespace-nowrap border-b-0">
-                                    BUYER NAME
-                                </th>
-                                <th data-tw-merge=""
-                                    class="font-medium px-5 py-3 dark:border-darkmode-300 whitespace-nowrap border-b-0 text-center">
-                                    STATUS
-                                </th>
-                                <th data-tw-merge=""
-                                    class="font-medium px-5 py-3 dark:border-darkmode-300 whitespace-nowrap border-b-0">
-                                    PAYMENT
-                                </th>
-                                <th data-tw-merge=""
-                                    class="font-medium px-5 py-3 dark:border-darkmode-300 whitespace-nowrap border-b-0 text-center">
-                                    ACTIONS
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody id="subs-tbody">
-                            <!-- isian order -->
-                          </tbody>
-                    </table>
-                </div>
-
-
-                <!-- Pagination -->
-                <div class="pagination-container">
-                    <div class="pagination-numbers">
-                        <div class="intro-y col-span-12 flex flex-wrap items-center sm:flex-row sm:flex-nowrap">
-                            <nav class="w-full sm:mr-auto sm:w-auto">
-                                <ul class="flex w-full mr-0 sm:mr-auto sm:w-auto">
-                                    <li class="flex-1 sm:flex-initial">
-                                        <a data-tw-merge=""
-                                            class="transition duration-200 border items-center justify-center py-2 rounded-md cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed min-w-0 sm:min-w-[40px] shadow-none font-normal flex border-transparent text-slate-800 sm:mr-2 dark:text-slate-300 px-1 sm:px-3"><i
-                                                data-tw-merge="" data-lucide="chevrons-left" class="stroke-1.5 h-4 w-4"></i></a>
-                                    </li>
-                                    <li class="flex-1 sm:flex-initial">
-                                        <a data-tw-merge=""
-                                            class="transition duration-200 border items-center justify-center py-2 rounded-md cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed min-w-0 sm:min-w-[40px] shadow-none font-normal flex border-transparent text-slate-800 sm:mr-2 dark:text-slate-300 px-1 sm:px-3"><i
-                                                data-tw-merge="" data-lucide="chevron-left" class="stroke-1.5 h-4 w-4"></i></a>
-                                    </li>
-                                    <li class="flex-1 sm:flex-initial">
-                                        <a data-tw-merge=""
-                                            class="transition duration-200 border items-center justify-center py-2 rounded-md cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed min-w-0 sm:min-w-[40px] shadow-none font-normal flex border-transparent text-slate-800 sm:mr-2 dark:text-slate-300 px-1 sm:px-3">...</a>
-                                    </li>
-                                    <li class="flex-1 sm:flex-initial">
-                                        <a data-tw-merge=""
-                                            class="transition duration-200 border items-center justify-center py-2 rounded-md cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed min-w-0 sm:min-w-[40px] shadow-none font-normal flex border-transparent text-slate-800 sm:mr-2 dark:text-slate-300 px-1 sm:px-3">1</a>
-                                    </li>
-                                    <li class="flex-1 sm:flex-initial">
-                                        <a data-tw-merge=""
-                                            class="transition duration-200 border items-center justify-center py-2 rounded-md cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed min-w-0 sm:min-w-[40px] shadow-none font-normal flex border-transparent text-slate-800 sm:mr-2 dark:text-slate-300 px-1 sm:px-3 !box dark:bg-darkmode-400">2</a>
-                                    </li>
-                                    <li class="flex-1 sm:flex-initial">
-                                        <a data-tw-merge=""
-                                            class="transition duration-200 border items-center justify-center py-2 rounded-md cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed min-w-0 sm:min-w-[40px] shadow-none font-normal flex border-transparent text-slate-800 sm:mr-2 dark:text-slate-300 px-1 sm:px-3">3</a>
-                                    </li>
-                                    <li class="flex-1 sm:flex-initial">
-                                        <a data-tw-merge=""
-                                            class="transition duration-200 border items-center justify-center py-2 rounded-md cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed min-w-0 sm:min-w-[40px] shadow-none font-normal flex border-transparent text-slate-800 sm:mr-2 dark:text-slate-300 px-1 sm:px-3">...</a>
-                                    </li>
-                                    <li class="flex-1 sm:flex-initial">
-                                        <a data-tw-merge=""
-                                            class="transition duration-200 border items-center justify-center py-2 rounded-md cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed min-w-0 sm:min-w-[40px] shadow-none font-normal flex border-transparent text-slate-800 sm:mr-2 dark:text-slate-300 px-1 sm:px-3"><i
-                                                data-tw-merge="" data-lucide="chevron-right" class="stroke-1.5 h-4 w-4"></i></a>
-                                    </li>
-                                    <li class="flex-1 sm:flex-initial">
-                                        <a data-tw-merge=""
-                                            class="transition duration-200 border items-center justify-center py-2 rounded-md cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed min-w-0 sm:min-w-[40px] shadow-none font-normal flex border-transparent text-slate-800 sm:mr-2 dark:text-slate-300 px-1 sm:px-3"><i
-                                                data-tw-merge="" data-lucide="chevrons-right" class="stroke-1.5 h-4 w-4"></i></a>
-                                    </li>
-                                </ul>
-                            </nav>
-                        </div>
-                    </div>
-                    <div class="page-size-selector"> <select data-tw-merge=""
-                            class="disabled:bg-slate-100 disabled:cursor-not-allowed disabled:dark:bg-darkmode-800/50 [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 transition duration-200 ease-in-out text-sm border-slate-200 shadow-sm rounded-md py-2 px-3 pr-8 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 group-[.form-inline]:flex-1 !box mt-3 w-20 sm:mt-0">
-                            <option>10</option>
-                            <option>25</option>
-                            <option>35</option>
-                            <option>50</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
+        <div class="mx-auto hidden text-slate-500 xl:block">
+          Showing 1 to 10 of 150 entries
         </div>
-
-        <!-- Bottom Actions -->
-        <div class="sejoli-form-action-holder bottom">
-            <div class="sejoli-update-subscription box">
-                <select class="update-subscription-select" name="update-subscription-select">
-                    <option value="">Action options on the selected subscription</option>
-                    <option value="pending">Change subscription status to Not Active</option>
-                    <option value="inactive">Change subscription status to Inactive</option>
-                    <option value="active">Change subscription status to Active</option>
-                </select>
-                <button type="button" name="button" class="update-subscription">Update
-                    Subscription</button>
-            </div>
+        <div class="mt-3 flex w-full items-center xl:mt-0 xl:w-auto">
+          <button
+            data-tw-merge=""
+            class="transition duration-200 border inline-flex items-center justify-center py-2 px-3 rounded-md font-medium cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed bg-primary border-primary text-white dark:border-primary mr-2 shadow-md"
+          >
+            <i
+              data-tw-merge=""
+              data-lucide="file-text"
+              class="stroke-1.5 mr-2 h-4 w-4"
+            ></i>
+            Export CSV
+          </button>
+          <button
+            data-tw-merge=""
+            class="transition duration-200 border inline-flex items-center justify-center py-2 px-3 rounded-md font-medium cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed bg-primary border-primary text-white dark:border-primary mr-2 shadow-md"
+          >
+            <i
+              data-tw-merge=""
+              data-lucide="file-text"
+              class="stroke-1.5 mr-2 h-4 w-4"
+            ></i>
+            Filter Data
+          </button>
         </div>
+      </div>
     </div>
+
+    <!-- Data Table -->
+    <div class="sejoli-table-holder">
+      <div id="sejoli-subscription_wrapper" class="dataTables_wrapper">
+        <!-- Table -->
+        <div class="table-container">
+          <table
+            data-tw-merge=""
+            class="w-full text-left -mt-2 border-separate border-spacing-y-[10px]"
+          >
+            <thead data-tw-merge="" class="">
+              <tr data-tw-merge="" class="">
+                <th
+                  data-tw-merge=""
+                  class="font-medium px-5 py-3 dark:border-darkmode-300 whitespace-nowrap border-b-0"
+                >
+                  <input
+                    data-tw-merge=""
+                    type="checkbox"
+                    id="checkAll2"
+                    class="transition-all duration-100 ease-in-out shadow-sm border-slate-200 cursor-pointer rounded focus:ring-4 focus:ring-offset-0 focus:ring-primary focus:ring-opacity-20 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&[type='radio']]:checked:bg-primary [&[type='radio']]:checked:border-primary [&[type='radio']]:checked:border-opacity-10 [&[type='checkbox']]:checked:bg-primary [&[type='checkbox']]:checked:border-primary [&[type='checkbox']]:checked:border-opacity-10 [&:disabled:not(:checked)]:bg-slate-100 [&:disabled:not(:checked)]:cursor-not-allowed [&:disabled:not(:checked)]:dark:bg-darkmode-800/50 [&:disabled:checked]:opacity-70 [&:disabled:checked]:cursor-not-allowed [&:disabled:checked]:dark:bg-darkmode-800/50"
+                  />
+                </th>
+                <th
+                  data-tw-merge=""
+                  class="font-medium px-5 py-3 dark:border-darkmode-300 whitespace-nowrap border-b-0"
+                >
+                  INVOICE
+                </th>
+                <th
+                  data-tw-merge=""
+                  class="font-medium px-5 py-3 dark:border-darkmode-300 whitespace-nowrap border-b-0"
+                >
+                  BUYER NAME
+                </th>
+                <th
+                  data-tw-merge=""
+                  class="font-medium px-5 py-3 dark:border-darkmode-300 whitespace-nowrap border-b-0 text-center"
+                >
+                  STATUS
+                </th>
+                <th
+                  data-tw-merge=""
+                  class="font-medium px-5 py-3 dark:border-darkmode-300 whitespace-nowrap border-b-0"
+                >
+                  PAYMENT
+                </th>
+                <th
+                  data-tw-merge=""
+                  class="font-medium px-5 py-3 dark:border-darkmode-300 whitespace-nowrap border-b-0 text-center"
+                >
+                  ACTIONS
+                </th>
+              </tr>
+            </thead>
+            <tbody id="subs-tbody2">
+              <!-- isian order -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination-container">
+          <div class="pagination-numbers">
+            <div
+              class="intro-y col-span-12 flex flex-wrap items-center sm:flex-row sm:flex-nowrap"
+            >
+              <nav class="w-full sm:mr-auto sm:w-auto">
+                <ul class="flex w-full mr-0 sm:mr-auto sm:w-auto">
+                  <li class="flex-1 sm:flex-initial">
+                    <a
+                      data-tw-merge=""
+                      class="transition duration-200 border items-center justify-center py-2 rounded-md cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed min-w-0 sm:min-w-[40px] shadow-none font-normal flex border-transparent text-slate-800 sm:mr-2 dark:text-slate-300 px-1 sm:px-3"
+                      ><i
+                        data-tw-merge=""
+                        data-lucide="chevrons-left"
+                        class="stroke-1.5 h-4 w-4"
+                      ></i
+                    ></a>
+                  </li>
+                  <li class="flex-1 sm:flex-initial">
+                    <a
+                      data-tw-merge=""
+                      class="transition duration-200 border items-center justify-center py-2 rounded-md cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed min-w-0 sm:min-w-[40px] shadow-none font-normal flex border-transparent text-slate-800 sm:mr-2 dark:text-slate-300 px-1 sm:px-3"
+                      ><i
+                        data-tw-merge=""
+                        data-lucide="chevron-left"
+                        class="stroke-1.5 h-4 w-4"
+                      ></i
+                    ></a>
+                  </li>
+                  <li class="flex-1 sm:flex-initial">
+                    <a
+                      data-tw-merge=""
+                      class="transition duration-200 border items-center justify-center py-2 rounded-md cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed min-w-0 sm:min-w-[40px] shadow-none font-normal flex border-transparent text-slate-800 sm:mr-2 dark:text-slate-300 px-1 sm:px-3"
+                      >...</a
+                    >
+                  </li>
+                  <li class="flex-1 sm:flex-initial">
+                    <a
+                      data-tw-merge=""
+                      class="transition duration-200 border items-center justify-center py-2 rounded-md cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed min-w-0 sm:min-w-[40px] shadow-none font-normal flex border-transparent text-slate-800 sm:mr-2 dark:text-slate-300 px-1 sm:px-3"
+                      >1</a
+                    >
+                  </li>
+                  <li class="flex-1 sm:flex-initial">
+                    <a
+                      data-tw-merge=""
+                      class="transition duration-200 border items-center justify-center py-2 rounded-md cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed min-w-0 sm:min-w-[40px] shadow-none font-normal flex border-transparent text-slate-800 sm:mr-2 dark:text-slate-300 px-1 sm:px-3 !box dark:bg-darkmode-400"
+                      >2</a
+                    >
+                  </li>
+                  <li class="flex-1 sm:flex-initial">
+                    <a
+                      data-tw-merge=""
+                      class="transition duration-200 border items-center justify-center py-2 rounded-md cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed min-w-0 sm:min-w-[40px] shadow-none font-normal flex border-transparent text-slate-800 sm:mr-2 dark:text-slate-300 px-1 sm:px-3"
+                      >3</a
+                    >
+                  </li>
+                  <li class="flex-1 sm:flex-initial">
+                    <a
+                      data-tw-merge=""
+                      class="transition duration-200 border items-center justify-center py-2 rounded-md cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed min-w-0 sm:min-w-[40px] shadow-none font-normal flex border-transparent text-slate-800 sm:mr-2 dark:text-slate-300 px-1 sm:px-3"
+                      >...</a
+                    >
+                  </li>
+                  <li class="flex-1 sm:flex-initial">
+                    <a
+                      data-tw-merge=""
+                      class="transition duration-200 border items-center justify-center py-2 rounded-md cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed min-w-0 sm:min-w-[40px] shadow-none font-normal flex border-transparent text-slate-800 sm:mr-2 dark:text-slate-300 px-1 sm:px-3"
+                      ><i
+                        data-tw-merge=""
+                        data-lucide="chevron-right"
+                        class="stroke-1.5 h-4 w-4"
+                      ></i
+                    ></a>
+                  </li>
+                  <li class="flex-1 sm:flex-initial">
+                    <a
+                      data-tw-merge=""
+                      class="transition duration-200 border items-center justify-center py-2 rounded-md cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed min-w-0 sm:min-w-[40px] shadow-none font-normal flex border-transparent text-slate-800 sm:mr-2 dark:text-slate-300 px-1 sm:px-3"
+                      ><i
+                        data-tw-merge=""
+                        data-lucide="chevrons-right"
+                        class="stroke-1.5 h-4 w-4"
+                      ></i
+                    ></a>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+          </div>
+          <div class="page-size-selector">
+            <select
+              data-tw-merge=""
+              class="disabled:bg-slate-100 disabled:cursor-not-allowed disabled:dark:bg-darkmode-800/50 [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 transition duration-200 ease-in-out text-sm border-slate-200 shadow-sm rounded-md py-2 px-3 pr-8 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 group-[.form-inline]:flex-1 !box mt-3 w-20 sm:mt-0"
+            >
+              <option>10</option>
+              <option>25</option>
+              <option>35</option>
+              <option>50</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- BEGIN: Modal Overlay -->
-<div class="modal-overlay" id="modalOverlay" onclick="closeModal()">
-    <!-- Modal Container -->
-    <div class="modal2" id="modal" onclick="event.stopPropagation()">
-        <!-- Modal Header -->
-        <div class="modal-header">
-            <h2 class="modal-title">Order Detail 17</h2>
-            <button class="close-btn" onclick="closeModal()">&times;</button>
-        </div>
-
-        <!-- Modal Body -->
-        <div class="modal-body">
-            <div class="detail-row">
-                <div class="detail-label">Date</div>
-                <div class="detail-value">2 Jun 2025</div>
-            </div>
-
-            <div class="detail-row">
-                <div class="detail-label">Buyer Name</div>
-                <div class="detail-value">admin</div>
-            </div>
-
-            <div class="detail-row">
-                <div class="detail-label">Contact</div>
-                <div class="detail-value">
-                    <div class="contact-info">
-                        <a href="tel:+62123456789" class="contact-phone">📞</a>
-                        <a href="mailto:admin@otomasics.com" class="contact-email">admin@otomasics.com</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="detail-row">
-                <div class="detail-label">Product</div>
-                <div class="detail-value">otomasiCS integrasi woowa X1</div>
-            </div>
-
-            <div class="detail-row">
-                <div class="detail-label">Transaction Fees</div>
-                <div class="detail-value">Rp. 17</div>
-            </div>
-
-            <div class="detail-row">
-                <div class="detail-label">Total</div>
-                <div class="detail-value"><strong>Rp. 99.017</strong></div>
-            </div>
-
-            <div class="detail-row">
-                <div class="detail-label">Status</div>
-                <div class="detail-value">
-                    <span class="status-badge status-waiting">Waiting for payment</span>
-                </div>
-            </div>
-
-            <div class="detail-row">
-                <div class="detail-label">Subscription Type</div>
-                <div class="detail-value">
-                    <span class="status-badge subscription-regular">REGULAR</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Modal Footer -->
-        <div class="modal-footer">
-            <select class="action-dropdown">
-                <option>Action options</option>
-                <option>Edit Order</option>
-                <option>Cancel Order</option>
-                <option>Send Reminder</option>
-            </select>
-            <button class="update-btn">Update Order</button>
-        </div>
+<div class="modal-overlay modal-close-btn" id="modalOverlay2">
+  <!-- Modal Container -->
+  <div class="modal2" id="modal2" onclick="event.stopPropagation()">
+    <!-- Modal Header -->
+    <div class="modal-header">
+      <h2 class="modal-title" id="modalTitle2">Order Detail</h2>
+      <button class="close-btn modal-close-btn">&times;</button>
     </div>
+
+    <!-- Modal Body -->
+    <div class="modal-body">
+      <div class="detail-row">
+        <div class="detail-label">Date</div>
+        <div class="detail-value" id="modalDate2"></div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-label">Buyer Name</div>
+        <div class="detail-value" id="modalBuyer2"></div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-label">Contact</div>
+        <div class="detail-value" id="modalContact2"></div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-label">Product</div>
+        <div class="detail-value" id="modalProduct2"></div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-label">Transaction Fees</div>
+        <div class="detail-value" id="modalFees2"></div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-label">Status</div>
+        <div class="detail-value" id="modalStatus2"></div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-label">Subscription Type</div>
+        <div class="detail-value" id="modalType2"></div>
+      </div>
+    </div>
+
+    <!-- Modal Footer -->
+  </div>
 </div>
 <!-- END: Modal Overlay -->

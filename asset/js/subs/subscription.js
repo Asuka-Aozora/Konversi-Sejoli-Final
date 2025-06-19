@@ -1,8 +1,10 @@
-const selectedOrderIds = new Set();
+import { openModal } from "./DetailModal.js";
+
+const selectedSubsIds = new Set();
 
 function updateLocalStorageFromSet() {
-  const array = Array.from(selectedOrderIds);
-  localStorage.setItem("selectedOrderIds", JSON.stringify(array));
+  const array = Array.from(selectedSubsIds);
+  localStorage.setItem("selectedSubsIds", JSON.stringify(array));
 }
 
 async function getOrder() {
@@ -27,7 +29,7 @@ async function getOrder() {
 console.log("script loaded");
 
 function renderOrders(data) {
-  const tbody = document.getElementById("subs-tbody");
+  const tbody = document.getElementById("subs-tbody2");
   tbody.innerHTML = ""; // kosongkan dulu
 
   data.forEach((item) => {
@@ -107,13 +109,13 @@ function setupCheckboxListeners(tr) {
       const id = checkbox.value;
 
       if (checkbox.checked) {
-        selectedOrderIds.add(id);
+        selectedSubsIds.add(id);
       } else {
-        selectedOrderIds.delete(id);
+        selectedSubsIds.delete(id);
       }
 
       updateLocalStorageFromSet();
-      console.log("Selected IDs:", Array.from(selectedOrderIds));
+      console.log("Selected IDs:", Array.from(selectedSubsIds));
     });
 
     checkbox.dataset.listenerAttached = "true";
@@ -121,7 +123,7 @@ function setupCheckboxListeners(tr) {
 }
 
 // Listener untuk "Check All"
-const checkAll = document.getElementById("checkAll");
+const checkAll = document.getElementById("checkAll2");
 checkAll.addEventListener("change", function () {
   const isChecked = this.checked;
 
@@ -131,7 +133,6 @@ checkAll.addEventListener("change", function () {
     cb.dispatchEvent(new Event("change"));
   });
 });
-
 
 async function init() {
   console.log(">>> init() terpanggil");
