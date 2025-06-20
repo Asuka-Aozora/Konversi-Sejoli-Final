@@ -184,7 +184,7 @@
             class="intro-y col-span-12 flex flex-wrap items-center sm:flex-row sm:flex-nowrap"
           >
             <nav class="w-full sm:mr-auto sm:w-auto">
-              <ul class="flex w-full mr-0 sm:mr-auto sm:w-auto">
+              <ul id="pagination-list" class="flex w-full mr-0 sm:mr-auto sm:w-auto">
                 <li class="flex-1 sm:flex-initial">
                   <a
                     data-tw-merge=""
@@ -267,13 +267,13 @@
               </ul>
             </nav>
             <select
-              data-tw-merge=""
-              class="disabled:bg-slate-100 disabled:cursor-not-allowed disabled:dark:bg-darkmode-800/50 [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 transition duration-200 ease-in-out text-sm border-slate-200 shadow-sm rounded-md py-2 px-3 pr-8 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 group-[.form-inline]:flex-1 !box mt-3 w-20 sm:mt-0"
+              id="limitSelect"
+              class="disabled:bg-slate-100 disabled:cursor-not-allowed disabled:dark:bg-darkmode-800/50 transition duration-200 ease-in-out text-sm border-slate-200 shadow-sm rounded-md py-2 px-3 pr-8 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 mt-3 w-20 sm:mt-0"
             >
-              <option>10</option>
-              <option>25</option>
-              <option>35</option>
-              <option>50</option>
+              <option value="10">10</option>
+              <option value="25">25</option>
+              <option value="35">35</option>
+              <option value="50">50</option>
             </select>
           </div>
           <!-- END: Pagination -->

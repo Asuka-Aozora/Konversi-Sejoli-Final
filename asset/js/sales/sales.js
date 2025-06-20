@@ -2,28 +2,40 @@ import { openModal } from "./DetailModal.js";
 
 const selectedOrderIds = new Set();
 
+// default 
+let currentPage = 1; 
+let currentLimit = 10;
+let totalPages = 1;
+
 function updateLocalStorageFromSet() {
   const array = Array.from(selectedOrderIds);
   localStorage.setItem("selectedOrderIds", JSON.stringify(array));
 }
 
-async function getOrder() {
+async function getOrder(page, limit) {
   const BASE_URL = localStorage.getItem("base_url_api");
   const token = getCookie("token");
+  const offset = (page - 1) * limit;
 
-  const res = await fetch(`${BASE_URL}/get-orders`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: token,
-    },
-  });
+  const res = await fetch(
+    `${BASE_URL}/get-orders?limit=${limit}&offset=${offset}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token,
+      },
+    }
+  );
 
   if (!res.ok) {
     throw new Error(`HTTP ${res.status}`);
   }
-
+  console.log(" cek res:", res);
+  
   const json = await res.json();
+  console.log("getOrder response:", json);
+  
   return json;
 }
 console.log("script loaded");
@@ -138,25 +150,104 @@ checkAll.addEventListener("change", function () {
   });
 });
 
-
-async function init() {
-  console.log(">>> init() terpanggil");
-  try {
-    console.log(">>> memanggil getOrder()");
-    const response = await getOrder(); // gunakan nama yang sama
-    console.log(">>> response:", response);
-
-    if (response.status !== "success") {
-      console.warn("API error:", response.message);
-      return;
+// **Listener untuk Select limit**
+document
+  .getElementById("limitSelect")
+  .addEventListener("change", async function (e) {
+    currentLimit = parseInt(e.target.value, 10);
+    // reload data dengan limit baru
+    try {
+      const response = await getOrder(currentLimit);
+      if (response.status !== "success") {
+        console.warn("API error:", response.message);
+        return;
+      }
+      renderOrders(response.data);
+    } catch (err) {
+      console.error("Gagal mengambil orders:", err);
     }
+  });
 
-    const orders = response.data;
-    console.log(">>> orders array:", orders);
-    renderOrders(orders);
-  } catch (err) {
-    console.error("Gagal mengambil orders:", err);
+// **Listener untuk pagination**
+  function renderPagination() {
+    const navUl = document.getElementById("pagination-list");
+    navUl.innerHTML = "";
+
+    // tombol first & prev
+    navUl.append(liBtn("««", 1, currentPage === 1));
+    navUl.append(liBtn("«", currentPage - 1, currentPage === 1));
+
+    // Page number window (maksimal 5 links)
+    const delta = 2;
+    const start = Math.max(1, currentPage - delta);
+    const end = Math.min(totalPages, currentPage + delta);
+
+    if (start > 1) navUl.append(liDots());
+    for (let i = start; i <= end; i++) {
+      navUl.append(liBtn(i, i, false, i === currentPage));
+    }
+    if (end < totalPages) navUl.append(liDots());
+
+    // tombol next & last
+    navUl.append(liBtn("»", currentPage + 1, currentPage === totalPages));
+    navUl.append(liBtn("»»", totalPages, currentPage === totalPages));
   }
-}
 
-init();
+  function liBtn(label, page, disabled = false, active = false) {
+    const li = document.createElement("li");
+    const a = document.createElement("a");
+    a.textContent = label;
+    a.className = `
+      transition border py-2 rounded-md cursor-pointer text-center px-3
+      ${active ? "!box dark:bg-darkmode-400" : ""}
+    `;
+    if (disabled || page < 1 || page > totalPages) {
+      a.classList.add("opacity-50", "cursor-not-allowed");
+      a.disabled = true;
+    } else {
+      a.addEventListener("click", async () => {
+        currentPage = page;
+        await loadAndRender();
+      });
+    }
+    li.appendChild(a);
+    return li;
+  }
+
+  function liDots() {
+    const li = document.createElement("li");
+    const span = document.createElement("span");
+    span.textContent = "...";
+    span.className = "px-3";
+    li.appendChild(span);
+    return li;
+  }
+
+  // Load data dan render pagination
+  async function loadAndRender() {
+    try {
+      const resp = await getOrder(currentPage, currentLimit);
+      if (resp.status !== "success") return console.warn(resp.message);
+
+      // update state pagination
+      totalPages = Math.ceil(resp.total / currentLimit);
+
+      renderOrders(resp.data);
+      renderPagination();
+    } catch (err) {
+      console.error("Gagal mengambil orders:", err);
+    }
+  }
+
+  async function init() {
+    console.log(">>> init() terpanggil dengan limit", currentLimit);
+    document.getElementById("limitSelect").addEventListener("change", (e) => {
+      currentLimit = parseInt(e.target.value, 10);
+      currentPage = 1;
+      loadAndRender();
+    });
+
+    await loadAndRender();
+  }
+
+  init();
