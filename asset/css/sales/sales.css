@@ -203,3 +203,44 @@
 .update-btn:hover {
   background-color: #0d8076;
 }
+.sejoli-form-float {
+  background-color: #edfcfc;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 1.5rem;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  position: absolute;
+  top: 50px;
+  right: 0;
+  z-index: 1000;
+}
+
+.form-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .form-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.form-input,
+.form-select-filter {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #cfcfcf;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  background-color: white;
+}
+
+.form-input:focus,
+.form-select-filter:focus {
+  border-color: #00b2b2;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(0, 178, 178, 0.2);
+}
