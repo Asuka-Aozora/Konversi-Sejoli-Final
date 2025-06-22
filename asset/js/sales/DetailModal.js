@@ -32,6 +32,7 @@ export function openModal(item) {
   const modal = document.getElementById("modal");
 
   overlay.style.display = "block";
+
   setTimeout(() => {
     overlay.classList.add("show");
     modal.classList.add("show");
