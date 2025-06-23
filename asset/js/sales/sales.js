@@ -2,8 +2,8 @@ import { openModal } from "./DetailModal.js";
 
 const selectedOrderIds = new Set();
 
-// default 
-let currentPage = 1; 
+// default
+let currentPage = 1;
 let currentLimit = 10;
 let totalPages = 1;
 
@@ -12,33 +12,34 @@ function updateLocalStorageFromSet() {
   localStorage.setItem("selectedOrderIds", JSON.stringify(array));
 }
 
-async function getOrder(page, limit) {
+async function getOrder(page, limit, filters = {}) {
   const BASE_URL = localStorage.getItem("base_url_api");
   const token = getCookie("token");
   const offset = (page - 1) * limit;
 
-  const res = await fetch(
-    `${BASE_URL}/get-orders?limit=${limit}&offset=${offset}`,
-    {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: token,
-      },
-    }
-  );
+  const params = new URLSearchParams({
+    limit,
+    offset,
+    ...filters,
+  });
 
-  if (!res.ok) {
-    throw new Error(`HTTP ${res.status}`);
-  }
-  console.log(" cek res:", res);
-  
+  // FIX: Salah penulisan URL, pakai backtick dan ${} yang benar
+  const res = await fetch(`${BASE_URL}/get-orders?${params.toString()}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: token,
+    },
+  });
+
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
   const json = await res.json();
-  console.log("getOrder response:", json);
-  
   return json;
 }
+
 console.log("script loaded");
+
+let currentFilters = {};
 
 function renderOrders(data) {
   const tbody = document.getElementById("orders-tbody");
@@ -169,85 +170,117 @@ document
   });
 
 // **Listener untuk pagination**
-  function renderPagination() {
-    const navUl = document.getElementById("pagination-list");
-    navUl.innerHTML = "";
+function renderPagination() {
+  const navUl = document.getElementById("pagination-list");
+  navUl.innerHTML = "";
 
-    // tombol first & prev
-    navUl.append(liBtn("««", 1, currentPage === 1));
-    navUl.append(liBtn("«", currentPage - 1, currentPage === 1));
+  // tombol first & prev
+  navUl.append(liBtn("««", 1, currentPage === 1));
+  navUl.append(liBtn("«", currentPage - 1, currentPage === 1));
 
-    // Page number window (maksimal 5 links)
-    const delta = 2;
-    const start = Math.max(1, currentPage - delta);
-    const end = Math.min(totalPages, currentPage + delta);
+  // Page number window (maksimal 5 links)
+  const delta = 2;
+  const start = Math.max(1, currentPage - delta);
+  const end = Math.min(totalPages, currentPage + delta);
 
-    if (start > 1) navUl.append(liDots());
-    for (let i = start; i <= end; i++) {
-      navUl.append(liBtn(i, i, false, i === currentPage));
-    }
-    if (end < totalPages) navUl.append(liDots());
-
-    // tombol next & last
-    navUl.append(liBtn("»", currentPage + 1, currentPage === totalPages));
-    navUl.append(liBtn("»»", totalPages, currentPage === totalPages));
+  if (start > 1) navUl.append(liDots());
+  for (let i = start; i <= end; i++) {
+    navUl.append(liBtn(i, i, false, i === currentPage));
   }
+  if (end < totalPages) navUl.append(liDots());
 
-  function liBtn(label, page, disabled = false, active = false) {
-    const li = document.createElement("li");
-    const a = document.createElement("a");
-    a.textContent = label;
-    a.className = `
+  // tombol next & last
+  navUl.append(liBtn("»", currentPage + 1, currentPage === totalPages));
+  navUl.append(liBtn("»»", totalPages, currentPage === totalPages));
+}
+
+function liBtn(label, page, disabled = false, active = false) {
+  const li = document.createElement("li");
+  const a = document.createElement("a");
+  a.textContent = label;
+  a.className = `
       transition border py-2 rounded-md cursor-pointer text-center px-3
       ${active ? "!box dark:bg-darkmode-400" : ""}
     `;
-    if (disabled || page < 1 || page > totalPages) {
-      a.classList.add("opacity-50", "cursor-not-allowed");
-      a.disabled = true;
-    } else {
-      a.addEventListener("click", async () => {
-        currentPage = page;
-        await loadAndRender();
-      });
-    }
-    li.appendChild(a);
-    return li;
-  }
-
-  function liDots() {
-    const li = document.createElement("li");
-    const span = document.createElement("span");
-    span.textContent = "...";
-    span.className = "px-3";
-    li.appendChild(span);
-    return li;
-  }
-
-  // Load data dan render pagination
-  async function loadAndRender() {
-    try {
-      const resp = await getOrder(currentPage, currentLimit);
-      if (resp.status !== "success") return console.warn(resp.message);
-
-      // update state pagination
-      totalPages = Math.ceil(resp.total / currentLimit);
-
-      renderOrders(resp.data);
-      renderPagination();
-    } catch (err) {
-      console.error("Gagal mengambil orders:", err);
-    }
-  }
-
-  async function init() {
-    console.log(">>> init() terpanggil dengan limit", currentLimit);
-    document.getElementById("limitSelect").addEventListener("change", (e) => {
-      currentLimit = parseInt(e.target.value, 10);
-      currentPage = 1;
-      loadAndRender();
+  if (disabled || page < 1 || page > totalPages) {
+    a.classList.add("opacity-50", "cursor-not-allowed");
+    a.disabled = true;
+  } else {
+    a.addEventListener("click", async () => {
+      currentPage = page;
+      await loadAndRender();
     });
-
-    await loadAndRender();
   }
+  li.appendChild(a);
+  return li;
+}
 
-  init();
+function liDots() {
+  const li = document.createElement("li");
+  const span = document.createElement("span");
+  span.textContent = "...";
+  span.className = "px-3";
+  li.appendChild(span);
+  return li;
+}
+
+// Load data dan render pagination
+async function loadAndRender() {
+  try {
+    const resp = await getOrder(currentPage, currentLimit, currentFilters);
+    if (resp.status !== "success") return console.warn(resp.message);
+
+    totalPages = Math.ceil(resp.total / currentLimit);
+    renderOrders(resp.data);
+    renderPagination();
+  } catch (err) {
+    console.error("Gagal mengambil orders:", err);
+  }
+}
+
+async function init() {
+  console.log(">>> init() terpanggil dengan limit", currentLimit);
+  document.getElementById("limitSelect").addEventListener("change", (e) => {
+    currentLimit = parseInt(e.target.value, 10);
+    currentPage = 1;
+    loadAndRender();
+  });
+
+  await loadAndRender();
+}
+
+init();
+
+document.getElementById("btn-find").addEventListener("click", async (e) => {
+  e.preventDefault();
+
+  const form = document.querySelector(".sejoli-form-filter-holder");
+  const inputs = form.querySelectorAll("input, select");
+
+  const filters = {};
+  inputs.forEach((el) => {
+    if (el.value && el.name) {
+      filters[el.name] = el.value;
+    }
+  });
+
+  currentFilters = filters;
+  currentPage = 1;
+
+  try {
+    const resp = await getOrder(currentPage, currentLimit, currentFilters);
+    if (resp.status !== "success") return console.warn(resp.message);
+
+    totalPages = Math.ceil(resp.total / currentLimit);
+    renderOrders(resp.data);
+    renderPagination();
+  } catch (err) {
+    console.error("Gagal mengambil orders dengan filter:", err);
+  }
+});
+
+// toggle filter
+document.getElementById("btn-filter").addEventListener("click", () => {
+  const filterForm = document.querySelector(".sejoli-form-filter-holder");
+  filterForm.classList.toggle("hidden");
+});
