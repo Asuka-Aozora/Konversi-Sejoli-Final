@@ -2,39 +2,14 @@
     <!-- Header Section -->
     <div class="intro-y flex flex-col sm:flex-row items-center mt-8">
         <h2 class="text-lg font-medium mr-auto">License Management</h2>
-        <div class="w-full sm:w-auto flex mt-4 sm:mt-0">
-            <button class="btn btn-primary shadow-md mr-2" id="add-license-btn">
-                <i data-lucide="plus" class="w-4 h-4 mr-2"></i>
-                <span class="hidden sm:inline">Add New License</span>
-                <span class="sm:hidden">Add</span>
-            </button>
-            <div class="dropdown">
-                <button class="dropdown-toggle btn px-2 box" aria-expanded="false" data-tw-toggle="dropdown">
-                    <span class="w-5 h-5 flex items-center justify-center">
-                        <i data-lucide="more-vertical" class="w-4 h-4"></i>
-                    </span>
-                </button>
-                <div class="dropdown-menu w-40">
-                    <ul class="dropdown-content">
-                        <li><a href="#" class="dropdown-item" id="export-excel"><i data-lucide="file-spreadsheet"
-                                    class="w-4 h-4 mr-2"></i> Export Excel</a></li>
-                        <li><a href="#" class="dropdown-item" id="export-csv"><i data-lucide="file-text"
-                                    class="w-4 h-4 mr-2"></i> Export CSV</a></li>
-                        <li><a href="#" class="dropdown-item" id="import-licenses"><i data-lucide="upload"
-                                    class="w-4 h-4 mr-2"></i> Import Licenses</a></li>
-                        <li><a href="#" class="dropdown-item" id="license-analytics"><i data-lucide="bar-chart-3"
-                                    class="w-4 h-4 mr-2"></i> Analytics</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+        
     </div>
 
     <!-- Stats Cards -->
-    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4 mt-5">
+    <div class="grid grid-cols-4 gap-4 mt-5">
         <div class="intro-y col-span-1">
             <div class="report-box zoom-in">
-                <div class="box p-3 lg:p-5">
+                <div class="card box p-3 lg:p-5">
                     <div class="flex">
                         <i data-lucide="check-circle" class="report-box__icon text-success"></i>
                         <div class="ml-auto">
@@ -51,7 +26,7 @@
         </div>
         <div class="intro-y col-span-1">
             <div class="report-box zoom-in">
-                <div class="box p-3 lg:p-5">
+                <div class="card box p-3 lg:p-5">
                     <div class="flex">
                         <i data-lucide="alert-triangle" class="report-box__icon text-warning"></i>
                         <div class="ml-auto">
@@ -68,7 +43,7 @@
         </div>
         <div class="intro-y col-span-1">
             <div class="report-box zoom-in">
-                <div class="box p-3 lg:p-5">
+                <div class="card box p-3 lg:p-5">
                     <div class="flex">
                         <i data-lucide="x-circle" class="report-box__icon text-danger"></i>
                         <div class="ml-auto">
@@ -85,7 +60,7 @@
         </div>
         <div class="intro-y col-span-1">
             <div class="report-box zoom-in">
-                <div class="box p-3 lg:p-5">
+                <div class="card box p-3 lg:p-5">
                     <div class="flex">
                         <i data-lucide="dollar-sign" class="report-box__icon text-primary"></i>
                         <div class="ml-auto">
@@ -104,52 +79,72 @@
 
     <!-- Quick Actions & Filters -->
     <div class="intro-y box p-3 lg:p-5 mt-5">
-        <div class="flex flex-col space-y-3 lg:space-y-0 lg:flex-row lg:items-center">
-            <!-- Bulk Actions -->
-            <div class="flex flex-col sm:flex-row sm:items-center w-full lg:w-auto space-y-2 sm:space-y-0 sm:space-x-2">
-                <select class="form-select w-full sm:w-auto text-xs lg:text-sm" id="license-action-select">
-                    <option value="">Bulk Actions</option>
-                    <option value="activate">Activate Selected</option>
-                    <option value="deactivate">Deactivate Selected</option>
-                    <option value="extend">Extend Selected</option>
-                    <option value="suspend">Suspend Selected</option>
-                    <option value="delete">Delete Selected</option>
-                </select>
-                <button class="btn btn-primary w-full sm:w-auto text-xs lg:text-sm" id="update-license-btn">
-                    <i data-lucide="play" class="w-3 h-3 lg:w-4 lg:h-4 mr-1 lg:mr-2"></i>
-                    <span class="hidden sm:inline">Apply Action</span>
-                    <span class="sm:hidden">Apply</span>
-                </button>
-            </div>
-
-            <!-- Search & Filter Controls -->
-            <div
-                class="flex flex-col sm:flex-row sm:items-center w-full lg:w-auto lg:ml-auto space-y-2 sm:space-y-0 sm:space-x-2">
-                <div class="relative w-full sm:w-auto">
-                    <input type="text" class="form-control w-full sm:w-48 lg:w-56 pr-8 text-xs lg:text-sm"
-                        placeholder="Search licenses..." id="search-input">
-                    <i class="w-3 h-3 lg:w-4 lg:h-4 absolute my-auto inset-y-0 mr-2 lg:mr-3 right-0 text-slate-500"
-                        data-lucide="search"></i>
-                </div>
-                <div class="flex space-x-2 w-full sm:w-auto">
-                    <button class="btn btn-outline-secondary flex-1 sm:flex-none text-xs lg:text-sm" id="filter-btn">
-                        <i data-lucide="filter" class="w-3 h-3 lg:w-4 lg:h-4 mr-1 lg:mr-2"></i>
-                        <span class="hidden sm:inline">Filter</span>
-                    </button>
-                    <button class="btn btn-outline-secondary flex-1 sm:flex-none text-xs lg:text-sm" id="refresh-btn">
-                        <i data-lucide="refresh-cw" class="w-3 h-3 lg:w-4 lg:h-4 mr-1 lg:mr-2"></i>
-                        <span class="hidden sm:inline">Refresh</span>
-                    </button>
-                </div>
-            </div>
+        <div
+        class="intro-y col-span-12 mt-2 flex flex-wrap items-center xl:flex-nowrap"
+      >
+        <div class="flex w-full sm:w-auto">
+          <select
+            id="statusSelectorLicense"
+            data-tw-merge=""
+            class="disabled:bg-slate-100 disabled:cursor-not-allowed disabled:dark:bg-darkmode-800/50 [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md py-2 px-3 pr-8 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 group-[.form-inline]:flex-1 !box ml-2 action-status"
+            data-order-id="3"
+          >
+            <option value="">Action options on the selected order</option>
+            <option value="on-hold">Waiting for payment</option>
+            <option value="payment-confirm">Payment confirmed</option>
+            <option value="in-progress">Order processed</option>
+            <option value="shipping">Delivery process</option>
+            <option value="completed">Completed</option>
+            <option value="refunded">Refund</option>
+            <option value="cancelled">Cancelled</option>
+            <option value="resend">Resend notification</option>
+          </select>
         </div>
+        <div class="flex w-full sm:w-auto ml-2">
+          <button
+            data-tw-merge=""
+            onclick=""
+            class="transition duration-200 border inline-flex items-center justify-center py-2 px-3 rounded-md font-medium cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed bg-primary border-primary text-white dark:border-primary mr-2 shadow-md"
+          >
+            Update Order
+          </button>
+        </div>
+
+        <div class="mx-auto hidden text-slate-500 xl:block">
+          Showing 1 to 10 of 150 entries
+        </div>
+        <div class="mt-3 flex w-full items-center xl:mt-0 xl:w-auto">
+          <button
+            data-tw-merge=""
+            class="transition duration-200 border inline-flex items-center justify-center py-2 px-3 rounded-md font-medium cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed bg-primary border-primary text-white dark:border-primary mr-2 shadow-md"
+          >
+            <i
+              data-tw-merge=""
+              data-lucide="file-text"
+              class="stroke-1.5 mr-2 h-4 w-4"
+            ></i>
+            Export CSV
+          </button>
+          <button
+            data-tw-merge=""
+            class="transition duration-200 border inline-flex items-center justify-center py-2 px-3 rounded-md font-medium cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed bg-primary border-primary text-white dark:border-primary mr-2 shadow-md"
+          >
+            <i
+              data-tw-merge=""
+              data-lucide="file-text"
+              class="stroke-1.5 mr-2 h-4 w-4"
+            ></i>
+            Filter Data
+          </button>
+        </div>
+      </div>
     </div>
 
     <!-- License Table/Cards Container -->
     <div class="intro-y box mt-5">
         <!-- Mobile View Toggle (only visible on mobile) -->
-        <div class="flex items-center justify-between p-3 lg:p-5 border-b border-slate-200/60 lg:hidden">
-            <h3 class="font-medium text-sm">Licenses</h3>
+        <div class="flex items-center justify-between p-5 lg:p-7 border-b border-slate-200/60 lg:hidden">
+            <h3 class="font-medium text-base">Licenses</h3>
             <div class="form-switch">
                 <input id="mobile-view-toggle" class="form-switch-input" type="checkbox">
                 <label class="form-switch-label text-xs" for="mobile-view-toggle">Card View</label>
@@ -161,20 +156,19 @@
             <table class="table table-report -mt-2">
                 <thead>
                     <tr>
-                        <th class="whitespace-nowrap w-8 lg:w-10">
+                        <th class="whitespace-nowrap w-12 lg:w-16">
                             <input class="form-check-input" type="checkbox" id="select-all">
                         </th>
-                        <th class="whitespace-nowrap cursor-pointer text-xs lg:text-sm" data-sort="license">
-                            License <i data-lucide="arrow-up-down" class="w-3 h-3 lg:w-4 lg:h-4 inline ml-1"></i>
+                        <th class="whitespace-nowrap cursor-pointer text-xs lg:text-sm w-64 md:w-80 lg:w-96" data-sort="license">
+                            License <i data-lucide="arrow-up-down" class="w-3 h-3 lg:w-4 lg:h-4 inline ml-2"></i>
                         </th>
-                        <th class="whitespace-nowrap cursor-pointer text-xs lg:text-sm" data-sort="owner">
-                            Owner <i data-lucide="arrow-up-down" class="w-3 h-3 lg:w-4 lg:h-4 inline ml-1"></i>
+                        <th class="whitespace-nowrap cursor-pointer text-xs lg:text-sm w-64 md:w-80 lg:w-96" data-sort="owner">
+                            Owner <i data-lucide="arrow-up-down" class="w-3 h-3 lg:w-4 lg:h-4 inline ml-2"></i>
                         </th>
-                        <th class="whitespace-nowrap text-xs lg:text-sm">Expiry</th>
-                        <th class="whitespace-nowrap cursor-pointer text-xs lg:text-sm" data-sort="status">
-                            Status <i data-lucide="arrow-up-down" class="w-3 h-3 lg:w-4 lg:h-4 inline ml-1"></i>
+                        <th class="whitespace-nowrap text-xs lg:text-sm w-28 md:w-32 lg:w-40">Expiry</th>
+                        <th class="whitespace-nowrap cursor-pointer text-xs lg:text-sm w-28 md:w-32 lg:w-40" data-sort="status">
+                            Status <i data-lucide="arrow-up-down" class="w-3 h-3 lg:w-4 lg:h-4 inline ml-2"></i>
                         </th>
-                        <th class="whitespace-nowrap text-xs lg:text-sm">Actions</th>
                     </tr>
                 </thead>
                 <tbody id="license-table-body">
@@ -185,13 +179,13 @@
 
         <!-- Mobile Card View -->
         <div class="hidden" id="mobile-cards">
-            <div class="p-3 lg:p-5" id="license-cards-container">
+            <div class="p-5 lg:p-7" id="license-cards-container">
                 <!-- License cards will be populated by JavaScript -->
             </div>
         </div>
 
         <!-- Pagination -->
-        <div class="intro-y flex flex-col sm:flex-row sm:flex-nowrap items-center p-3 lg:p-5 space-y-3 sm:space-y-0">
+        <div class="intro-y flex flex-col sm:flex-row sm:flex-nowrap items-center p-5 lg:p-7 space-y-3 sm:space-y-0">
             <nav class="w-full sm:w-auto sm:mr-auto">
                 <ul class="pagination pagination-sm lg:pagination" id="pagination-controls">
                     <!-- Pagination will be populated by JavaScript -->
@@ -199,7 +193,7 @@
             </nav>
             <div class="flex items-center">
                 <span class="text-slate-500 mr-2 text-xs lg:text-sm">Show:</span>
-                <select class="w-16 lg:w-20 form-select box text-xs lg:text-sm" id="per-page-select">
+                <select class="w-20 lg:w-24 form-select box text-xs lg:text-sm" id="per-page-select">
                     <option value="10">10</option>
                     <option value="25">25</option>
                     <option value="50" selected>50</option>
@@ -305,7 +299,7 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <label class="form-label text-xs lg:text-sm">Owner</label>
+                                        <label class="form-label text-xs lg:text-sm">Customer</label>
                                         <input type="text" class="form-control text-xs lg:text-sm" id="modal-owner"
                                             readonly>
                                     </div>

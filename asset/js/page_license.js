@@ -317,21 +317,22 @@ class LicenseManager {
                       license.id
                     }">
                 </td>
-                <td class="w-40 !py-4">
-                    <a href="#" class="font-medium whitespace-nowrap license-key font-mono" data-id="${
-                      license.id
-                    }">
-                        ${license.key}
-                    </a>
-                    <div class="text-slate-500 flex mt-0.5 flex-wrap">
-                        <span class="license-tag inv-tag">INV ${license.id.slice(
-                          -2
-                        )}</span>
-                        <span class="license-tag product-tag">${
-                          license.product
-                        }</span>
-                    </div>
-                </td>
+                <td class="w-40 !py-4 align-top">
+  <a href="#"
+     class="font-medium whitespace-nowrap license-key font-mono text-blue-600 hover:underline"
+     data-id="${license.id}">
+    ${license.key}
+  </a>
+
+  <div class="text-slate-600 flex flex-wrap gap-1 mt-1">
+    <span class="license-tag inv-tag border border-slate-300 px-2 py-0.5 text-xs rounded bg-slate-100">
+      INV ${license.id.slice(-2)}
+    </span>
+    <span class="license-tag product-tag border border-slate-300 px-2 py-0.5 text-xs rounded bg-slate-100">
+      ${license.product}
+    </span>
+  </div>
+</td>
                 <td class="w-40">
                     <div class="flex items-center">
                         <div class="w-9 h-9 image-fit zoom-in">
@@ -368,25 +369,7 @@ class LicenseManager {
                         </div>
                     </div>
                 </td>
-                <td class="table-report__action w-56">
-                    <div class="flex justify-center items-center">
-                        <a class="flex items-center mr-3 text-primary license-view" href="#" data-id="${
-                          license.id
-                        }">
-                            <i data-lucide="eye" class="w-4 h-4 mr-1"></i> View
-                        </a>
-                        <a class="flex items-center mr-3 license-edit" href="#" data-id="${
-                          license.id
-                        }">
-                            <i data-lucide="edit" class="w-4 h-4 mr-1"></i> Edit
-                        </a>
-                        <a class="flex items-center text-danger license-delete" href="#" data-id="${
-                          license.id
-                        }">
-                            <i data-lucide="trash-2" class="w-4 h-4 mr-1"></i> Delete
-                        </a>
-                    </div>
-                </td>
+                
             </tr>
         `
       )

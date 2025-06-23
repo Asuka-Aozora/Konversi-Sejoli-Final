@@ -8,8 +8,7 @@ error_reporting(E_ALL);
 date_default_timezone_set('Asia/Jakarta'); 
 
 define("VERSION","1.0.".rand(1,999999));
-
-define("BASE_URL","http://member.local");
+define("BASE_URL",$_SERVER['REQUEST_SCHEME'].'://'.$_SERVER['HTTP_HOST']);
 // define("BASE_URL","https://member.otomasics.com");
 
 define("WOOWA_ECO_KEY","f538a366609b3a97ce751087dbc08e961b2ce1dcfe7ac4fb");

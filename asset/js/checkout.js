@@ -44,71 +44,42 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // email validation
   const userEmail = [
-    {
-      id: 1,
-      email: "L4Nt4@example.com",
-    },
-    {
-      id: 1,
-      email: "wongireng@example.com",
-    },
-    {
-      id: 1,
-      email: "rajagula@example.com",
-    },
+    { id: 1, email: "L4Nt4@example.com" },
+    { id: 1, email: "wongireng@example.com" },
+    { id: 1, email: "rajagula@example.com" },
   ];
   const emailInput = document.getElementById("email");
   const passwordInput = document.getElementById("password-wrapper");
+
   emailInput.addEventListener("blur", () => {
     const email = emailInput.value.trim().toLowerCase();
-    // simulation with ajax
+
+    // simulasi AJAX delay
     setTimeout(() => {
-      const isEmail = userEmail.some(
-        (user) => user.email.toLocaleLowerCase() === email
+      const isRegistered = userEmail.some(
+        (user) => user.email.toLowerCase() === email
       );
+      // reset kelas
       emailInput.classList.remove("isUser", "isNotUser");
-      if (isEmail) {
+
+      if (isRegistered) {
+        // sudah terdaftar → sembunyikan password
         emailInput.classList.add("isUser");
-        passwordInput.classList.remove("hidden");
-      } else {
-        emailInput.classList.add("isNotUser");
         passwordInput.classList.add("hidden");
+      } else {
+        // baru → tampilkan password
+        emailInput.classList.add("isNotUser");
+        passwordInput.classList.remove("hidden");
       }
     }, 300);
-    const isEmail = userEmail.some((user) => user.email === email);
-    if (isEmail) {
-      emailInput.classList.add("isUser");
-    } else {
-      emailInput.classList.add("isNotUser");
-    }
+
+    // versi instan sebelum delay (opsional)
+    const isRegisteredInstant = userEmail.some(
+      (user) => user.email.toLowerCase() === email
+    );
+    emailInput.classList.toggle("isUser", isRegisteredInstant);
+    emailInput.classList.toggle("isNotUser", !isRegisteredInstant);
   });
-
-  // password view
-  const passwordValue = document.getElementById("password");
-
-  const eyeOn = `
-<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye-icon lucide-eye cursor-pointer" id="password-toggle" title="Sembunyikan Password"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg>`;
-
-  const eyeOff = `
-<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye-closed-icon lucide-eye-closed cursor-pointer" id="password-toggle" title="Tampilkan Password"><path d="m15 18-.722-3.25"/><path d="M2 8a10.645 10.645 0 0 0 20 0"/><path d="m20 15-1.726-2.05"/><path d="m4 15 1.726-2.05"/><path d="m9 18 .722-3.25"/></svg>`;
-
-  function togglePassword() {
-    const currentToggle = document.getElementById("password-toggle");
-    const parent = currentToggle.parentElement;
-    const isHidden = passwordValue.type === "password";
-    passwordValue.type = isHidden ? "text" : "password";
-
-    currentToggle.remove();
-    parent.insertAdjacentHTML("beforeend", isHidden ? eyeOn : eyeOff);
-
-    document
-      .getElementById("password-toggle")
-      .addEventListener("click", togglePassword);
-  }
-
-  document
-    .getElementById("password-toggle")
-    .addEventListener("click", togglePassword);
 
   // show coupon
   const showCoupon = document.getElementById("show-coupon");
@@ -135,7 +106,7 @@ document.addEventListener("DOMContentLoaded", function () {
   function calculateTotal() {
     const selectedOption = productSelect.options[productSelect.selectedIndex];
     const price = parseInt(selectedOption.dataset.price || 0);
-    const quantity = parseInt(quantityInput.value || 1);
+    const quantity = parseInt(quantityInput.value || 1); 
     const coupon =
       parseInt(couponDiscount.textContent.replace(/[^\d]/g, "")) || 0;
 

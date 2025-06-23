@@ -1,8 +1,8 @@
 <div id="sales-page" class="page hide grid grid-cols-12 gap-6">
-  <div class="col-span-12 2xl:col-span-9">
+  <div class="col-span-12">
     <div class="grid grid-cols-12 gap-6">
       <!-- Sales Data Chart Card -->
-      <div class="col-span-12 mt-8">
+      <div class="col-span-12 mt-8 w-full">
         <!-- Header -->
         <div class="flex justify-between items-center mb-6">
           <h2 class="text-xl font-semibold text-gray-800">Sales Data</h2>
@@ -52,7 +52,6 @@
           <canvas id="salesChart"></canvas>
         </div>
       </div>
-
       <!-- Orders Table Section -->
       <div class="col-span-12">
         <!-- other content -->
@@ -63,8 +62,10 @@
           >
             <div class="flex w-full sm:w-auto">
               <select
+                id="statusSelector"
                 data-tw-merge=""
-                class="disabled:bg-slate-100 disabled:cursor-not-allowed disabled:dark:bg-darkmode-800/50 [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md py-2 px-3 pr-8 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 group-[.form-inline]:flex-1 !box ml-2"
+                class="disabled:bg-slate-100 disabled:cursor-not-allowed disabled:dark:bg-darkmode-800/50 [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md py-2 px-3 pr-8 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 group-[.form-inline]:flex-1 !box ml-2 action-status"
+                data-order-id="3"
               >
                 <option value="">Action options on the selected order</option>
                 <option value="on-hold">Waiting for payment</option>
@@ -80,6 +81,7 @@
             <div class="flex w-full sm:w-auto ml-2">
               <button
                 data-tw-merge=""
+                onclick="updateOrder()"
                 class="transition duration-200 border inline-flex items-center justify-center py-2 px-3 rounded-md font-medium cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed bg-primary border-primary text-white dark:border-primary mr-2 shadow-md"
               >
                 Update Order
@@ -129,6 +131,7 @@
                     <input
                       data-tw-merge=""
                       type="checkbox"
+                      id="checkAll"
                       class="transition-all duration-100 ease-in-out shadow-sm border-slate-200 cursor-pointer rounded focus:ring-4 focus:ring-offset-0 focus:ring-primary focus:ring-opacity-20 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&[type='radio']]:checked:bg-primary [&[type='radio']]:checked:border-primary [&[type='radio']]:checked:border-opacity-10 [&[type='checkbox']]:checked:bg-primary [&[type='checkbox']]:checked:border-primary [&[type='checkbox']]:checked:border-opacity-10 [&:disabled:not(:checked)]:bg-slate-100 [&:disabled:not(:checked)]:cursor-not-allowed [&:disabled:not(:checked)]:dark:bg-darkmode-800/50 [&:disabled:checked]:opacity-70 [&:disabled:checked]:cursor-not-allowed [&:disabled:checked]:dark:bg-darkmode-800/50"
                     />
                   </th>
@@ -168,9 +171,10 @@
                   >
                     ACTIONS
                   </th>
-                </tr> 
+                </tr>
               </thead>
               <tbody id="orders-tbody">
+                <!-- isian order -->
               </tbody>
             </table>
           </div>
@@ -180,7 +184,7 @@
             class="intro-y col-span-12 flex flex-wrap items-center sm:flex-row sm:flex-nowrap"
           >
             <nav class="w-full sm:mr-auto sm:w-auto">
-              <ul class="flex w-full mr-0 sm:mr-auto sm:w-auto">
+              <ul id="pagination-list" class="flex w-full mr-0 sm:mr-auto sm:w-auto">
                 <li class="flex-1 sm:flex-initial">
                   <a
                     data-tw-merge=""
@@ -263,77 +267,17 @@
               </ul>
             </nav>
             <select
-              data-tw-merge=""
-              class="disabled:bg-slate-100 disabled:cursor-not-allowed disabled:dark:bg-darkmode-800/50 [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 transition duration-200 ease-in-out text-sm border-slate-200 shadow-sm rounded-md py-2 px-3 pr-8 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 group-[.form-inline]:flex-1 !box mt-3 w-20 sm:mt-0"
+              id="limitSelect"
+              class="disabled:bg-slate-100 disabled:cursor-not-allowed disabled:dark:bg-darkmode-800/50 transition duration-200 ease-in-out text-sm border-slate-200 shadow-sm rounded-md py-2 px-3 pr-8 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 mt-3 w-20 sm:mt-0"
             >
-              <option>10</option>
-              <option>25</option>
-              <option>35</option>
-              <option>50</option>
+              <option value="10">10</option>
+              <option value="25">25</option>
+              <option value="35">35</option>
+              <option value="50">50</option>
             </select>
           </div>
           <!-- END: Pagination -->
         </div>
-
-        <!-- BEGIN: Modal Overlay -->
-        <div class="modal-overlay modal-close-btn" id="modalOverlay">
-          <!-- Modal Container -->
-          <div class="modal2" id="modal" onclick="event.stopPropagation()">
-            <!-- Modal Header -->
-            <div class="modal-header">
-              <h2 class="modal-title" id="modalTitle">Order Detail</h2>
-              <button class="close-btn modal-close-btn">&times;</button>
-            </div>
-
-            <!-- Modal Body -->
-            <div class="modal-body">
-              <div class="detail-row">
-                <div class="detail-label">Date</div>
-                <div class="detail-value" id="modalDate"></div>
-              </div>
-              <div class="detail-row">
-                <div class="detail-label">Buyer Name</div>
-                <div class="detail-value" id="modalBuyer"></div>
-              </div>
-              <div class="detail-row">
-                <div class="detail-label">Contact</div>
-                <div class="detail-value" id="modalContact"></div>
-              </div>
-              <div class="detail-row">
-                <div class="detail-label">Product</div>
-                <div class="detail-value" id="modalProduct"></div>
-              </div>
-              <div class="detail-row">
-                <div class="detail-label">Transaction Fees</div>
-                <div class="detail-value" id="modalFees"></div>
-              </div>
-              <div class="detail-row">
-                <div class="detail-label">Total</div>
-                <div class="detail-value" id="modalTotal"></div>
-              </div>
-              <div class="detail-row">
-                <div class="detail-label">Status</div>
-                <div class="detail-value" id="modalStatus"></div>
-              </div>
-              <div class="detail-row">
-                <div class="detail-label">Subscription Type</div>
-                <div class="detail-value" id="modalType"></div>
-              </div>
-            </div>
-
-            <!-- Modal Footer -->
-            <div class="modal-footer">
-              <select class="action-dropdown">
-                <option>Action options</option>
-                <option>Edit Order</option>
-                <option>Cancel Order</option>
-                <option>Send Reminder</option>
-              </select>
-              <button class="update-btn">Update Order</button>
-            </div>
-          </div>
-        </div>
-        <!-- END: Modal Overlay -->
       </div>
     </div>
   </div>
