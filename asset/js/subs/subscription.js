@@ -139,7 +139,6 @@ async function init() {
   try {
     console.log(">>> memanggil getOrder()");
     const response = await getOrder(); // gunakan nama yang sama
-    console.log(">>> response:", response);
 
     if (response.status !== "success") {
       console.warn("API error:", response.message);
@@ -147,7 +146,6 @@ async function init() {
     }
 
     const orders = response.data;
-    console.log(">>> orders array:", orders);
     renderOrders(orders);
   } catch (err) {
     console.error("Gagal mengambil orders:", err);
