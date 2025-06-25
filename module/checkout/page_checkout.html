@@ -168,243 +168,36 @@
       </div>
 
       <!-- Payment Section -->
-      <div class="flex-1 space-y-6">
-        <h2 class="text-lg font-bold pb-2 mb-2">Select Payment Method</h2>
-        <div class="space-y-3">
-          <div class="grid grid-cols-1 gap-2">
-            <!-- Direct Transfer -->
-            <label class="block1 cursor-pointer">
-              <div class="p-4">
-                <div class="flex items-center gap-3">
-                  <input
-                    type="radio"
-                    name="payment"
-                    value="bca-direct"
-                    class="sr-only"
-                    required
-                  />
-                  <span>Bank Transfer to BCA</span>
-                </div>
-                <div class="direct mt-3 px-5 pb-3 text-sm">
-                  Direct Transfer to Personal BCA Account a/n dr Yudha Febrian
-                  (automatically confirmed but safer if help send proof of
-                  manual transfer also to CS)
-                </div>
-              </div>
-            </label>
+<div class="flex-1 space-y-6">
+  <h2 class="text-lg font-bold pb-2 mb-2">Select Payment Method</h2>
+  <div class="space-y-3">
+    <div id="payment-methods" class="grid grid-cols-1 gap-2">
+      <!-- Rendered by JavaScript -->
+    </div>
+  </div>
 
-            <!-- Virtual Account Options -->
-            <label class="block cursor-pointer">
-              <div class="bank p-4">
-                <div class="flex items-center gap-3">
-                  <input
-                    type="radio"
-                    name="payment"
-                    value="bca"
-                    class="sr-only"
-                  />
-                  <span>BCA VA (by Xendit)</span>
-                </div>
-                <div class="w-12 h-[25px] overflow-hidden">
-                  <img
-                    src="/asset/icon/Bank_Central_Asia.svg"
-                    alt="BCA"
-                    class="object-contain h-full w-full"
-                  />
-                </div>
-              </div>
-            </label>
+  <!-- Terms -->
+  <div class="flex gap-3 items-start p-4 bg-gray-50 rounded-lg mt-5 mb-5">
+    <input
+      type="checkbox"
+      id="tnc"
+      required
+      class="mt-1 rounded text-blue-600"
+    />
+    <label for="tnc" class="text-sm text-gray-700">
+      I have read and agree to the website
+      <a class="link" href="#" target="_blank">terms and conditions</a>
+    </label>
+  </div>
+</div>
 
-            <label class="block cursor-pointer">
-              <div class="bank p-4">
-                <div class="flex items-center gap-3">
-                  <input
-                    type="radio"
-                    name="payment"
-                    value="bni"
-                    class="sr-only"
-                  />
-                  <span>BNI VA</span>
-                </div>
-                <div class="w-12 h-[25px] overflow-hidden">
-                  <img
-                    src="/asset/icon/BNI_logo.svg.png"
-                    alt="BNI"
-                    class="object-contain h-full w-full"
-                  />
-                </div>
-              </div>
-            </label>
-
-            <label class="block cursor-pointer">
-              <div class="bank p-4">
-                <div class="flex items-center gap-3">
-                  <input
-                    type="radio"
-                    name="payment"
-                    value="bri"
-                    class="sr-only"
-                  />
-                  <span>BRI VA</span>
-                </div>
-                <div class="w-12 h-[25px] overflow-hidden">
-                  <img
-                    src="/asset/icon/BRIVA-BRI-removebg-preview.png"
-                    alt="BRI"
-                    class="object-contain h-full w-full"
-                  />
-                </div>
-              </div>
-            </label>
-
-            <label class="block cursor-pointer">
-              <div class="bank p-4">
-                <div class="flex items-center gap-3">
-                  <input
-                    type="radio"
-                    name="payment"
-                    value="mandiri"
-                    class="sr-only"
-                  />
-                  <span>MANDIRI VA</span>
-                </div>
-                <div class="w-12 h-[25px] overflow-hidden">
-                  <img
-                    src="/asset/icon/Bank_Mandiri_logo_2016.svg"
-                    alt="Mandiri"
-                    class="object-contain h-full w-full"
-                  />
-                </div>
-              </div>
-            </label>
-
-            <label class="block cursor-pointer">
-              <div class="bank p-4">
-                <div class="flex items-center gap-3">
-                  <input
-                    type="radio"
-                    name="payment"
-                    value="cimb-niaga"
-                    class="sr-only"
-                  />
-                  <span>CIMB NIAGA VA</span>
-                </div>
-                <div class="w-12 h-[25px] overflow-hidden">
-                  <img
-                    src="/asset/icon/CIMB_Niaga_logo.svg"
-                    alt="CIMB Niaga"
-                    class="object-contain h-full w-full"
-                  />
-                </div>
-              </div>
-            </label>
-
-            <label class="block cursor-pointer">
-              <div class="bank p-4">
-                <div class="flex items-center gap-3">
-                  <input
-                    type="radio"
-                    name="payment"
-                    value="permata"
-                    class="sr-only"
-                  />
-                  <span>PERMATA VA</span>
-                </div>
-                <div class="w-12 h-[25px] overflow-hidden">
-                  <img
-                    src="/asset/icon/Permata_Bank_(2024).svg"
-                    alt="Permata"
-                    class="object-contain h-full w-full"
-                  />
-                </div>
-              </div>
-            </label>
-
-            <label class="block cursor-pointer">
-              <div class="bank p-4">
-                <div class="flex items-center gap-3">
-                  <input
-                    type="radio"
-                    name="payment"
-                    value="muamalat"
-                    class="sr-only"
-                  />
-                  <span>MUAMALAT VA</span>
-                </div>
-                <div class="w-12 h-[25px] overflow-hidden">
-                  <img
-                    src="/asset/icon/Muamalat_Logo.png"
-                    alt="Muamalat"
-                    class="object-contain h-full w-full"
-                  />
-                </div>
-              </div>
-            </label>
-
-            <label class="block cursor-pointer">
-              <div class="bank p-4">
-                <div class="flex items-center gap-3">
-                  <input
-                    type="radio"
-                    name="payment"
-                    value="qris"
-                    class="sr-only"
-                  />
-                  <span>QRIS</span>
-                </div>
-                <div class="w-12 h-[25px] overflow-hidden">
-                  <img
-                    src="/asset/icon/Logo_QRIS.svg"
-                    alt="QRIS"
-                    class="object-contain h-full w-full"
-                  />
-                </div>
-              </div>
-            </label>
-
-            <label class="block cursor-pointer">
-              <div class="bank p-4">
-                <div class="flex items-center gap-3">
-                  <input
-                    type="radio"
-                    name="payment"
-                    value="maybank"
-                    class="sr-only"
-                  />
-                  <span>Maybank Virtual Account</span>
-                </div>
-                <div class="w-12 h-[25px] overflow-hidden">
-                  <img
-                    src="/asset/icon/maybank-va.png"
-                    alt="Maybank"
-                    class="object-contain h-full w-full"
-                  />
-                </div>
-              </div>
-            </label>
-          </div>
-        </div>
-
-        <!-- Terms -->
-        <div class="flex gap-3 items-start p-4 bg-gray-50 rounded-lg mt-5 mb-5">
-          <input
-            type="checkbox"
-            id="tnc"
-            required
-            class="mt-1 rounded text-blue-600"
-          />
-          <label for="tnc" class="text-sm text-gray-700">
-            I have read and agree to the website
-            <a class="link" href="#" target="_blank">terms and conditions</a>
-          </label>
-        </div>
-      </div>
     </div>
 
     <!-- Submit -->
     <div class="checkout mt-1 flex items-center justify-center">
       <button
         type="submit"
+        id="btn-checkout"
         class="px-8 py-4 text-lg font-semibold cursor-pointer w-full"
       >
         Checkout
