@@ -90,6 +90,11 @@ document.addEventListener("DOMContentLoaded", function () {
       name: "Woowa CRM 6 Monthly (Rp 100,000/bulan)",
       price: 100000,
     },
+    {
+      id: "crm12",
+      name: "Woowa CRM 12 Monthly (Rp 80,000/bulan)",
+      price: 80000,
+    },
   ];
 
   selectProduct.forEach((product) => {
@@ -225,6 +230,84 @@ document.addEventListener("DOMContentLoaded", function () {
   productSelect.addEventListener("change", calculateTotal);
   quantityInput.addEventListener("input", calculateTotal);
   fetchCoupons();
+
+  // ========== 8. Load Payment Methods ==========
+  async function loadPaymentMethods() {
+    const container = document.getElementById("payment-methods");
+    try {
+      const res = await fetch(`${BASE_URL}/get-payment-methods`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+      });
+
+      const result = await res.json();
+      const methods = result.data || [];
+
+      container.innerHTML = ""; // Kosongkan dulu
+      methods.forEach((m) => {
+        const label = document.createElement("label");
+        label.className = `cursor-pointer ${
+          m.code === "bca-direct" ? "block1" : "block"
+        }`;
+
+        // Isi div utama
+        const inner = document.createElement("div");
+        inner.className = m.code === "bca-direct" ? "p-4" : "bank p-4";
+
+        const topRow = document.createElement("div");
+        topRow.className = "flex items-center gap-3";
+
+        const input = document.createElement("input");
+        input.type = "radio";
+        input.name = "payment";
+        input.value = m.code;
+        input.className = "sr-only";
+        input.required = true;
+
+        const span = document.createElement("span");
+        span.textContent = m.name;
+
+        topRow.appendChild(input);
+        topRow.appendChild(span);
+
+        inner.appendChild(topRow);
+
+        // Jika ada deskripsi → hanya untuk direct transfer
+        if (m.description) {
+          const desc = document.createElement("div");
+          desc.className = "direct mt-3 px-5 pb-3 text-sm";
+          desc.textContent = m.description;
+          inner.appendChild(desc);
+        }
+
+        // Jika ada icon
+        if (m.icon && !m.description) {
+          const imgWrap = document.createElement("div");
+          imgWrap.className = "w-12 h-[25px] overflow-hidden";
+
+          const img = document.createElement("img");
+          img.src = m.icon;
+          img.alt = m.name;
+          img.className = "object-contain h-full w-full";
+
+          imgWrap.appendChild(img);
+          inner.appendChild(imgWrap);
+        }
+
+        label.appendChild(inner);
+        container.appendChild(label);
+      });
+    } catch (error) {
+      console.error("❌ Gagal memuat metode pembayaran:", error);
+    }
+  }
+
+
+  
+
+  // panggil di init
+  loadPaymentMethods();
 });
 
-fetchCoupons();
