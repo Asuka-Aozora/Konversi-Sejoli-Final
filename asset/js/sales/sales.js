@@ -34,6 +34,7 @@ async function getOrder(page, limit) {
   console.log(" cek res:", res);
   
   const json = await res.json();
+
   console.log("getOrder response:", json);
   
   return json;

@@ -25,6 +25,7 @@ define('LOAD_MODULE',[
   'dashboard',
   'device',
   'checkout',
+  'confirm'
 ]);
 
 /* nginx conf

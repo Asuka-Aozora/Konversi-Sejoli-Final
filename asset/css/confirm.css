@@ -1,0 +1,89 @@
+.confirm {
+  background-color: #fff;
+  border-radius: 20px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.521);
+  padding: 16px;
+}
+
+.thanks {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.id-order {
+  color: #0060af;
+}
+
+.number {
+  font-size: 32px;
+  font-weight: 900;
+}
+.right {
+  border: 1.5px solid rgb(221, 221, 221);
+  padding: 16px;
+  border-radius: 18px;
+}
+
+.front {
+  color: rgb(7, 179, 7);
+}
+
+.back {
+  color: orange;
+}
+
+.attention {
+  color: white;
+  background-color: orange;
+  padding: 5px 10px;
+  border-radius: 12px;
+  position: relative;
+  display: inline-block;
+}
+
+.arrow {
+  position: absolute;
+  top: -10px; /* naik ke atas box */
+  left: 70%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 10px solid orange; /* warna sama seperti background */
+  transition: left 0.2s ease-in-out;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: rgba(221, 221, 221, 0.589);
+  border-radius: 8px;
+}
+
+.row-bold {
+  font-weight: 500;
+}
+
+.tele:hover {
+  color: steelblue;
+  font-weight: 600;
+}
+
+.wa:hover {
+  color: rgb(7, 179, 7);
+  font-weight: 600;
+}
+
+@media screen and (max-width: 768px) {
+  .out-confirm {
+    min-height: 100vh;
+  }
+
+  .attention {
+    padding: 4px 8px;
+    font-size: 12px;
+  }
+}
