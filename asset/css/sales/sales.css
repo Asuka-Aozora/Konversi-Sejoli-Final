@@ -217,6 +217,21 @@
   z-index: 1000;
 }
 
+.sejoli-form-filter-holder {
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  transform: translateY(-10px);
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.sejoli-form-filter-holder.show {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+  visibility: visible;
+}
+
 .form-grid {
   display: grid;
   gap: 1rem;
@@ -243,4 +258,41 @@
   border-color: #00b2b2;
   outline: none;
   box-shadow: 0 0 0 2px rgba(0, 178, 178, 0.2);
+}
+
+/* menghilangkan kalender */
+.daterangepicker .drp-calendar {
+  display: none !important;
+}
+
+.daterangepicker .ranges {
+  border-right: none !important;
+  margin-top: 8px !important;
+  width: 165px !important;
+}
+
+.daterangepicker .ranges ul {
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100% !important;
+}
+
+.daterangepicker .drp-buttons {
+  display: none !important;
+}
+.daterangepicker .ranges li:hover {
+  background-color: #e2e8f0 !important;
+  cursor: pointer !important;
+}
+.daterangepicker .ranges li {
+  font-size: 14px !important;
+}
+
+.daterangepicker .ranges li.active {
+  background-color: #00b2b2 !important;
+}
+
+.daterangepicker {
+  border-radius: 12px !important;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15) !important;
 }

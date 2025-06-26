@@ -1,29 +1,26 @@
 import { openModal } from "./DetailModal.js";
 
-const selectedOrderIds = new Set();
-
-// default
+// State global
+const selectedOrderIds = new Set(); // ID pesanan yang dipilih oleh user
 let currentPage = 1;
 let currentLimit = 10;
 let totalPages = 1;
+let currentFilters = {}; // menyimpan filter aktif
 
+// Simpan ID terpilih ke localStorage
 function updateLocalStorageFromSet() {
   const array = Array.from(selectedOrderIds);
   localStorage.setItem("selectedOrderIds", JSON.stringify(array));
 }
 
+// Ambil data order dari API dengan pagination dan filter
 async function getOrder(page, limit, filters = {}) {
   const BASE_URL = localStorage.getItem("base_url_api");
   const token = getCookie("token");
   const offset = (page - 1) * limit;
 
-  const params = new URLSearchParams({
-    limit,
-    offset,
-    ...filters,
-  });
+  const params = new URLSearchParams({ limit, offset, ...filters });
 
-  // FIX: Salah penulisan URL, pakai backtick dan ${} yang benar
   const res = await fetch(`${BASE_URL}/get-orders?${params.toString()}`, {
     method: "GET",
     headers: {
@@ -33,17 +30,22 @@ async function getOrder(page, limit, filters = {}) {
   });
 
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  const json = await res.json();
-  return json;
+  return await res.json();
 }
 
-console.log("script loaded");
-
-let currentFilters = {};
-
+// Render daftar order ke dalam <tbody>
 function renderOrders(data) {
   const tbody = document.getElementById("orders-tbody");
-  tbody.innerHTML = ""; // kosongkan dulu
+  const placeholder = document.getElementById("no-data-placeholder");
+  tbody.innerHTML = ""; // kosongkan isi sebelumnya
+
+  // Kalau datanya kosong
+  if (data.length === 0) {
+    placeholder.classList.remove("hidden");
+    return;
+  } else {
+    placeholder.classList.add("hidden");
+  }
 
   data.forEach((item) => {
     const dt = new Date(item.created_at);
@@ -60,44 +62,45 @@ function renderOrders(data) {
     const statusIcon = isCompleted ? "check-square" : "alert-triangle";
     const totalStr = item.grand_total.toLocaleString();
 
+    // Bangun baris tabel
     const tr = document.createElement("tr");
-    tr.setAttribute("data-tw-merge", "");
     tr.classList.add("intro-x");
+    tr.setAttribute("data-tw-merge", "");
+
     tr.innerHTML = `
-      <td data-tw-merge class="px-5 py-3 border-b dark:border-darkmode-300 box w-10 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
-        <input data-tw-merge type="checkbox" value="${item.ID}"
-          class="order-checkbox transition-all duration-100 ease-in-out shadow-sm border-slate-200 cursor-pointer rounded focus:ring-4 focus:ring-offset-0 focus:ring-primary focus:ring-opacity-20 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&[type='radio']]:checked:bg-primary [&[type='radio']]:checked:border-primary [&[type='radio']]:checked:border-opacity-10 [&[type='checkbox']]:checked:bg-primary [&[type='checkbox']]:checked:border-primary [&[type='checkbox']]:checked:border-opacity-10 [&:disabled:not(:checked)]:bg-slate-100 [&:disabled:not(:checked)]:cursor-not-allowed [&:disabled:not(:checked)]:dark:bg-darkmode-800/50 [&:disabled:checked]:opacity-70 [&:disabled:checked]:cursor-not-allowed [&:disabled:checked]:dark:bg-darkmode-800/50" />
+      <!-- Checkbox -->
+      <td class="...">
+        <input type="checkbox" value="${item.ID}" class="order-checkbox ..." />
       </td>
-      <td data-tw-merge class="px-5 py-3 border-b dark:border-darkmode-300 box w-40 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
-        <a class="whitespace-nowrap underline decoration-dotted" href="#">#INV-${item.ID}</a>
+      <!-- No. Invoice -->
+      <td class="...">
+        <a class="underline decoration-dotted" href="#">#INV-${item.ID}</a>
       </td>
-      <td data-tw-merge class="px-5 py-3 border-b dark:border-darkmode-300 box w-40 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
-        <a class="whitespace-nowrap font-medium" href="#">${item.display_name}</a>
-        <div class="mt-0.5 whitespace-nowrap text-xs text-slate-500">Location</div>
+      <!-- User -->
+      <td class="...">
+        <a class="font-medium" href="#">${item.display_name}</a>
+        <div class="text-xs text-slate-500">Location</div>
       </td>
-      <td data-tw-merge
-          class="status-cell px-5 py-3 border-b dark:border-darkmode-300 box whitespace-nowrap
-                 rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005]
-                 first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r
-                 dark:bg-darkmode-600">
-        <div class="flex items-center justify-center whitespace-nowrap text-success">
-          <i data-tw-merge data-lucide="${statusIcon}"
-             class="stroke-1.5 mr-2 h-4 w-4"></i>
-          ${item.status}
+      <!-- Status -->
+      <td class="status-cell ...">
+        <div class="flex items-center text-success">
+          <i data-lucide="${statusIcon}" class="..."></i>${item.status}
         </div>
       </td>
-      <td data-tw-merge class="px-5 py-3 border-b dark:border-darkmode-300 box whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
-        <div class="whitespace-nowrap">${typeLabel}</div>
-        <div class="mt-0.5 whitespace-nowrap text-xs text-slate-500">${dateStr}, ${timeStr}</div>
+      <!-- Type & Date -->
+      <td class="...">
+        <div>${typeLabel}</div>
+        <div class="text-xs text-slate-500">${dateStr}, ${timeStr}</div>
       </td>
-      <td data-tw-merge class="px-5 py-3 border-b dark:border-darkmode-300 box w-40 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 text-right shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
+      <!-- Total -->
+      <td class="... text-right">
         <div class="pr-16">$${totalStr}</div>
       </td>
-      <td data-tw-merge class="px-5 py-3 border-b dark:border-darkmode-300 box rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600 before:absolute before:inset-y-0 before:left-0 before:my-auto before:block before:h-8 before:w-px before:bg-slate-200 before:dark:bg-darkmode-400">
+      <!-- View Detail -->
+      <td class="...">
         <div class="flex items-center justify-center">
-          <a class="mr-5 flex items-center whitespace-nowrap text-primary view-detail" href="#">
-            <i data-tw-merge data-lucide="check-square" class="stroke-1.5 mr-1 h-4 w-4"></i>
-            View Details
+          <a class="text-primary view-detail" href="#">
+            <i data-lucide="check-square" class="..."></i>View Details
           </a>
         </div>
       </td>
@@ -105,80 +108,60 @@ function renderOrders(data) {
 
     tbody.appendChild(tr);
 
-    // listener untuk tombol view detail
+    // Event listener untuk tombol "View Details"
     tr.querySelector(".view-detail").addEventListener("click", (e) => {
       e.preventDefault();
       openModal(item);
     });
 
-    // listener untuk checkbox
+    // Event listener untuk checkbox baris
     setupCheckboxListeners(tr);
   });
 }
 
-// Fungsi untuk setup listener checkbox per baris
+// Setup listener untuk checkbox per baris
 function setupCheckboxListeners(tr) {
   const checkbox = tr.querySelector(".order-checkbox");
 
-  // Pastikan tidak double pasang
   if (!checkbox.dataset.listenerAttached) {
     checkbox.addEventListener("change", () => {
       const id = checkbox.value;
-
-      if (checkbox.checked) {
-        selectedOrderIds.add(id);
-      } else {
-        selectedOrderIds.delete(id);
-      }
-
+      checkbox.checked ? selectedOrderIds.add(id) : selectedOrderIds.delete(id);
       updateLocalStorageFromSet();
-      console.log("Selected IDs:", Array.from(selectedOrderIds));
     });
 
-    checkbox.dataset.listenerAttached = "true";
+    checkbox.dataset.listenerAttached = "true"; // Hindari double attach
   }
 }
 
 // Listener untuk "Check All"
-const checkAll = document.getElementById("checkAll");
-checkAll.addEventListener("change", function () {
+document.getElementById("checkAll").addEventListener("change", function () {
   const isChecked = this.checked;
 
-  // Check/uncheck semua dan trigger event
   document.querySelectorAll(".order-checkbox").forEach((cb) => {
     cb.checked = isChecked;
-    cb.dispatchEvent(new Event("change"));
+    cb.dispatchEvent(new Event("change")); // Trigger listener manual
   });
 });
 
-// **Listener untuk Select limit**
+// Listener saat limit/page size diubah
 document
   .getElementById("limitSelect")
   .addEventListener("change", async function (e) {
     currentLimit = parseInt(e.target.value, 10);
-    // reload data dengan limit baru
-    try {
-      const response = await getOrder(currentLimit);
-      if (response.status !== "success") {
-        console.warn("API error:", response.message);
-        return;
-      }
-      renderOrders(response.data);
-    } catch (err) {
-      console.error("Gagal mengambil orders:", err);
-    }
+    currentPage = 1;
+    await loadAndRender();
   });
 
-// **Listener untuk pagination**
+// Render pagination ke <ul>
 function renderPagination() {
   const navUl = document.getElementById("pagination-list");
   navUl.innerHTML = "";
 
-  // tombol first & prev
+  // Tombol navigasi awal
   navUl.append(liBtn("««", 1, currentPage === 1));
   navUl.append(liBtn("«", currentPage - 1, currentPage === 1));
 
-  // Page number window (maksimal 5 links)
   const delta = 2;
   const start = Math.max(1, currentPage - delta);
   const end = Math.min(totalPages, currentPage + delta);
@@ -189,19 +172,20 @@ function renderPagination() {
   }
   if (end < totalPages) navUl.append(liDots());
 
-  // tombol next & last
+  // Tombol navigasi akhir
   navUl.append(liBtn("»", currentPage + 1, currentPage === totalPages));
   navUl.append(liBtn("»»", totalPages, currentPage === totalPages));
 }
 
+// Buat elemen <li> untuk tombol halaman
 function liBtn(label, page, disabled = false, active = false) {
   const li = document.createElement("li");
   const a = document.createElement("a");
   a.textContent = label;
-  a.className = `
-      transition border py-2 rounded-md cursor-pointer text-center px-3
-      ${active ? "!box dark:bg-darkmode-400" : ""}
-    `;
+  a.className = `transition border py-2 rounded-md px-3 text-center cursor-pointer ${
+    active ? "!box dark:bg-darkmode-400" : ""
+  }`;
+
   if (disabled || page < 1 || page > totalPages) {
     a.classList.add("opacity-50", "cursor-not-allowed");
     a.disabled = true;
@@ -211,10 +195,12 @@ function liBtn(label, page, disabled = false, active = false) {
       await loadAndRender();
     });
   }
+
   li.appendChild(a);
   return li;
 }
 
+// Elemen pagination titik-titik
 function liDots() {
   const li = document.createElement("li");
   const span = document.createElement("span");
@@ -224,7 +210,7 @@ function liDots() {
   return li;
 }
 
-// Load data dan render pagination
+// Ambil data & render ke halaman
 async function loadAndRender() {
   try {
     const resp = await getOrder(currentPage, currentLimit, currentFilters);
@@ -235,22 +221,18 @@ async function loadAndRender() {
     renderPagination();
   } catch (err) {
     console.error("Gagal mengambil orders:", err);
+    renderOrders([]); // gagal = kosong
   }
 }
 
+// Inisialisasi awal halaman
 async function init() {
   console.log(">>> init() terpanggil dengan limit", currentLimit);
-  document.getElementById("limitSelect").addEventListener("change", (e) => {
-    currentLimit = parseInt(e.target.value, 10);
-    currentPage = 1;
-    loadAndRender();
-  });
-
   await loadAndRender();
 }
-
 init();
 
+// Tombol cari/filter
 document.getElementById("btn-find").addEventListener("click", async (e) => {
   e.preventDefault();
 
@@ -259,28 +241,48 @@ document.getElementById("btn-find").addEventListener("click", async (e) => {
 
   const filters = {};
   inputs.forEach((el) => {
-    if (el.value && el.name) {
-      filters[el.name] = el.value;
+    if (el.value && el.name && el.value.trim() !== "") {
+      filters[el.name] = el.value.trim();
     }
   });
 
   currentFilters = filters;
   currentPage = 1;
-
-  try {
-    const resp = await getOrder(currentPage, currentLimit, currentFilters);
-    if (resp.status !== "success") return console.warn(resp.message);
-
-    totalPages = Math.ceil(resp.total / currentLimit);
-    renderOrders(resp.data);
-    renderPagination();
-  } catch (err) {
-    console.error("Gagal mengambil orders dengan filter:", err);
-  }
+  await loadAndRender();
 });
 
-// toggle filter
+// Toggle tampilan form filter
 document.getElementById("btn-filter").addEventListener("click", () => {
-  const filterForm = document.querySelector(".sejoli-form-filter-holder");
-  filterForm.classList.toggle("hidden");
+  document.querySelector(".sejoli-form-filter-holder").classList.toggle("show");
+});
+
+// plugin date range picker
+$(function () {
+  $("#date-range-picker").daterangepicker(
+    {
+      opens: "left",
+      autoUpdateInput: true,
+      locale: {
+        format: "YYYY-MM-DD",
+        cancelLabel: "Clear",
+      },
+      ranges: {
+        Today: [moment(), moment()],
+        "Last 7 Days": [moment().subtract(6, "days"), moment()],
+        "Last 15 Days": [moment().subtract(14, "days"), moment()],
+        "Last 30 Days": [moment().subtract(29, "days"), moment()],
+        "This Month": [moment().startOf("month"), moment().endOf("month")],
+        "Last 3 Months": [moment().subtract(3, "months"), moment()],
+        "Last 6 Months": [moment().subtract(6, "months"), moment()],
+        "Last 1 Year": [moment().subtract(1, "year"), moment()],
+        "Last 2 Years": [moment().subtract(2, "years"), moment()],
+        "Custom Range": [],
+      },
+    },
+    function (start, end, label) {
+      $("#date-range-picker").val(
+        start.format("YYYY-MM-DD") + " - " + end.format("YYYY-MM-DD")
+      );
+    }
+  );
 });

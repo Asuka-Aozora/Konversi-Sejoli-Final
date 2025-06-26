@@ -120,7 +120,7 @@
               </div>
 
               <!-- Filter Form Container -->
-              <div class="sejoli-form-filter-holder sejoli-form-float hidden">
+              <div class="sejoli-form-filter-holder sejoli-form-float">
                 <div class="form-grid grid gap-4 mb-4 sm:grid-cols-2">
                   <!-- Order ID input -->
                   <input
@@ -134,6 +134,7 @@
                   <input
                     type="text"
                     name="date-range"
+                    id="date-range-picker"
                     value="2025-05-23 - 2025-06-22"
                     placeholder="Search by date"
                     class="form-input"
@@ -279,6 +280,13 @@
               <tbody id="orders-tbody">
                 <!-- isian order -->
               </tbody>
+              <!-- Placeholder kalau datanya kosong -->
+              <div
+                id="no-data-placeholder"
+                class="text-center text-slate-500 py-10 hidden"
+              >
+                No data to display.
+              </div>
             </table>
           </div>
           <!-- END: Data List -->
