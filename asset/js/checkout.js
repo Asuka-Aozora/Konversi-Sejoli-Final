@@ -1,26 +1,36 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const inputPhone = document.querySelector("#phone");
-  const emailInput = document.getElementById("email");
-  const passwordWrapper = document.getElementById("password-wrapper");
-  const productSelect = document.getElementById("product");
-  const quantityInput = document.getElementById("quantity");
-  const showCoupon = document.getElementById("show-coupon");
-  const inpCoupon = document.querySelector(".inp-coupon");
-  const productCount = document.getElementById("product-count");
-  const subtotal = document.getElementById("subtotal");
-  const couponDiscount = document.getElementById("coupon-discount");
-  const total = document.getElementById("total");
-  const applyCouponBtn = document.querySelector(".apply");
+  // ============================
+  // 0. REFERENSI SEMUA ELEMEN
+  // ============================
+  const inputPhone = document.querySelector("#phone"); // input telepon
+  const emailInput = document.getElementById("email"); // input email
+  const nameInput = document.getElementById("name"); // input nama
+  const passwordWrapper = document.getElementById("password-wrapper"); // wrapper password
+  const productSelect = document.getElementById("product"); // dropdown produk
+  const quantityInput = document.getElementById("quantity"); // input jumlah
+  const showCouponBtn = document.getElementById("show-coupon"); // tombol tampilkan kupon
+  const couponWrapper = document.querySelector(".inp-coupon"); // area input kupon
+  const couponInput = document.getElementById("coupon-code"); // input kode kupon
+  const applyCouponBtn = document.querySelector(".apply"); // tombol apply kupon
+  const productCount = document.getElementById("product-count"); // elemen teks ringkasan produk
+  const subtotalEl = document.getElementById("subtotal"); // elemen subtotal
+  const couponDiscountEl = document.getElementById("coupon-discount"); // elemen diskon kupon
+  const totalEl = document.getElementById("total"); // elemen grand total
+  const paymentContainer = document.getElementById("payment-methods"); // container metode bayar
+  const btnCheckout = document.getElementById("btn-checkout"); // tombol checkout
 
-  // state
-  let username = "";
-  let email = "";
+  // ============================
+  // 1. STATE & CONFIG
+  // ============================
+  let username = ""; // simpan nama user
+  let availableCoupons = []; // simpan daftar kupon dari server
 
+  const BASE_URL = localStorage.getItem("base_url_api"); // base url API
+  const token = getCookie("token"); // token auth
 
-  const BASE_URL = localStorage.getItem("base_url_api");
-  const token = getCookie("token");
-
-  // ========== 1. Init TelInput ==========
+  // ============================
+  // 2. INISIALISASI TELEPON
+  // ============================
   window.intlTelInput(inputPhone, {
     initialCountry: "id",
     separateDialCode: true,
@@ -29,202 +39,80 @@ document.addEventListener("DOMContentLoaded", function () {
   });
   const iti = window.intlTelInputGlobals.getInstance(inputPhone);
 
-  // ========== 2. Get Users from API ==========
-  async function fetchRegisteredEmails() {
+  // ============================
+  // 3. FUNGSIONALITAS FETCH DATA
+  // ============================
+
+  // 3.a. Ambil daftar produk
+  async function fetchProducts() {
     try {
-      const res = await fetch(`${BASE_URL}/users`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: token,
-        },
+      const res = await fetch(`${BASE_URL}/get-products`, {
+        headers: { "Content-Type": "application/json", Authorization: token },
       });
-
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const result = await res.json();
-
-      console.log("🔍 Response user data:", result);
-
-      const usersArray = result.data; // ambil array user dari key `data`
-
-      if (!Array.isArray(usersArray)) {
-        throw new Error("Format data tidak sesuai (data bukan array)");
-      }
-
-      // ambil dan normalisasi email
-      return usersArray
-        .map((user) => user.user_email?.toLowerCase().trim())
-        .filter(Boolean); // hilangkan null/undefined
+      const { err, data, msg } = await res.json();
+      if (err) throw new Error(msg);
+      return data; // [{id, name, price}, …]
     } catch (error) {
-      console.error("Gagal mengambil data user:", error);
-      return []; // fallback empty array
+      console.error("Gagal load produk:", error);
+      return [];
     }
   }
 
-  // ========== 3. Email onBlur Check ==========
-  emailInput.addEventListener("blur", async () => {
-    const email = emailInput.value.trim().toLowerCase();
-
-    if (!email) return;
-
-    // reset tampilan
-    emailInput.classList.remove("isUser", "isNotUser");
-
-    // cek ke server
-    const registeredEmails = await fetchRegisteredEmails();
-    const isRegistered = registeredEmails.includes(email);
-
-    if (isRegistered) {
-      emailInput.classList.add("isUser");
-      passwordWrapper.classList.add("hidden");
-    } else {
-      emailInput.classList.add("isNotUser");
-      passwordWrapper.classList.remove("hidden");
-    }
-  });
-
-  // ========== 3.5. Name onBlur Check ==========
-  const nameInput = document.getElementById("name");
-  nameInput.addEventListener("blur", () => {
-    const name = nameInput.value.trim();
-    console.log("Name input value:", name);
-    if (name) {
-      username = name; // simpan ke state
-      nameInput.classList.remove("isNotUser");
-    } else {
-      nameInput.classList.add("isNotUser");
-    }
-    
-  });
-
-  // ========== 4. Product Select ==========
-  
-  const selectProduct = [
-    { id: "crm1", name: "Woowa CRM Monthly (Rp 179,000)", price: 179000 },
-    {
-      id: "crm3",
-      name: "Woowa CRM 3 Monthly (Rp 133,400/bulan)",
-      price: 133400,
-    },
-    {
-      id: "crm6",
-      name: "Woowa CRM 6 Monthly (Rp 100,000/bulan)",
-      price: 100000,
-    },
-    {
-      id: "crm12",
-      name: "Woowa CRM 12 Monthly (Rp 80,000/bulan)",
-      price: 80000,
-    },
-  ];
-
-  selectProduct.forEach((product) => {
-    const option = document.createElement("option");
-    option.value = product.id;
-    option.textContent = product.name;
-    option.dataset.price = product.price;
-    productSelect.appendChild(option);
-  });
-
-  // ========== 5. Quantity Limit ==========
-  quantityInput.addEventListener("input", () => {
-    if (quantityInput.value > 3) {
-      quantityInput.value = 3;
-    }
-  });
-
-  // ========== 6. Show Coupon Input ==========
-  showCoupon.addEventListener("click", (e) => {
-    e.preventDefault();
-    inpCoupon.classList.remove("hidden");
-  });
-
-  const couponInput = document.getElementById("coupon-code"); // input manual
-  let availableCoupons = [];
-
+  // 3.b. Ambil daftar kupon
   async function fetchCoupons() {
     try {
       const res = await fetch(`${BASE_URL}/get-cp`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: token,
-        },
+        headers: { "Content-Type": "application/json", Authorization: token },
       });
-
-      const result = await res.json();
-      availableCoupons = result.data || [];
-
-      console.log("✅ Coupons Loaded:", availableCoupons);
-    } catch (error) {
-      console.error("❌ Gagal fetch coupons:", error);
+      const { data } = await res.json();
+      availableCoupons = data || [];
+    } catch (err) {
+      console.error("Gagal load kupon:", err);
     }
   }
 
-  applyCouponBtn.addEventListener("click", () => {
-    const enteredCode = couponInput.value.trim().toUpperCase();
-
-    const match = availableCoupons.find(
-      (c) => c.code.toUpperCase() === enteredCode
-    );
-
-    if (match && match.discount) {
-      const selectedOption = productSelect.options[productSelect.selectedIndex];
-      const price = parseInt(selectedOption.dataset.price || 0);
-      const quantity = parseInt(quantityInput.value || 1);
-      const sub = price * quantity;
-
-      let discount = 0;
-
-      if (match.discount.type === "percentage") {
-        discount = Math.floor((match.discount.value / 100) * sub);
-      } else if (match.discount.type === "amount") {
-        discount = parseInt(match.discount.value);
-      }
-
-      couponDiscount.textContent = formatRupiah(discount);
-      calculateTotal();
-
-      // Optional: kasih feedback
-      alert(`Kupon berhasil diterapkan: -${formatRupiah(discount)}`);
-    } else {
-      couponDiscount.textContent = "Rp0";
-      calculateTotal();
-
-      alert("❌ Kupon tidak valid atau tidak ditemukan.");
+  // 3.c. Ambil & render metode pembayaran
+  async function loadPaymentMethods() {
+    try {
+      const res = await fetch(`${BASE_URL}/get-payment-methods`, {
+        headers: { "Content-Type": "application/json", Authorization: token },
+      });
+      const { data: methods } = await res.json();
+      paymentContainer.innerHTML = ""; // kosongkan dulu
+      methods.forEach((m) => {
+        // buat satu label per metode
+        const label = document.createElement("label");
+        label.className = `cursor-pointer ${
+          m.code === "bca-direct" ? "block1" : "block"
+        }`;
+        label.innerHTML = `
+          <div class="${m.code === "bca-direct" ? "p-4" : "bank p-4"}">
+            <div class="flex items-center gap-3">
+              <input type="radio" name="payment" value="${
+                m.code
+              }" class="sr-only" required>
+              <span>${m.name}</span>
+            </div>
+            ${
+              m.description
+                ? `<div class="direct mt-3 px-5 pb-3 text-sm">${m.description}</div>`
+                : m.icon
+                ? `<div class="w-12 h-[25px] overflow-hidden">
+                     <img src="${m.icon}" alt="${m.name}" class="object-contain h-full w-full">
+                   </div>`
+                : ""
+            }
+          </div>`;
+        paymentContainer.appendChild(label);
+      });
+    } catch (err) {
+      console.error("Gagal load metode pembayaran:", err);
     }
-  });
+  }
 
-  couponInput.addEventListener("input", () => {
-    const enteredCode = couponInput.value.trim().toUpperCase();
-
-    const match = availableCoupons.find(
-      (c) => c.code.toUpperCase() === enteredCode
-    );
-
-    if (match && match.discount) {
-      const selectedOption = productSelect.options[productSelect.selectedIndex];
-      const price = parseInt(selectedOption.dataset.price || 0);
-      const quantity = parseInt(quantityInput.value || 1);
-      const sub = price * quantity;
-
-      let discount = 0;
-
-      if (match.discount.type === "percentage") {
-        discount = Math.floor((match.discount.value / 100) * sub);
-      } else if (match.discount.type === "amount") {
-        discount = parseInt(match.discount.value);
-      }
-
-      couponDiscount.textContent = formatRupiah(discount);
-    } else {
-      couponDiscount.textContent = "Rp0";
-    }
-
-    calculateTotal();
-  });
-
-  // ========== 7. Hitung Total ==========
+  // ============================
+  // 4. UTILITY: FORMAT & HITUNG
+  // ============================
   function formatRupiah(num) {
     return new Intl.NumberFormat("id-ID", {
       style: "currency",
@@ -234,125 +122,143 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function calculateTotal() {
-    const selectedOption = productSelect.options[productSelect.selectedIndex];
-    const price = parseInt(selectedOption.dataset.price || 0);
-    const quantity = parseInt(quantityInput.value || 1);
-    const coupon =
-      parseInt(couponDiscount.textContent.replace(/[^\d]/g, "")) || 0;
+    // baca harga & qty
+    const opt = productSelect.selectedOptions[0];
+    const price = parseInt(opt?.dataset.price || 0, 10);
+    const qty = Math.min(+quantityInput.value || 1, 3);
+    const sub = price * qty;
+    // baca diskon yang sudah disimpan
+    const coupon = parseInt(couponDiscountEl.dataset.value || 0, 10);
+    const grand = sub - coupon;
 
-    const sub = price * quantity;
-    const grandTotal = sub - coupon;
-
-    productCount.innerHTML = `${selectedOption.text} <span>x</span> ${quantity}`;
-    subtotal.textContent = formatRupiah(sub);
-    total.textContent = formatRupiah(grandTotal);
+    // update UI
+    productCount.innerHTML = `${opt.textContent} <span>x</span> ${qty}`;
+    subtotalEl.textContent = formatRupiah(sub);
+    totalEl.textContent = formatRupiah(grand);
   }
 
-  productSelect.addEventListener("change", calculateTotal);
-  quantityInput.addEventListener("input", calculateTotal);
-  fetchCoupons();
+  // ============================
+  // 5. EVENT HANDLERS
+  // ============================
 
-  // ========== 8. Load Payment Methods ==========
-  async function loadPaymentMethods() {
-    const container = document.getElementById("payment-methods");
-    try {
-      const res = await fetch(`${BASE_URL}/get-payment-methods`, {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: token,
-        },
-      });
+  // 5.a. Email blur → cek terdaftar?
+  emailInput.addEventListener("blur", async () => {
+    const mail = emailInput.value.trim().toLowerCase();
+    if (!mail) return;
+    emailInput.classList.remove("isUser", "isNotUser");
 
-      const result = await res.json();
-      const methods = result.data || [];
+    // fetch user list
+    const res = await fetch(`${BASE_URL}/users`, {
+      headers: { "Content-Type": "application/json", Authorization: token },
+    });
+    const { data = [] } = await res.json().catch(() => ({}));
+    const list = data
+      .map((u) => u.user_email?.toLowerCase().trim())
+      .filter(Boolean);
 
-      container.innerHTML = ""; // Kosongkan dulu
-      methods.forEach((m) => {
-        const label = document.createElement("label");
-        label.className = `cursor-pointer ${
-          m.code === "bca-direct" ? "block1" : "block"
-        }`;
-
-        // Isi div utama
-        const inner = document.createElement("div");
-        inner.className = m.code === "bca-direct" ? "p-4" : "bank p-4";
-
-        const topRow = document.createElement("div");
-        topRow.className = "flex items-center gap-3";
-
-        const input = document.createElement("input");
-        input.type = "radio";
-        input.name = "payment";
-        input.value = m.code;
-        input.className = "sr-only";
-        input.required = true;
-
-        const span = document.createElement("span");
-        span.textContent = m.name;
-
-        topRow.appendChild(input);
-        topRow.appendChild(span);
-
-        inner.appendChild(topRow);
-
-        // Jika ada deskripsi → hanya untuk direct transfer
-        if (m.description) {
-          const desc = document.createElement("div");
-          desc.className = "direct mt-3 px-5 pb-3 text-sm";
-          desc.textContent = m.description;
-          inner.appendChild(desc);
-        }
-
-        // Jika ada icon
-        if (m.icon && !m.description) {
-          const imgWrap = document.createElement("div");
-          imgWrap.className = "w-12 h-[25px] overflow-hidden";
-
-          const img = document.createElement("img");
-          img.src = m.icon;
-          img.alt = m.name;
-          img.className = "object-contain h-full w-full";
-
-          imgWrap.appendChild(img);
-          inner.appendChild(imgWrap);
-        }
-
-        label.appendChild(inner);
-        container.appendChild(label);
-      });
-    } catch (error) {
-      console.error("❌ Gagal memuat metode pembayaran:", error);
+    if (list.includes(mail)) {
+      emailInput.classList.add("isUser");
+      passwordWrapper.classList.add("hidden");
+    } else {
+      emailInput.classList.add("isNotUser");
+      passwordWrapper.classList.remove("hidden");
     }
-  }
+  });
 
-  // ========== 9. Submit Form ==========
-  const btnCheckout = document.getElementById("btn-checkout");
+  // 5.b. Name blur → simpan ke state
+  nameInput.addEventListener("blur", () => {
+    const v = nameInput.value.trim();
+    if (v) {
+      username = v;
+      nameInput.classList.remove("isNotUser");
+    } else {
+      nameInput.classList.add("isNotUser");
+    }
+  });
+
+  // 5.c. Batas jumlah → max 3, lalu hitung total
+  quantityInput.addEventListener("input", () => {
+    if (+quantityInput.value > 3) quantityInput.value = 3;
+    calculateTotal();
+  });
+
+  // 5.d. Produk berubah → hitung total
+  productSelect.addEventListener("change", calculateTotal);
+
+  // 5.e. Klik “Tampilkan Kupon”
+  showCouponBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    couponWrapper.classList.remove("hidden");
+  });
+
+  // 5.f. Klik “Apply Kupon”
+  applyCouponBtn.addEventListener("click", () => {
+    const code = couponInput.value.trim().toUpperCase();
+    const found = availableCoupons.find((c) => c.code.toUpperCase() === code);
+    let discount = 0;
+
+    if (found && found.discount) {
+      const opt = productSelect.selectedOptions[0];
+      const price = parseInt(opt.dataset.price, 10);
+      const qty = parseInt(quantityInput.value, 10) || 1;
+      const sub = price * qty;
+
+      // hitung diskon
+      discount =
+        found.discount.type === "percentage"
+          ? Math.floor((found.discount.value / 100) * sub)
+          : parseInt(found.discount.value, 10);
+
+      couponDiscountEl.textContent = formatRupiah(discount);
+      couponDiscountEl.dataset.value = discount;
+      alert(`Kupon diterapkan: -${formatRupiah(discount)}`);
+    } else {
+      couponDiscountEl.textContent = "Rp0";
+      couponDiscountEl.dataset.value = 0;
+      alert("Kupon tidak valid.");
+    }
+    calculateTotal();
+  });
+
+  // 5.g. Klik “Checkout” → kumpulkan payload
   btnCheckout.addEventListener("click", async (e) => {
     e.preventDefault();
-    // ambil semua value
-    const product_id = productSelect.value;
-    const quantity = parseInt(quantityInput.value, 10);
-    const user_id = username; // kalau kamu simpan di state
-    const user_email = emailInput.value.trim();
-    const phone = iti.getNumber(); // intlTelInput instance
-    const grand_total = parseInt(total.textContent.replace(/[^\d]/g, ""), 10);
-    const bank = document.querySelector("input[name=payment]:checked").value;
+    const payload = {
+      product_id: productSelect.value,
+      quantity: parseInt(quantityInput.value, 10) || 1,
+      user_id: username,
+      user_email: emailInput.value.trim(),
+      phone: iti.getNumber(),
+      grand_total: parseInt(totalEl.textContent.replace(/[^\d]/g, ""), 10),
+      bank: document.querySelector("input[name=payment]:checked")?.value,
+    };
 
-    // log
-    console.groupCollapsed("Checkout Data");
-    console.log(`Product ID: ${product_id}`);
-    console.log(`Quantity: ${quantity}`);
-    console.log(`Username: ${user_id}`);
-    console.log(`Email: ${user_email}`);
-    console.log(`Phone: ${phone}`);
-    console.log(`Grand Total: ${grand_total}`);
-    console.log(`Bank: ${bank}`);
+    console.group("Checkout Data");
+    Object.entries(payload).forEach(([k, v]) => console.log(`${k}:`, v));
     console.groupEnd();
 
+    // nanti tinggal aktifkan endpoint /checkout
   });
-  
 
-  // panggil di init
-  loadPaymentMethods();
+  // ============================
+  // 6. INIT: PANGGIL SEMUA FETCH
+  // ============================
+  (async function init() {
+    // 1) load produk
+    const products = await fetchProducts();
+    productSelect.innerHTML = `<option disabled selected>Pilih produk…</option>`;
+    products.forEach((p) => {
+      const opt = document.createElement("option");
+      opt.value = p.id;
+      opt.textContent = `${p.name} (Rp ${Number(p.price).toLocaleString()})`;
+      opt.dataset.price = p.price;
+      productSelect.appendChild(opt);
+    });
+
+    // 2) load kupon
+    await fetchCoupons();
+
+    // 3) load metode bayar
+    await loadPaymentMethods();
+  })();
 });
-
