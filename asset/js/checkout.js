@@ -12,6 +12,11 @@ document.addEventListener("DOMContentLoaded", function () {
   const total = document.getElementById("total");
   const applyCouponBtn = document.querySelector(".apply");
 
+  // state
+  let username = "";
+  let email = "";
+
+
   const BASE_URL = localStorage.getItem("base_url_api");
   const token = getCookie("token");
 
@@ -22,6 +27,7 @@ document.addEventListener("DOMContentLoaded", function () {
     utilsScript:
       "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.17/js/utils.js",
   });
+  const iti = window.intlTelInputGlobals.getInstance(inputPhone);
 
   // ========== 2. Get Users from API ==========
   async function fetchRegisteredEmails() {
@@ -77,7 +83,22 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
+  // ========== 3.5. Name onBlur Check ==========
+  const nameInput = document.getElementById("name");
+  nameInput.addEventListener("blur", () => {
+    const name = nameInput.value.trim();
+    console.log("Name input value:", name);
+    if (name) {
+      username = name; // simpan ke state
+      nameInput.classList.remove("isNotUser");
+    } else {
+      nameInput.classList.add("isNotUser");
+    }
+    
+  });
+
   // ========== 4. Product Select ==========
+  
   const selectProduct = [
     { id: "crm1", name: "Woowa CRM Monthly (Rp 179,000)", price: 179000 },
     {
@@ -304,7 +325,31 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
+  // ========== 9. Submit Form ==========
+  const btnCheckout = document.getElementById("btn-checkout");
+  btnCheckout.addEventListener("click", async (e) => {
+    e.preventDefault();
+    // ambil semua value
+    const product_id = productSelect.value;
+    const quantity = parseInt(quantityInput.value, 10);
+    const user_id = username; // kalau kamu simpan di state
+    const user_email = emailInput.value.trim();
+    const phone = iti.getNumber(); // intlTelInput instance
+    const grand_total = parseInt(total.textContent.replace(/[^\d]/g, ""), 10);
+    const bank = document.querySelector("input[name=payment]:checked").value;
 
+    // log
+    console.groupCollapsed("Checkout Data");
+    console.log(`Product ID: ${product_id}`);
+    console.log(`Quantity: ${quantity}`);
+    console.log(`Username: ${user_id}`);
+    console.log(`Email: ${user_email}`);
+    console.log(`Phone: ${phone}`);
+    console.log(`Grand Total: ${grand_total}`);
+    console.log(`Bank: ${bank}`);
+    console.groupEnd();
+
+  });
   
 
   // panggil di init
