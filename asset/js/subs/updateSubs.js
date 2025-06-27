@@ -28,7 +28,7 @@ async function updateSubs() {
     const token = getCookie("token");
 
     const response = await fetch(`${BASE_URL}/update-subs`, {
-      method: "PUT",
+      method: "PATCH",
       headers: {
         "Content-Type": "application/json",
         Authorization: token,

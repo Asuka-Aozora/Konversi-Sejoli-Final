@@ -29,8 +29,17 @@ async function getOrder(page, limit, filters = {}) {
     },
   });
 
-  if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  return await res.json();
+  if (!res.ok) {
+    throw new Error(`HTTP ${res.status}`);
+  }
+  console.log(" cek res:", res);
+  
+  const json = await res.json();
+
+  console.log("getOrder response:", json);
+  
+  return json;
+
 }
 
 // Render daftar order ke dalam <tbody>
