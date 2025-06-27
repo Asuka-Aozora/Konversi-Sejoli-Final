@@ -33,7 +33,13 @@ function login() {
       // data di sini sudah berupa objek hasil parse JSON dari server
       //   console.log("Login response:", r.data.token);
       if (r.status === "success") {
+        console.log(`data:`, r.data);
+        
         setCookie("token", r.data.token, 1);
+        console.log(`Login successful for user ${r.data.user.ID}`);
+        console.log("typeof userId:", typeof r.data.user.ID);
+
+        setCookie("userId", r.data.user.ID, 1);
         window.location.href = "/dashboard";
       } else {
         alert(r.message);

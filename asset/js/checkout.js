@@ -5,7 +5,9 @@ document.addEventListener("DOMContentLoaded", function () {
   const inputPhone = document.querySelector("#phone"); // input telepon
   const emailInput = document.getElementById("email"); // input email
   const nameInput = document.getElementById("name"); // input nama
-  const passwordWrapper = document.getElementById("password-wrapper"); // wrapper password
+  const passwordInput = document.getElementById("passwordCK"); // input password
+  const togglePassword = document.getElementById("toggle-password"); // tombol show/hide
+  const passwordWrapper = document.getElementById("password-wrapper"); // wrapper input password
   const productSelect = document.getElementById("product"); // dropdown produk
   const quantityInput = document.getElementById("quantity"); // input jumlah
   const showCouponBtn = document.getElementById("show-coupon"); // tombol tampilkan kupon
@@ -24,6 +26,8 @@ document.addEventListener("DOMContentLoaded", function () {
   // ============================
   let username = ""; // simpan nama user
   let availableCoupons = []; // simpan daftar kupon dari server
+  let appliedCouponId = null;
+  let userId = null; // simpan user ID jika ada
 
   const BASE_URL = localStorage.getItem("base_url_api"); // base url API
   const token = getCookie("token"); // token auth
@@ -62,6 +66,7 @@ document.addEventListener("DOMContentLoaded", function () {
   async function fetchCoupons() {
     try {
       const res = await fetch(`${BASE_URL}/get-cp`, {
+        method: "GET",
         headers: { "Content-Type": "application/json", Authorization: token },
       });
       const { data } = await res.json();
@@ -163,6 +168,23 @@ document.addEventListener("DOMContentLoaded", function () {
       emailInput.classList.add("isNotUser");
       passwordWrapper.classList.remove("hidden");
     }
+
+    if (emailInput.classList.contains("isUser")) {
+      const res = await fetch(`${BASE_URL}/check-user`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+        body: JSON.stringify({ email: emailInput.value.trim().toLowerCase() }),
+      });
+      const { data } = await res.json();
+      userId = data.exists ? data.user_id : null;
+      console.log("Existing userId:", userId);
+      passwordWrapper.classList.add("hidden");
+    } else {
+      passwordWrapper.classList.remove("hidden");
+    }
   });
 
   // 5.b. Name blur → simpan ke state
@@ -203,11 +225,17 @@ document.addEventListener("DOMContentLoaded", function () {
       const qty = parseInt(quantityInput.value, 10) || 1;
       const sub = price * qty;
 
+      console.log("Available coupons:", availableCoupons);
+      console.log("Input code:", code);
+      console.log("Matched coupon:", found);
+
       // hitung diskon
       discount =
         found.discount.type === "percentage"
           ? Math.floor((found.discount.value / 100) * sub)
           : parseInt(found.discount.value, 10);
+
+      appliedCouponId = found?.ID;
 
       couponDiscountEl.textContent = formatRupiah(discount);
       couponDiscountEl.dataset.value = discount;
@@ -220,15 +248,78 @@ document.addEventListener("DOMContentLoaded", function () {
     calculateTotal();
   });
 
-  // 5.g. Klik “Checkout” → kumpulkan payload
+  // 5.g. Toggle Show/Hide Password
+  togglePassword.addEventListener("click", () => {
+    // jika type nya "password", ubah jadi "text", dan baliknya
+    const isHidden = passwordInput.type === "password";
+    passwordInput.type = isHidden ? "text" : "password";
+    // ubah ikon kalau mau
+    togglePassword.textContent = isHidden ? "🙈" : "👁️";
+  });
+
+  // ============================
+  // 6. Register before checkout
+  // ============================
+
+  async function register() {
+    try {
+      const res = await fetch(`${BASE_URL}/register`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Authorization: token },
+        body: JSON.stringify({
+          display_name: username,
+          user_email: emailInput.value.trim(),
+          password: passwordInput.value,
+          phone: iti.getNumber(),
+        }),
+      });
+      const data = await res.json();
+      if (data.code !== 200) {
+        throw new Error(data.message || "Gagal register");
+      }
+      userId = data?.data.user_id;
+      console.log("User registered:", data?.data);
+      setCookie("user_id", userId);
+      console.log("User ID:", userId);
+      alert("Pendaftaran berhasil! Silakan lanjutkan checkout.");
+      return data?.data;
+    } catch (err) {
+      console.error("Gagal register:", err);
+      alert("Gagal mendaftar. Silakan coba lagi. " + err.message);
+      return null;
+    }
+  }
+
+  // 7. Klik “Checkout” → kumpulkan payload
   btnCheckout.addEventListener("click", async (e) => {
     e.preventDefault();
+
+    // 1) Jika perlu register
+    if (emailInput.classList.contains("isNotUser")) {
+      if (!username || !emailInput.value || !passwordInput.value) {
+        return alert("Nama, email, dan password wajib diisi!");
+      }
+      const user = await register();
+      if (!user) return; // batal kalau gagal
+    }
+
+    // 2) Pastikan userId ada
+    if (!userId) {
+      return alert(
+        "User ID tidak ditemukan. Silakan login atau register dulu."
+      );
+    }
+
+    // 3) Siapkan payload
     const payload = {
       product_id: productSelect.value,
       quantity: parseInt(quantityInput.value, 10) || 1,
-      user_id: username,
+      user_id: userId || null,
+      display_name: username,
       user_email: emailInput.value.trim(),
+      password: passwordInput.value || null,
       phone: iti.getNumber(),
+      coupon_id: appliedCouponId,
       grand_total: parseInt(totalEl.textContent.replace(/[^\d]/g, ""), 10),
       bank: document.querySelector("input[name=payment]:checked")?.value,
     };
@@ -237,7 +328,29 @@ document.addEventListener("DOMContentLoaded", function () {
     Object.entries(payload).forEach(([k, v]) => console.log(`${k}:`, v));
     console.groupEnd();
 
-    // nanti tinggal aktifkan endpoint /checkout
+    // 4) Kirim ke backend
+    try {
+      const res = await fetch(`${BASE_URL}/checkout`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+      console.log("Checkout response:", data.code);
+      if (data.code === 200) {
+        alert("Checkout berhasil! Order ID: " + data.data.orderId);
+        // redirect ke halaman thank-you jika perlu
+        window.location.href = `/thank-you?order=${data.data.orderId}`;
+      } else {
+        throw new Error("Checkout gagal");
+      }
+    } catch (err) {
+      console.error("Checkout error:", err);
+      alert(err.message);
+    }
   });
 
   // ============================
