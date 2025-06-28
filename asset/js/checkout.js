@@ -28,6 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let availableCoupons = []; // simpan daftar kupon dari server
   let appliedCouponId = null;
   let userId = null; // simpan user ID jika ada
+  let maxQuantity = 3; // batas jumlah produk, default 3
 
   const BASE_URL = localStorage.getItem("base_url_api"); // base url API
   const token = getCookie("token"); // token auth
@@ -198,9 +199,41 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // 5.c. Batas jumlah → max 3, lalu hitung total
+  // 5.c. Batas jumlah → max sesuai database, lalu hitung total
+  async function fetchMaxQuantity(productId) {
+    try {
+      const res = await fetch(`${BASE_URL}/get-product-quantity/${productId}`, {
+        headers: { "Content-Type": "application/json", Authorization: token },
+      });
+      const { data } = await res.json();
+      return data?.max_quantity || 3; // default 3 kalau server gak ngasih
+    } catch (err) {
+      console.error("Gagal fetch max quantity:", err);
+      return 3;
+    }
+  }
+
+  // Saat produk berubah, ambil limit baru & hitung ulang
+  productSelect.addEventListener("change", async () => {
+    const productId = productSelect.value;
+    // 1) fetch limit dari server
+    maxQuantity = await fetchMaxQuantity(productId);
+    // 2) jika current input > maxQuantity, kembalikan ke max
+    if (+quantityInput.value > maxQuantity) {
+      quantityInput.value = maxQuantity;
+    }
+    // 3) update total
+    calculateTotal();
+  });
+
+  // Batasi input quantity sesuai maxQuantity
   quantityInput.addEventListener("input", () => {
-    if (+quantityInput.value > 3) quantityInput.value = 3;
+    const val = +quantityInput.value || 1;
+    if (val > maxQuantity) {
+      quantityInput.value = maxQuantity;
+    } else if (val < 1) {
+      quantityInput.value = 1;
+    }
     calculateTotal();
   });
 
