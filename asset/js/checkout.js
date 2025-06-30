@@ -24,11 +24,12 @@ document.addEventListener("DOMContentLoaded", function () {
   // ============================
   // 1. STATE & CONFIG
   // ============================
-  let username = ""; // simpan nama user
-  let availableCoupons = []; // simpan daftar kupon dari server
+  let username = ""; 
+  let availableCoupons = []; 
   let appliedCouponId = null;
-  let userId = null; // simpan user ID jika ada
-  let maxQuantity = 3; // batas jumlah produk, default 3
+  let userId = null; 
+  let maxQuantity = 3; // default 3
+  let orderId = null; 
 
   const BASE_URL = localStorage.getItem("base_url_api"); // base url API
   const token = getCookie("token"); // token auth
@@ -62,6 +63,31 @@ document.addEventListener("DOMContentLoaded", function () {
       return [];
     }
   }
+
+  // Ambil order ID 
+  async function fetchOrderId() {
+    
+    try {
+      const res = await fetch(`${BASE_URL}/get-orders`, {
+        method: "GET",
+        headers: { "Content-Type": "application/json", Authorization: token },
+      });
+
+      const data = await res.json();
+      if (data.code !== 200) {
+        throw new Error(data.message || "Gagal mengambil ID orders");
+      }
+
+      orderId = data?.data[0]?.ID || null;
+      console.log("Order ID:", orderId);
+      return data?.data.ID;
+    } catch (err) {
+      console.error("Gagal mengambil ID orders:", err);
+      alert("Gagal mengambil ID orders. Silakan coba lagi. " + err.message);
+      return null;
+    };
+  }
+
 
   // 3.b. Ambil daftar kupon
   async function fetchCoupons() {
@@ -345,6 +371,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // 3) Siapkan payload
     const payload = {
+      order_id: orderId,
       product_id: productSelect.value,
       quantity: parseInt(quantityInput.value, 10) || 1,
       user_id: userId || null,
@@ -372,17 +399,19 @@ document.addEventListener("DOMContentLoaded", function () {
         body: JSON.stringify(payload),
       });
       const data = await res.json();
-      console.log("Checkout response:", data.code);
+      console.log("Checkout response status:", data.code);
+      console.log("Checkout response data:", data.data);
+      console.log("Checkout response ID:", data?.data.order_id);
       if (data.code === 200) {
-        alert("Checkout berhasil! Order ID: " + data.data.orderId);
+        alert("Checkout berhasil! Order ID: " + data?.data.order_id);
         // redirect ke halaman thank-you jika perlu
-        window.location.href = `/thank-you?order=${data.data.orderId}`;
+        window.location.href = `/thank-you?order=${data?.data.order_id}`;
       } else {
         throw new Error("Checkout gagal");
       }
     } catch (err) {
       console.error("Checkout error:", err);
-      alert(err.message);
+      alert("test" + err.message);
     }
   });
 
@@ -406,5 +435,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // 3) load metode bayar
     await loadPaymentMethods();
+
+    // 4) ambil order ID
+    await fetchOrderId();
   })();
 });
