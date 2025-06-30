@@ -349,11 +349,70 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
+  // Fungsi untuk update quantity produk
+async function updateQuantity() {
+  try {
+    const res = await fetch(`${BASE_URL}/update-quantity`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token,
+      },
+      body: JSON.stringify({
+        post_id: productSelect.value,
+        quantity: parseInt(quantityInput.value, 10) || 1,
+      }),
+    });
+
+    const data = await res.json();
+
+    if (data.code !== 200) {
+      throw new Error(data.msg || "Gagal update quantity produk");
+    }
+
+    console.log("✅ Product quantity updated:", data.data);
+    return true; // sukses
+
+  } catch (err) {
+    console.error("❌ Gagal update quantity produk:", err);
+    alert("Gagal update quantity produk. Silakan coba lagi.\n" + err.message);
+    return false;
+  }
+}
+
+// Fungsi untuk kirim data checkout
+async function doCheckout(payload) {
+  try {
+    const res = await fetch(`${BASE_URL}/checkout`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token,
+      },
+      body: JSON.stringify(payload),
+    });
+
+    const data = await res.json();
+
+    if (data.code !== 200) {
+      throw new Error(data.msg || "Checkout gagal");
+    }
+
+    console.log("📦 Checkout berhasil:", data.data);
+    alert("Checkout berhasil! Order ID: " + data?.data.order_id);
+    // window.location.href = `/thank-you?order=${data?.data.order_id}`;
+  } catch (err) {
+    console.error("❌ Checkout error:", err);
+    alert("Checkout gagal:\n" + err.message);
+  }
+}
+
+
   // 7. Klik “Checkout” → kumpulkan payload
   btnCheckout.addEventListener("click", async (e) => {
     e.preventDefault();
 
-    // 1) Jika perlu register
+    // Validasi payload & isi user
     if (emailInput.classList.contains("isNotUser")) {
       if (!username || !emailInput.value || !passwordInput.value) {
         return alert("Nama, email, dan password wajib diisi!");
@@ -362,14 +421,12 @@ document.addEventListener("DOMContentLoaded", function () {
       if (!user) return; // batal kalau gagal
     }
 
-    // 2) Pastikan userId ada
     if (!userId) {
       return alert(
         "User ID tidak ditemukan. Silakan login atau register dulu."
       );
     }
 
-    // 3) Siapkan payload
     const payload = {
       order_id: orderId,
       product_id: productSelect.value,
@@ -384,36 +441,19 @@ document.addEventListener("DOMContentLoaded", function () {
       bank: document.querySelector("input[name=payment]:checked")?.value,
     };
 
-    console.group("Checkout Data");
+    console.group("📤 Payload Checkout:");
     Object.entries(payload).forEach(([k, v]) => console.log(`${k}:`, v));
     console.groupEnd();
 
-    // 4) Kirim ke backend
-    try {
-      const res = await fetch(`${BASE_URL}/checkout`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: token,
-        },
-        body: JSON.stringify(payload),
-      });
-      const data = await res.json();
-      console.log("Checkout response status:", data.code);
-      console.log("Checkout response data:", data.data);
-      console.log("Checkout response ID:", data?.data.order_id);
-      if (data.code === 200) {
-        alert("Checkout berhasil! Order ID: " + data?.data.order_id);
-        // redirect ke halaman thank-you jika perlu
-        window.location.href = `/thank-you?order=${data?.data.order_id}`;
-      } else {
-        throw new Error("Checkout gagal");
-      }
-    } catch (err) {
-      console.error("Checkout error:", err);
-      alert("test" + err.message);
-    }
+    // 1) Update quantity
+  const isStockUpdated = await updateQuantity();
+  if (!isStockUpdated) return;
+
+  // 2) Kirim checkout
+  await doCheckout(payload);
   });
+
+    
 
   // ============================
   // 6. INIT: PANGGIL SEMUA FETCH
