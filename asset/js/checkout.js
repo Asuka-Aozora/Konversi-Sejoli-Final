@@ -24,12 +24,12 @@ document.addEventListener("DOMContentLoaded", function () {
   // ============================
   // 1. STATE & CONFIG
   // ============================
-  let username = ""; 
-  let availableCoupons = []; 
+  let username = "";
+  let availableCoupons = [];
   let appliedCouponId = null;
-  let userId = null; 
-  let maxQuantity = 3; // default 3
-  let orderId = null; 
+  let userId = null;
+  let maxQuantity = 0; // default 3
+  let orderId = null;
 
   const BASE_URL = localStorage.getItem("base_url_api"); // base url API
   const token = getCookie("token"); // token auth
@@ -64,9 +64,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // Ambil order ID 
+  // Ambil order ID
   async function fetchOrderId() {
-    
     try {
       const res = await fetch(`${BASE_URL}/get-orders`, {
         method: "GET",
@@ -85,9 +84,8 @@ document.addEventListener("DOMContentLoaded", function () {
       console.error("Gagal mengambil ID orders:", err);
       alert("Gagal mengambil ID orders. Silakan coba lagi. " + err.message);
       return null;
-    };
+    }
   }
-
 
   // 3.b. Ambil daftar kupon
   async function fetchCoupons() {
@@ -154,10 +152,16 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function calculateTotal() {
+    console.log(
+      "calculateTotal(): maxQuantity",
+      maxQuantity,
+      "input:",
+      quantityInput.value
+    );
     // baca harga & qty
     const opt = productSelect.selectedOptions[0];
     const price = parseInt(opt?.dataset.price || 0, 10);
-    const qty = Math.min(+quantityInput.value || 1, 3);
+    const qty = Math.min(+quantityInput.value || 1, maxQuantity);
     const sub = price * qty;
     // baca diskon yang sudah disimpan
     const coupon = parseInt(couponDiscountEl.dataset.value || 0, 10);
@@ -232,7 +236,7 @@ document.addEventListener("DOMContentLoaded", function () {
         headers: { "Content-Type": "application/json", Authorization: token },
       });
       const { data } = await res.json();
-      return data?.max_quantity || 3; // default 3 kalau server gak ngasih
+      return typeof data?.max_quantity === "number" ? data.max_quantity : 3;
     } catch (err) {
       console.error("Gagal fetch max quantity:", err);
       return 3;
@@ -241,30 +245,35 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Saat produk berubah, ambil limit baru & hitung ulang
   productSelect.addEventListener("change", async () => {
-    const productId = productSelect.value;
-    // 1) fetch limit dari server
-    maxQuantity = await fetchMaxQuantity(productId);
-    // 2) jika current input > maxQuantity, kembalikan ke max
-    if (+quantityInput.value > maxQuantity) {
-      quantityInput.value = maxQuantity;
+    console.log("🔄 produk diganti:", productSelect.value);
+    maxQuantity = await fetchMaxQuantity(productSelect.value);
+    console.log("📦 maxQuantity set ke:", maxQuantity);
+    quantityInput.value = 1;
+    if (maxQuantity <= 0) {
+      alert("Produk habis…");
+      quantityInput.disabled = true;
+      btnCheckout.disabled = true;
+      productCount.textContent = "Stok: Habis";
+      subtotalEl.textContent = formatRupiah(0);
+      couponDiscountEl.textContent = formatRupiah(0);
+      totalEl.textContent = formatRupiah(0);
+    } else {
+      quantityInput.disabled = false;
+      btnCheckout.disabled = false;
+      calculateTotal(); // cukup panggil sekali
     }
-    // 3) update total
-    calculateTotal();
   });
 
-  // Batasi input quantity sesuai maxQuantity
+  // 2) Batasi input quantity sesuai maxQuantity
   quantityInput.addEventListener("input", () => {
-    const val = +quantityInput.value || 1;
-    if (val > maxQuantity) {
-      quantityInput.value = maxQuantity;
-    } else if (val < 1) {
-      quantityInput.value = 1;
-    }
+    console.log("input quantity:", quantityInput.value);
+    let val = +quantityInput.value || 1;
+    if (val > maxQuantity) val = maxQuantity;
+    else if (val < 1) val = 1;
+    quantityInput.value = val;
     calculateTotal();
   });
 
-  // 5.d. Produk berubah → hitung total
-  productSelect.addEventListener("change", calculateTotal);
 
   // 5.e. Klik “Tampilkan Kupon”
   showCouponBtn.addEventListener("click", (e) => {
@@ -281,8 +290,16 @@ document.addEventListener("DOMContentLoaded", function () {
     if (found && found.discount) {
       const opt = productSelect.selectedOptions[0];
       const price = parseInt(opt.dataset.price, 10);
-      const qty = parseInt(quantityInput.value, 10) || 1;
+      // BATASI pake maxQuantity, bukan hard‑coded 3
+      const qty = Math.min(+quantityInput.value || 1, maxQuantity);
       const sub = price * qty;
+      const couponVal = parseInt(couponDiscountEl.dataset.value || 0, 10);
+      const grand = sub - couponVal;
+
+      productCount.innerHTML = `${opt.textContent} <span>x</span> ${qty}`;
+      subtotalEl.textContent = formatRupiah(sub);
+      couponDiscountEl.textContent = formatRupiah(couponVal);
+      totalEl.textContent = formatRupiah(grand);
 
       console.log("Available coupons:", availableCoupons);
       console.log("Input code:", code);
@@ -350,63 +367,61 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // Fungsi untuk update quantity produk
-async function updateQuantity() {
-  try {
-    const res = await fetch(`${BASE_URL}/update-quantity`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: token,
-      },
-      body: JSON.stringify({
-        post_id: productSelect.value,
-        quantity: parseInt(quantityInput.value, 10) || 1,
-      }),
-    });
+  async function updateQuantity() {
+    try {
+      const res = await fetch(`${BASE_URL}/update-quantity`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+        body: JSON.stringify({
+          post_id: productSelect.value,
+          quantity: parseInt(quantityInput.value, 10) || 1,
+        }),
+      });
 
-    const data = await res.json();
+      const data = await res.json();
 
-    if (data.code !== 200) {
-      throw new Error(data.msg || "Gagal update quantity produk");
+      if (data.code !== 200) {
+        throw new Error(data.msg || "Gagal update quantity produk");
+      }
+
+      console.log("✅ Product quantity updated:", data.data);
+      return true; // sukses
+    } catch (err) {
+      console.error("❌ Gagal update quantity produk:", err);
+      alert("Gagal update quantity produk. Silakan coba lagi.\n" + err.message);
+      return false;
     }
-
-    console.log("✅ Product quantity updated:", data.data);
-    return true; // sukses
-
-  } catch (err) {
-    console.error("❌ Gagal update quantity produk:", err);
-    alert("Gagal update quantity produk. Silakan coba lagi.\n" + err.message);
-    return false;
   }
-}
 
-// Fungsi untuk kirim data checkout
-async function doCheckout(payload) {
-  try {
-    const res = await fetch(`${BASE_URL}/checkout`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: token,
-      },
-      body: JSON.stringify(payload),
-    });
+  // Fungsi untuk kirim data checkout
+  async function doCheckout(payload) {
+    try {
+      const res = await fetch(`${BASE_URL}/checkout`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+        body: JSON.stringify(payload),
+      });
 
-    const data = await res.json();
+      const data = await res.json();
 
-    if (data.code !== 200) {
-      throw new Error(data.msg || "Checkout gagal");
+      if (data.code !== 200) {
+        throw new Error(data.msg || "Checkout gagal");
+      }
+
+      console.log("📦 Checkout berhasil:", data.data);
+      alert("Checkout berhasil! Order ID: " + data?.data.order_id);
+      // window.location.href = `/thank-you?order=${data?.data.order_id}`;
+    } catch (err) {
+      console.error("❌ Checkout error:", err);
+      alert("Checkout gagal:\n" + err.message);
     }
-
-    console.log("📦 Checkout berhasil:", data.data);
-    alert("Checkout berhasil! Order ID: " + data?.data.order_id);
-    // window.location.href = `/thank-you?order=${data?.data.order_id}`;
-  } catch (err) {
-    console.error("❌ Checkout error:", err);
-    alert("Checkout gagal:\n" + err.message);
   }
-}
-
 
   // 7. Klik “Checkout” → kumpulkan payload
   btnCheckout.addEventListener("click", async (e) => {
@@ -425,6 +440,11 @@ async function doCheckout(payload) {
       return alert(
         "User ID tidak ditemukan. Silakan login atau register dulu."
       );
+    }
+
+    // jika stok habis
+    if (maxQuantity <= 0) {
+      return alert("Maaf, produk ini sudah habis dan tidak bisa dipesan.");
     }
 
     const payload = {
@@ -446,14 +466,12 @@ async function doCheckout(payload) {
     console.groupEnd();
 
     // 1) Update quantity
-  const isStockUpdated = await updateQuantity();
-  if (!isStockUpdated) return;
+    const isStockUpdated = await updateQuantity();
+    if (!isStockUpdated) return;
 
-  // 2) Kirim checkout
-  await doCheckout(payload);
+    // 2) Kirim checkout
+    await doCheckout(payload);
   });
-
-    
 
   // ============================
   // 6. INIT: PANGGIL SEMUA FETCH
@@ -469,6 +487,15 @@ async function doCheckout(payload) {
       opt.dataset.price = p.price;
       productSelect.appendChild(opt);
     });
+
+    // **SET DEFAULT UI STATE**
+    quantityInput.value = 1;
+    quantityInput.disabled = true;
+    btnCheckout.disabled = true;
+    productCount.textContent = "-";
+    subtotalEl.textContent = formatRupiah(0);
+    couponDiscountEl.textContent = formatRupiah(0);
+    totalEl.textContent = formatRupiah(0);
 
     // 2) load kupon
     await fetchCoupons();
