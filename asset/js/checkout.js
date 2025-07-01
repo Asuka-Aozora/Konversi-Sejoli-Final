@@ -7,20 +7,20 @@ document.addEventListener("DOMContentLoaded", function () {
   const nameInput = document.getElementById("name"); // input nama
   const passwordInput = document.getElementById("passwordCK"); // input password
   const togglePassword = document.getElementById("toggle-password"); // tombol show/hide
-  const passwordWrapper = document.getElementById("password-wrapper"); 
+  const passwordWrapper = document.getElementById("password-wrapper");
   const productSelect = document.getElementById("product"); // dropdown produk
-  const quantityInput = document.getElementById("quantity"); 
-  const showCouponBtn = document.getElementById("show-coupon"); 
-  const couponWrapper = document.querySelector(".inp-coupon"); 
-  const couponInput = document.getElementById("coupon-code"); 
-  const applyCouponBtn = document.querySelector(".apply"); 
-  const productCount = document.getElementById("product-count"); // 
-  const subtotalEl = document.getElementById("subtotal"); 
-  const couponDiscountEl = document.getElementById("coupon-discount"); 
+  const quantityInput = document.getElementById("quantity");
+  const showCouponBtn = document.getElementById("show-coupon");
+  const couponWrapper = document.querySelector(".inp-coupon");
+  const couponInput = document.getElementById("coupon-code");
+  const applyCouponBtn = document.querySelector(".apply");
+  const productCount = document.getElementById("product-count"); //
+  const subtotalEl = document.getElementById("subtotal");
+  const couponDiscountEl = document.getElementById("coupon-discount");
   const totalEl = document.getElementById("total");
-  const paymentContainer = document.getElementById("payment-methods"); 
-  const btnCheckout = document.getElementById("btn-checkout"); 
-  const uniqueCodeEl = document.getElementById("unique-code"); 
+  const paymentContainer = document.getElementById("payment-methods");
+  const btnCheckout = document.getElementById("btn-checkout");
+  const uniqueCodeEl = document.getElementById("unique-code");
 
   // ============================
   // 1. STATE & CONFIG
@@ -106,6 +106,24 @@ document.addEventListener("DOMContentLoaded", function () {
   // ============================
   // 3.d. GENERATE UNIQUE CODE ON PAYMENT SELECTION
   // ============================
+
+  function generateClientUniqueCode() {
+    return Math.floor(Math.random() * 99) + 1;
+  }
+
+  // Pasang listener pada container payment: ketika radio berubah
+  paymentContainer.addEventListener("change", (e) => {
+    if (e.target.name === "payment") {
+      // 1) Generate kode baru
+      selectedUniqueCode = generateClientUniqueCode();
+
+      // 2) Update UI di bawah Discount
+      uniqueCodeEl.textContent = selectedUniqueCode;
+
+      // 3) Reset total agar recalc dengan unique code
+      calculateTotal();
+    }
+  });
 
   // Generate unique code
   async function generateUniqueCode(conn, txTable) {
@@ -193,12 +211,14 @@ document.addEventListener("DOMContentLoaded", function () {
     const qty = Math.min(+quantityInput.value || 1, maxQuantity);
     const sub = price * qty;
     // baca diskon yang sudah disimpan
-    const coupon = parseInt(couponDiscountEl.dataset.value || 0, 10);
-    const grand = sub - coupon;
+    const couponVal = parseInt(couponDiscountEl.dataset.value || 0, 10);
+    const uniqueVal = selectedUniqueCode || 0;
+    const grand = sub - couponVal ;
 
     // update UI
     productCount.innerHTML = `${opt.textContent} <span>x</span> ${qty}`;
     subtotalEl.textContent = formatRupiah(sub);
+    uniqueCodeEl.textContent = uniqueVal;
     totalEl.textContent = formatRupiah(grand);
   }
 
@@ -521,6 +541,7 @@ document.addEventListener("DOMContentLoaded", function () {
       password: passwordInput.value || null,
       phone: iti.getNumber(),
       coupon_id: appliedCouponId,
+      unique_code: selectedUniqueCode,
       grand_total: parseInt(totalEl.textContent.replace(/[^\d]/g, ""), 10),
       bank: document.querySelector("input[name=payment]:checked")?.value,
     };
