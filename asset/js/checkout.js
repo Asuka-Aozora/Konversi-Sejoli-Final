@@ -274,7 +274,6 @@ document.addEventListener("DOMContentLoaded", function () {
     calculateTotal();
   });
 
-
   // 5.e. Klik “Tampilkan Kupon”
   showCouponBtn.addEventListener("click", (e) => {
     e.preventDefault();
@@ -396,25 +395,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // show fields error
-  function showFieldError(fieldName, message) {
-    // misal setiap input punya <div class="field-group" data-field="fieldName">
-    const group = document.querySelector(
-      `.field-group[data-field="${fieldName}"]`
-    );
-    if (!group) return;
-    // Hapus error lama
-    group.querySelectorAll(".error-message").forEach((el) => el.remove());
-    // Tambah elemen error baru
-    const errEl = document.createElement("small");
-    errEl.className = "error-message text-red-600";
-    errEl.textContent = message;
-    group.appendChild(errEl);
-    // Tambah class invalid ke input
-    const input = group.querySelector("input, select, textarea");
-    if (input) input.classList.add("border-red-600");
-  }
-
   // Fungsi untuk kirim data checkout
   async function doCheckout(payload) {
     try {
@@ -429,34 +409,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const data = await res.json();
 
-      // Hapus error UI lama
-      document.querySelectorAll(".error-message").forEach((el) => el.remove());
-      document
-        .querySelectorAll("input.invalid, select.invalid, textarea.invalid")
-        .forEach((el) => el.classList.remove("invalid", "border-red-600"));
-
-      // 1) Jika status bukan 200, anggap validasi gagal
       if (res.status !== 200) {
-        // backend kirim { error: true, errors: [ {field, errorType, message}, ... ] }
-        if (data.errors && Array.isArray(data.errors)) {
-          data.errors.forEach((err) => {
-            // tampilkan di masing‑masing field
-            showFieldError(err.field, err.message);
-          });
-          // optional: scroll ke error pertama
-          const firstField = data.errors[0].field;
-          const firstGroup = document.querySelector(
-            `.field-group[data-field="${firstField}"]`
-          );
-          if (firstGroup) firstGroup.scrollIntoView({ behavior: "smooth" });
-        } else {
-          // fallback alert
-          throw new Error(data.msg || "Checkout gagal");
-        }
-        return; // stop eksekusi
+        throw new Error(data.msg || "Checkout gagal");
       }
+      // validasi email disini
 
-      // 2) Berhasil checkout
       console.log("📦 Checkout berhasil:", data.data);
       alert("Checkout berhasil! Order ID: " + data?.data.order_id);
       // window.location.href = `/thank-you?order=${data?.data.order_id}`;
@@ -471,7 +428,14 @@ document.addEventListener("DOMContentLoaded", function () {
     e.preventDefault();
     console.log("🔄 Checkout button clicked");
     // Validasi payload & isi user
-
+    // 1) Jika perlu register
+    if (emailInput.classList.contains("isNotUser")) {
+      if (!username || !emailInput.value || !passwordInput.value) {
+        return alert("Nama, email, dan password wajib diisi!");
+      }
+      const user = await register();
+      if (!user) return; // batal kalau gagal
+    }
 
     if (!userId) {
       return alert(
