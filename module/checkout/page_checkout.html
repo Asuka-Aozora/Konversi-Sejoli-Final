@@ -47,7 +47,7 @@
 
         <!-- Customer Info -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div class="space-y-2">
+          <div class="space-y-2 field-group" data-field="user_id">
             <label for="name">Name</label>
             <input
               type="text"
@@ -58,7 +58,7 @@
               class="usr-input w-full px-4 py-3"
             />
           </div>
-          <div class="space-y-2">
+          <div class="space-y-2 field-group" data-field="email">
             <label for="email"
               >Email <i class="text-xs">*(input with active email)</i></label
             >
@@ -92,7 +92,7 @@
               </button>      
             </div>
           </div>
-          <div class="space-y-2">
+          <div class="space-y-2 field-group" data-field="phone">
             <label for="phone">Phone Number</label>
             <div class="flex flex-col gap-2">
               <input
@@ -162,7 +162,7 @@
       <!-- Payment Section -->
 <div class="flex-1 space-y-6">
   <h2 class="text-lg font-bold pb-2 mb-2">Select Payment Method</h2>
-  <div class="space-y-3">
+  <div class="space-y-3 field-group" data-field="bank">
     <div id="payment-methods" class="grid grid-cols-1 gap-2">
       <!-- Rendered by JavaScript -->
     </div>

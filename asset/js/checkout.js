@@ -7,20 +7,19 @@ document.addEventListener("DOMContentLoaded", function () {
   const nameInput = document.getElementById("name"); // input nama
   const passwordInput = document.getElementById("passwordCK"); // input password
   const togglePassword = document.getElementById("toggle-password"); // tombol show/hide
-  const passwordWrapper = document.getElementById("password-wrapper");
+  const passwordWrapper = document.getElementById("password-wrapper"); // wrapper input password
   const productSelect = document.getElementById("product"); // dropdown produk
-  const quantityInput = document.getElementById("quantity");
-  const showCouponBtn = document.getElementById("show-coupon");
-  const couponWrapper = document.querySelector(".inp-coupon");
-  const couponInput = document.getElementById("coupon-code");
-  const applyCouponBtn = document.querySelector(".apply");
-  const productCount = document.getElementById("product-count"); //
-  const subtotalEl = document.getElementById("subtotal");
-  const couponDiscountEl = document.getElementById("coupon-discount");
-  const totalEl = document.getElementById("total");
-  const paymentContainer = document.getElementById("payment-methods");
-  const btnCheckout = document.getElementById("btn-checkout");
-  const uniqueCodeEl = document.getElementById("unique-code");
+  const quantityInput = document.getElementById("quantity"); // input jumlah
+  const showCouponBtn = document.getElementById("show-coupon"); // tombol tampilkan kupon
+  const couponWrapper = document.querySelector(".inp-coupon"); // area input kupon
+  const couponInput = document.getElementById("coupon-code"); // input kode kupon
+  const applyCouponBtn = document.querySelector(".apply"); // tombol apply kupon
+  const productCount = document.getElementById("product-count"); // elemen teks ringkasan produk
+  const subtotalEl = document.getElementById("subtotal"); // elemen subtotal
+  const couponDiscountEl = document.getElementById("coupon-discount"); // elemen diskon kupon
+  const totalEl = document.getElementById("total"); // elemen grand total
+  const paymentContainer = document.getElementById("payment-methods"); // container metode bayar
+  const btnCheckout = document.getElementById("btn-checkout"); // tombol checkout
 
   // ============================
   // 1. STATE & CONFIG
@@ -31,7 +30,6 @@ document.addEventListener("DOMContentLoaded", function () {
   let userId = null;
   let maxQuantity = 0; // default 3
   let orderId = null;
-  let selectedUniqueCode = null;
 
   const BASE_URL = localStorage.getItem("base_url_api"); // base url API
   const token = getCookie("token"); // token auth
@@ -103,51 +101,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // ============================
-  // 3.d. GENERATE UNIQUE CODE ON PAYMENT SELECTION
-  // ============================
-
-  function generateClientUniqueCode() {
-    return Math.floor(Math.random() * 99) + 1;
-  }
-
-  // Pasang listener pada container payment: ketika radio berubah
-  paymentContainer.addEventListener("change", (e) => {
-    if (e.target.name === "payment") {
-      // 1) Generate kode baru
-      selectedUniqueCode = generateClientUniqueCode();
-
-      // 2) Update UI di bawah Discount
-      uniqueCodeEl.textContent = selectedUniqueCode;
-
-      // 3) Reset total agar recalc dengan unique code
-      calculateTotal();
-    }
-  });
-
-  // Generate unique code
-  async function generateUniqueCode(conn, txTable) {
-    const min = 1;
-    const max = 99;
-    let code;
-    let exists = true;
-
-    while (exists) {
-      // 1) Buat angka acak 6 digit
-      code = Math.floor(Math.random() * (max - min + 1)) + min;
-
-      // 2) Cek di database apakah sudah ada
-      const [rows] = await conn.query(
-        `SELECT COUNT(*) AS count FROM ${txTable} WHERE unique_code = ?`,
-        [code]
-      );
-      exists = rows[0].count > 0;
-      // jika exists true, ulangi loop untuk dapat angka baru
-    }
-
-    return code;
-  }
-
   // 3.c. Ambil & render metode pembayaran
   async function loadPaymentMethods() {
     try {
@@ -211,14 +164,12 @@ document.addEventListener("DOMContentLoaded", function () {
     const qty = Math.min(+quantityInput.value || 1, maxQuantity);
     const sub = price * qty;
     // baca diskon yang sudah disimpan
-    const couponVal = parseInt(couponDiscountEl.dataset.value || 0, 10);
-    const uniqueVal = selectedUniqueCode || 0;
-    const grand = sub - couponVal ;
+    const coupon = parseInt(couponDiscountEl.dataset.value || 0, 10);
+    const grand = sub - coupon;
 
     // update UI
     productCount.innerHTML = `${opt.textContent} <span>x</span> ${qty}`;
     subtotalEl.textContent = formatRupiah(sub);
-    uniqueCodeEl.textContent = uniqueVal;
     totalEl.textContent = formatRupiah(grand);
   }
 
@@ -322,6 +273,7 @@ document.addEventListener("DOMContentLoaded", function () {
     quantityInput.value = val;
     calculateTotal();
   });
+
 
   // 5.e. Klik “Tampilkan Kupon”
   showCouponBtn.addEventListener("click", (e) => {
@@ -520,6 +472,7 @@ document.addEventListener("DOMContentLoaded", function () {
     console.log("🔄 Checkout button clicked");
     // Validasi payload & isi user
 
+
     if (!userId) {
       return alert(
         "User ID tidak ditemukan. Silakan login atau register dulu."
@@ -541,7 +494,6 @@ document.addEventListener("DOMContentLoaded", function () {
       password: passwordInput.value || null,
       phone: iti.getNumber(),
       coupon_id: appliedCouponId,
-      unique_code: selectedUniqueCode,
       grand_total: parseInt(totalEl.textContent.replace(/[^\d]/g, ""), 10),
       bank: document.querySelector("input[name=payment]:checked")?.value,
     };
