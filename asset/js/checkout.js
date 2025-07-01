@@ -101,6 +101,29 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
+  // Generate unique code
+  async function generateUniqueCode(conn, txTable) {
+    const min = 1;
+    const max = 99;
+    let code;
+    let exists = true;
+
+    while (exists) {
+      // 1) Buat angka acak 6 digit
+      code = Math.floor(Math.random() * (max - min + 1)) + min;
+
+      // 2) Cek di database apakah sudah ada
+      const [rows] = await conn.query(
+        `SELECT COUNT(*) AS count FROM ${txTable} WHERE unique_code = ?`,
+        [code]
+      );
+      exists = rows[0].count > 0;
+      // jika exists true, ulangi loop untuk dapat angka baru
+    }
+
+    return code;
+  }
+
   // 3.c. Ambil & render metode pembayaran
   async function loadPaymentMethods() {
     try {
@@ -273,7 +296,6 @@ document.addEventListener("DOMContentLoaded", function () {
     quantityInput.value = val;
     calculateTotal();
   });
-
 
   // 5.e. Klik “Tampilkan Kupon”
   showCouponBtn.addEventListener("click", (e) => {
@@ -471,7 +493,6 @@ document.addEventListener("DOMContentLoaded", function () {
     e.preventDefault();
     console.log("🔄 Checkout button clicked");
     // Validasi payload & isi user
-
 
     if (!userId) {
       return alert(
