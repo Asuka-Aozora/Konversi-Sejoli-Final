@@ -7,19 +7,20 @@ document.addEventListener("DOMContentLoaded", function () {
   const nameInput = document.getElementById("name"); // input nama
   const passwordInput = document.getElementById("passwordCK"); // input password
   const togglePassword = document.getElementById("toggle-password"); // tombol show/hide
-  const passwordWrapper = document.getElementById("password-wrapper"); // wrapper input password
+  const passwordWrapper = document.getElementById("password-wrapper"); 
   const productSelect = document.getElementById("product"); // dropdown produk
-  const quantityInput = document.getElementById("quantity"); // input jumlah
-  const showCouponBtn = document.getElementById("show-coupon"); // tombol tampilkan kupon
-  const couponWrapper = document.querySelector(".inp-coupon"); // area input kupon
-  const couponInput = document.getElementById("coupon-code"); // input kode kupon
-  const applyCouponBtn = document.querySelector(".apply"); // tombol apply kupon
-  const productCount = document.getElementById("product-count"); // elemen teks ringkasan produk
-  const subtotalEl = document.getElementById("subtotal"); // elemen subtotal
-  const couponDiscountEl = document.getElementById("coupon-discount"); // elemen diskon kupon
-  const totalEl = document.getElementById("total"); // elemen grand total
-  const paymentContainer = document.getElementById("payment-methods"); // container metode bayar
-  const btnCheckout = document.getElementById("btn-checkout"); // tombol checkout
+  const quantityInput = document.getElementById("quantity"); 
+  const showCouponBtn = document.getElementById("show-coupon"); 
+  const couponWrapper = document.querySelector(".inp-coupon"); 
+  const couponInput = document.getElementById("coupon-code"); 
+  const applyCouponBtn = document.querySelector(".apply"); 
+  const productCount = document.getElementById("product-count"); // 
+  const subtotalEl = document.getElementById("subtotal"); 
+  const couponDiscountEl = document.getElementById("coupon-discount"); 
+  const totalEl = document.getElementById("total");
+  const paymentContainer = document.getElementById("payment-methods"); 
+  const btnCheckout = document.getElementById("btn-checkout"); 
+  const uniqueCodeEl = document.getElementById("unique-code"); 
 
   // ============================
   // 1. STATE & CONFIG
@@ -101,6 +102,10 @@ document.addEventListener("DOMContentLoaded", function () {
       console.error("Gagal load kupon:", err);
     }
   }
+
+  // ============================
+  // 3.d. GENERATE UNIQUE CODE ON PAYMENT SELECTION
+  // ============================
 
   // Generate unique code
   async function generateUniqueCode(conn, txTable) {
