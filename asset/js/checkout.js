@@ -30,6 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let userId = null;
   let maxQuantity = 0; // default 3
   let orderId = null;
+  let selectedUniqueCode = null;
 
   const BASE_URL = localStorage.getItem("base_url_api"); // base url API
   const token = getCookie("token"); // token auth
