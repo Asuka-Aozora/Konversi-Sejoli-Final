@@ -1,4 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
+
+
+  
   // ============================
   // 0. REFERENSI SEMUA ELEMEN
   // ============================
@@ -476,10 +479,73 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // ============================
+  // 5. CEK SLUG DARI URL
+  function getSlugFromURL() {
+    const path = window.location.pathname; // "/checkout/woowa-crm"
+    const segments = path.split("/").filter(Boolean);
+    return segments[1] || null; // ambil setelah "checkout"
+  }
+  const slug = getSlugFromURL();
+  console.log("Slug dari URL:", slug);
+
+  async function fetchProductBySlug(slug) {
+    try {
+      const res = await fetch(`${BASE_URL}/get-product/${slug}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+      });
+      const result = await res.json();
+      if (result.err) throw new Error(result.msg);
+      return result.data || [];
+    } catch (error) {
+      console.error("❌ Error get product by slug:", error.message);
+      return []; // fallback kosong
+    }
+  }
+
+  async function initProductDropdown() {
+    const slug = getSlugFromURL();
+    if (!slug) return;
+
+    const products = await fetchProductBySlug(slug);
+
+    productSelect.innerHTML = ""; // kosongkan dulu
+
+    if (products.length === 0) {
+      const opt = document.createElement("option");
+      opt.textContent = "Produk tidak ditemukan";
+      opt.disabled = true;
+      productSelect.appendChild(opt);
+      return;
+    }
+
+    products.forEach((p) => {
+      const opt = document.createElement("option");
+      opt.value = p.id;
+      opt.textContent = `${p.name} (Rp ${Number(p.price).toLocaleString()})`;
+      opt.dataset.price = p.price;
+      productSelect.appendChild(opt);
+    });
+
+    // simpan ke global jika perlu hitung total
+    window.selectProduct = products.reduce((obj, p) => {
+      obj[p.id] = p;
+      return obj;
+    }, {});
+  }
+
+  // ============================
   // 6. INIT: PANGGIL SEMUA FETCH
   // ============================
   (async function init() {
     // 1) load produk
+    initProductDropdown();
+    console.log(initProductDropdown());
+    
+    // Jika tidak ada slug, ambil semua produk
     const products = await fetchProducts();
     productSelect.innerHTML = `<option disabled selected>Pilih produk…</option>`;
     products.forEach((p) => {
