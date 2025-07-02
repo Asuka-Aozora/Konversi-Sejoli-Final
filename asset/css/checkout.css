@@ -106,3 +106,12 @@
 .checkout:hover {
   background-color: #0f3c6c;
 }
+.invalid {
+  border-color: #dc2626; /* red-600 */
+}
+.error-message {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.875rem;
+  color: #dc2626;
+}
