@@ -415,7 +415,8 @@ document.addEventListener("DOMContentLoaded", function () {
       // validasi email disini
 
       console.log("📦 Checkout berhasil:", data.data);
-      alert("Checkout berhasil! Order ID: " + data?.data.order_id);
+      const dataOrder = data?.data.order_id + 1;
+      alert("Checkout berhasil! Order ID: " + dataOrder);
       // window.location.href = `/thank-you?order=${data?.data.order_id}`;
     } catch (err) {
       console.error("❌ Checkout error:", err);
