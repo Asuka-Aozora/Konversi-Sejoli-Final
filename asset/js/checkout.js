@@ -1,7 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-
-
-  
   // ============================
   // 0. REFERENSI SEMUA ELEMEN
   // ============================
@@ -33,9 +30,101 @@ document.addEventListener("DOMContentLoaded", function () {
   let userId = null;
   let maxQuantity = 0; // default 3
   let orderId = null;
+  let pricePerUnit = 0;
 
   const BASE_URL = localStorage.getItem("base_url_api"); // base url API
   const token = getCookie("token"); // token auth
+
+  // ============================
+  // 5. CEK SLUG DARI URL
+
+  // —————————
+  // 1. Ambil SLUG
+  function getSlug() {
+    const seg = window.location.pathname.split("/").filter(Boolean);
+    return seg[1] || "";
+  }
+  const slug = getSlug();
+  if (!slug) {
+    // Jika slug kosong: blank putih
+    document.body.innerHTML = "";
+    return;
+  }
+
+  // —————————
+  // 2. Fetch produk by SLUG
+  async function fetchProduct(slug) {
+    const res = await fetch(`${BASE_URL}/get-product/${slug}`, {
+      headers: { Authorization: token },
+    });
+    const { err, data } = await res.json().catch(() => ({ err: 1 }));
+    return err ? [] : data;
+  }
+
+  // —————————
+  // 3. Inisialisasi dropdown tunggal & stok
+  (async () => {
+    const prods = await fetchProduct(slug);
+    if (prods.length === 0) {
+      productSelect.innerHTML = `<option disabled>Produk tidak ditemukan</option>`;
+      return;
+    }
+
+    // Hanya 1 produk
+    const p = prods[0];
+    pricePerUnit = Number(p.price);
+    productSelect.innerHTML = `
+      <option value="${p.id}" data-price="${p.price}">
+        ${p.name} (Rp ${pricePerUnit.toLocaleString()})
+      </option>
+    `;
+
+    // Fetch stok maksimal
+    const stokRes = await fetch(`${BASE_URL}/get-product-quantity/${p.id}`, {
+      headers: { Authorization: token },
+    });
+    const stokJson = await stokRes.json().catch(() => ({}));
+    maxQuantity = stokJson.data?.max_quantity || 1;
+
+    // Kalau stok 0 → disable semua
+    if (maxQuantity < 1) {
+      alert("Stok produk habis.");
+      quantityInput.disabled = true;
+      btnCheckout.disabled = true;
+      return;
+    }
+
+    // Enable UI & set default
+    quantityInput.disabled = false;
+    btnCheckout.disabled = false;
+    quantityInput.value = 1;
+    calculateTotal();
+  })();
+
+  // —————————
+  // 4. Hitung total
+  function calculateTotal() {
+    console.log(
+      "calculateTotal(): maxQuantity",
+      maxQuantity,
+      "input:",
+      quantityInput.value
+    );
+    // baca harga & qty
+    const opt = productSelect.selectedOptions[0];
+    const price = parseInt(opt?.dataset.price || 0, 10);
+    const qty = Math.min(+quantityInput.value || 1, maxQuantity);
+    const sub = price * qty;
+    // baca diskon yang sudah disimpan
+    const coupon = parseInt(couponDiscountEl.dataset.value || 0, 10);
+    const grand = sub - coupon;
+
+    // update UI
+    productCount.innerHTML = `${opt.textContent} <span>x</span> ${qty}`;
+    subtotalEl.textContent = formatRupiah(sub);
+    totalEl.textContent = formatRupiah(grand);
+  }
+  quantityInput.addEventListener("input", calculateTotal);
 
   // ============================
   // 2. INISIALISASI TELEPON
@@ -53,19 +142,6 @@ document.addEventListener("DOMContentLoaded", function () {
   // ============================
 
   // 3.a. Ambil daftar produk
-  async function fetchProducts() {
-    try {
-      const res = await fetch(`${BASE_URL}/get-products`, {
-        headers: { "Content-Type": "application/json", Authorization: token },
-      });
-      const { err, data, msg } = await res.json();
-      if (err) throw new Error(msg);
-      return data; // [{id, name, price}, …]
-    } catch (error) {
-      console.error("Gagal load produk:", error);
-      return [];
-    }
-  }
 
   // Ambil order ID
   async function fetchOrderId() {
@@ -152,28 +228,6 @@ document.addEventListener("DOMContentLoaded", function () {
       currency: "IDR",
       minimumFractionDigits: 0,
     }).format(num);
-  }
-
-  function calculateTotal() {
-    console.log(
-      "calculateTotal(): maxQuantity",
-      maxQuantity,
-      "input:",
-      quantityInput.value
-    );
-    // baca harga & qty
-    const opt = productSelect.selectedOptions[0];
-    const price = parseInt(opt?.dataset.price || 0, 10);
-    const qty = Math.min(+quantityInput.value || 1, maxQuantity);
-    const sub = price * qty;
-    // baca diskon yang sudah disimpan
-    const coupon = parseInt(couponDiscountEl.dataset.value || 0, 10);
-    const grand = sub - coupon;
-
-    // update UI
-    productCount.innerHTML = `${opt.textContent} <span>x</span> ${qty}`;
-    subtotalEl.textContent = formatRupiah(sub);
-    totalEl.textContent = formatRupiah(grand);
   }
 
   // ============================
@@ -265,16 +319,6 @@ document.addEventListener("DOMContentLoaded", function () {
       btnCheckout.disabled = false;
       calculateTotal(); // cukup panggil sekali
     }
-  });
-
-  // 2) Batasi input quantity sesuai maxQuantity
-  quantityInput.addEventListener("input", () => {
-    console.log("input quantity:", quantityInput.value);
-    let val = +quantityInput.value || 1;
-    if (val > maxQuantity) val = maxQuantity;
-    else if (val < 1) val = 1;
-    quantityInput.value = val;
-    calculateTotal();
   });
 
   // 5.e. Klik “Tampilkan Kupon”
@@ -479,82 +523,14 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // ============================
-  // 5. CEK SLUG DARI URL
-  function getSlugFromURL() {
-    const path = window.location.pathname; // "/checkout/woowa-crm"
-    const segments = path.split("/").filter(Boolean);
-    return segments[1] || null; // ambil setelah "checkout"
-  }
-  const slug = getSlugFromURL();
-  console.log("Slug dari URL:", slug);
-
-  async function fetchProductBySlug(slug) {
-    try {
-      const res = await fetch(`${BASE_URL}/get-product/${slug}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: token,
-        },
-      });
-      const result = await res.json();
-      if (result.err) throw new Error(result.msg);
-      return result.data || [];
-    } catch (error) {
-      console.error("❌ Error get product by slug:", error.message);
-      return []; // fallback kosong
-    }
-  }
-
-  async function initProductDropdown() {
-    const slug = getSlugFromURL();
-    if (!slug) return;
-
-    const products = await fetchProductBySlug(slug);
-
-    productSelect.innerHTML = ""; // kosongkan dulu
-
-    if (products.length === 0) {
-      const opt = document.createElement("option");
-      opt.textContent = "Produk tidak ditemukan";
-      opt.disabled = true;
-      productSelect.appendChild(opt);
-      return;
-    }
-
-    products.forEach((p) => {
-      const opt = document.createElement("option");
-      opt.value = p.id;
-      opt.textContent = `${p.name} (Rp ${Number(p.price).toLocaleString()})`;
-      opt.dataset.price = p.price;
-      productSelect.appendChild(opt);
-    });
-
-    // simpan ke global jika perlu hitung total
-    window.selectProduct = products.reduce((obj, p) => {
-      obj[p.id] = p;
-      return obj;
-    }, {});
-  }
-
-  // ============================
   // 6. INIT: PANGGIL SEMUA FETCH
   // ============================
   (async function init() {
-    // 1) load produk
-    initProductDropdown();
-    console.log(initProductDropdown());
-    
     // Jika tidak ada slug, ambil semua produk
-    const products = await fetchProducts();
-    productSelect.innerHTML = `<option disabled selected>Pilih produk…</option>`;
-    products.forEach((p) => {
-      const opt = document.createElement("option");
-      opt.value = p.id;
-      opt.textContent = `${p.name} (Rp ${Number(p.price).toLocaleString()})`;
-      opt.dataset.price = p.price;
-      productSelect.appendChild(opt);
-    });
+    if (!slug) {
+      console.warn("No slug found, skipping product fetch.");
+      return;
+    }
 
     // **SET DEFAULT UI STATE**
     quantityInput.value = 1;
