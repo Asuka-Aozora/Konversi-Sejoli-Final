@@ -33,13 +33,12 @@ async function getOrder(page, limit, filters = {}) {
     throw new Error(`HTTP ${res.status}`);
   }
   console.log(" cek res:", res);
-  
+
   const json = await res.json();
 
   console.log("getOrder response:", json);
-  
-  return json;
 
+  return json;
 }
 
 // Render daftar order ke dalam <tbody>
