@@ -1,3 +1,4 @@
+// Module: Detail Modal for Sales
 // Fungsi untuk membuka modal
 export function openModal(item) {
   document.getElementById("modalTitle").textContent = `Order Detail ${item.ID}`;
@@ -23,16 +24,11 @@ export function openModal(item) {
   ).innerHTML = `<span>Rp. ${item.grand_total.toLocaleString()}</span>`;
   document.getElementById("modalStatus").innerHTML = `
     <span class="status-badge status-${item.status}">${item.status}</span>`;
-  document.getElementById("modalType").innerHTML = `
-    <span class="status-badge subscription-${(item.type || "")
-      .split("-")
-      .pop()}">${(item.type || "").split("-").pop().toUpperCase()}</span>`;
 
   const overlay = document.getElementById("modalOverlay");
   const modal = document.getElementById("modal");
 
   overlay.style.display = "block";
-
   setTimeout(() => {
     overlay.classList.add("show");
     modal.classList.add("show");

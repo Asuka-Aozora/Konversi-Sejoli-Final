@@ -39,7 +39,7 @@
       </div>
     </div>
 
-    <!-- BEGIN: Modal Overlay -->
+    <!-- BEGIN: Modal Overlay Sales-->
     <div class="modal-overlay modal-close-btn" id="modalOverlay">
       <!-- Modal Container -->
       <div class="modal2" id="modal" onclick="event.stopPropagation()">
@@ -78,9 +78,67 @@
             <div class="detail-label">Status</div>
             <div class="detail-value" id="modalStatus"></div>
           </div>
+        </div>
+        <!-- Modal Footer -->
+        <div class="modal-footer">
+          <select class="action-dropdown">
+            <option>Action options</option>
+            <option>Edit Order</option>
+            <option>Cancel Order</option>
+            <option>Send Reminder</option>
+          </select>
+          <button class="update-btn">Update Order</button>
+        </div>
+      </div>
+    </div>
+    <!-- END: Modal Overlay Sales-->
+
+    <!-- BEGIN: Modal Overlay Subscription -->
+    <div class="modal-overlay modal-close-btn" id="modalOverlay2">
+      <!-- Modal Container -->
+      <div class="modal2" id="modal2" onclick="event.stopPropagation()">
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h2 class="modal-title" id="modalTitle2">Order Detail</h2>
+          <button class="close-btn modal-close-btn">&times;</button>
+        </div>
+        <!-- Modal Body -->
+        <div class="modal-body">
+          <div class="detail-row">
+            <div class="detail-label">Date</div>
+            <div class="detail-value" id="modalDate2"></div>
+          </div>
+          <div class="detail-row">
+            <div class="detail-label">Buyer Name</div>
+            <div class="detail-value" id="modalBuyer2"></div>
+          </div>
+          <div class="detail-row">
+            <div class="detail-label">Contact</div>
+            <div class="detail-value" id="modalContact2"></div>
+          </div>
+          <div class="detail-row">
+            <div class="detail-label">Product</div>
+            <div class="detail-value" id="modalProduct2"></div>
+          </div>
+          <div class="detail-row">
+            <div class="detail-label">Transaction Fees</div>
+            <div class="detail-value" id="modalFees2"></div>
+          </div>
+          <div class="detail-row">
+            <div class="detail-label">Total</div>
+            <div class="detail-value" id="modalTotal2"></div>
+          </div>
+          <div class="detail-row">
+            <div class="detail-label">Status</div>
+            <div class="detail-value" id="modalStatus2"></div>
+          </div>
           <div class="detail-row">
             <div class="detail-label">Subscription Type</div>
-            <div class="detail-value" id="modalType"></div>
+            <div class="detail-value" id="modalType2"></div>
+          </div>
+          <div class="detail-row">
+            <div class="detail-label">Original Invoice</div>
+            <div class="detail-value" id="modalInvoice"></div>
           </div>
         </div>
         <!-- Modal Footer -->
@@ -95,7 +153,7 @@
         </div>
       </div>
     </div>
-    <!-- END: Modal Overlay -->
+    <!-- END: Modal Overlay Subscription -->
 
     <!-- BEGIN: Vendor JS Assets-->
     <?php include(__DIR__.'/../layout/view_js_footer.html');?>
