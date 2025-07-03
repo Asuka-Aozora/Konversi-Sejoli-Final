@@ -40,50 +40,28 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // —————————
   // 1. Ambil SLUG
-  function getSlug() {
-    const seg = window.location.pathname.split("/").filter(Boolean);
-    return seg[1] || "";
-  }
-  const slug = getSlug();
-  if (window.location.pathname !== "/checkout" && !slug) {
-    // Jika slug kosong: blank putih
-    document.body.innerHTML = "";
-    const h1 = document.createElement("h1");
-    h1.style.cssText = `
-      font-size: 6rem;
-      font-weight: bold;
-      text-align: center;
-      color: #000;
-      margin-top: 24rem;
-      opacity: 0;
-      animation: fade-in 0.5s ease-in-out forwards;
-    `;
-    h1.textContent = "Produk tidak ditemukan";
-    document.body.appendChild(h1);
-
-    // Animasi fade-in
-    const keyframes = [{ opacity: "0" }, { opacity: "1" }];
-    const animation = h1.animate(keyframes, {
-      duration: 500,
-      easing: "ease-in-out",
-      fill: "forwards",
-    });
-    animation.onfinish = () => {
-      animation.commitStyles();
-    };
-    alert("Produk tidak ditemukan. Silakan coba lagi.");
-    return;
-  }
-  console.log("Checkout slug:", slug);
+  // function getSlug() {
+  //   const seg = window.location.pathname.split("/").filter(Boolean);
+  //   return seg[1] || "";
+  // }
+  // const slug = getSlug();
+  
+  // console.log("Checkout slug:", slug);
 
   // —————————
   // 2. Fetch produk by SLUG
   async function fetchProduct(slug) {
-    const res = await fetch(`${BASE_URL}/get-product/${slug}`, {
-      headers: { Authorization: token },
-    });
-    const { err, data } = await res.json().catch(() => ({ err: 1 }));
-    return err ? [] : data;
+    try {
+      const res = await fetch(`${BASE_URL}/get-product/${slug}`, {
+        headers: { Authorization: token },
+      });
+      const { err, data } = await res.json().catch(() => ({ err: 1 }));
+      return err ? [] : data;
+    } catch (err) {
+      console.error("Gagal fetch produk:", err);
+      alert("Gagal mengambil data produk. Silakan coba lagi.");
+      return [];
+    }
   }
 
   // —————————
@@ -537,9 +515,50 @@ document.addEventListener("DOMContentLoaded", function () {
   // 6. INIT: PANGGIL SEMUA FETCH
   // ============================
   (async function init() {
-    // Jika tidak ada slug, ambil semua produk
-    if (!slug) {
-      console.warn("No slug found, skipping product fetch.");
+    // 1. Ambil slug dari URL
+    const segs = window.location.pathname.split("/").filter(Boolean);
+    const slug = segs[1] || "";
+
+    // 2. Jika bukan path /checkout dan slug kosong → blank
+    if (window.location.pathname === "/checkout" && !slug) {
+      document.body.innerHTML = "";
+      return; // biarkan page blank saja
+    }
+
+    // 3. Jika path /checkout/SLUG tapi slug = "" (sudah tertangani di atas)
+    //    atau kalau slug ada tapi produk tidak ditemukan → tampilkan pesan 404
+    //    sebelum melakukan apapun yang lain
+    const products = slug
+      ? await fetchProduct(slug) // ambil data via GET /get-product/:slug
+      : [];
+    console.log("Produk ditemukan:", products);
+    if (!slug || products === undefined || products.length === 0) {
+      // kosongkan semua elemen
+      document.body.innerHTML = "";
+
+      // buat elemen <h1> animasi
+      const h1 = document.createElement("h1");
+      Object.assign(h1.style, {
+        fontSize: "6rem",
+        fontWeight: "bold",
+        textAlign: "center",
+        color: "#000",
+        marginTop: "24rem",
+        opacity: 0,
+      });
+      h1.textContent = "Produk tidak ditemukan";
+      document.body.appendChild(h1);
+
+      // animasi fade-in
+      const fade = h1.animate([{ opacity: 0 }, { opacity: 1 }], {
+        duration: 500,
+        easing: "ease-in-out",
+        fill: "forwards",
+      });
+      fade.onfinish = () => fade.commitStyles();
+
+      // optional: alert
+      alert("Produk tidak ditemukan. Silakan coba lagi.");
       return;
     }
 
