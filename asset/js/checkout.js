@@ -48,6 +48,32 @@ document.addEventListener("DOMContentLoaded", function () {
   if (window.location.pathname !== "/checkout" && !slug) {
     // Jika slug kosong: blank putih
     document.body.innerHTML = "";
+    const h1 = document.createElement("h1");
+    h1.style.cssText = `
+      font-size: 6rem;
+      font-weight: bold;
+      text-align: center;
+      color: #000;
+      margin-top: 24rem;
+      opacity: 0;
+      animation: fade-in 0.5s ease-in-out forwards;
+    `;
+    h1.textContent = "Produk tidak ditemukan";
+    document.body.appendChild(h1);
+
+    // Animasi fade-in
+    const keyframes = [
+      { opacity: "0" },
+      { opacity: "1" },
+    ];
+    const animation = h1.animate(keyframes, {
+      duration: 500,
+      easing: "ease-in-out",
+      fill: "forwards",
+    });
+    animation.onfinish = () => {
+      animation.commitStyles();
+    };
     alert("Produk tidak ditemukan. Silakan coba lagi.");
     return;
   }
