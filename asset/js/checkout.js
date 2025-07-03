@@ -144,11 +144,17 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // Saat produk berubah, ambil limit baru & hitung ulang
-  productSelect.addEventListener("change", async () => {
-   
-  });
+  productSelect.addEventListener("change", async () => {});
 
-  
+  // Batasi input quantity sesuai maxQuantity
+  quantityInput.addEventListener("input", () => {
+    console.log("input quantity:", quantityInput.value);
+    let val = +quantityInput.value || 1;
+    if (val > maxQuantity) val = maxQuantity;
+    else if (val < 1) val = 1;
+    quantityInput.value = val;
+    calculateTotal();
+  });
 
   productSelect.addEventListener("change", calculateTotal);
   quantityInput.addEventListener("input", calculateTotal);
@@ -168,8 +174,6 @@ document.addEventListener("DOMContentLoaded", function () {
   // ============================
   // 3. FUNGSIONALITAS FETCH DATA
   // ============================
-
-  // 3.a. Ambil daftar produk
 
   // Ambil order ID
   async function fetchOrderId() {
