@@ -62,10 +62,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.body.appendChild(h1);
 
     // Animasi fade-in
-    const keyframes = [
-      { opacity: "0" },
-      { opacity: "1" },
-    ];
+    const keyframes = [{ opacity: "0" }, { opacity: "1" }];
     const animation = h1.animate(keyframes, {
       duration: 500,
       easing: "ease-in-out",
@@ -108,17 +105,17 @@ document.addEventListener("DOMContentLoaded", function () {
     `;
 
     // Fetch stok maksimal
-    const stokRes = await fetch(`${BASE_URL}/get-product-quantity/${p.id}`, {
-      headers: { Authorization: token },
-    });
-    const stokJson = await stokRes.json().catch(() => ({}));
-    maxQuantity = stokJson.data?.max_quantity || 1;
+    maxQuantity = await fetchMaxQuantity(p.id);
+    console.log("📦 maxQuantity set ke:", maxQuantity);
 
-    // Kalau stok 0 → disable semua
+    // 4. Jika stok habis → disable UI dan reset angka
     if (maxQuantity < 1) {
-      alert("Stok produk habis.");
+      alert("Maaf, stok produk ini habis.");
       quantityInput.disabled = true;
       btnCheckout.disabled = true;
+      productCount.textContent = "Stok: Habis";
+      subtotalEl.textContent = formatRupiah(0);
+      totalEl.textContent = formatRupiah(0);
       return;
     }
 
@@ -132,27 +129,30 @@ document.addEventListener("DOMContentLoaded", function () {
   // —————————
   // 4. Hitung total
   function calculateTotal() {
-    console.log(
-      "calculateTotal(): maxQuantity",
-      maxQuantity,
-      "input:",
-      quantityInput.value
-    );
-    // baca harga & qty
-    const opt = productSelect.selectedOptions[0];
-    const price = parseInt(opt?.dataset.price || 0, 10);
-    const qty = Math.min(+quantityInput.value || 1, maxQuantity);
-    const sub = price * qty;
-    // baca diskon yang sudah disimpan
-    const coupon = parseInt(couponDiscountEl.dataset.value || 0, 10);
-    const grand = sub - coupon;
+    const selectedOption = productSelect.options[productSelect.selectedIndex];
+    const price = parseInt(selectedOption.dataset.price || 0);
+    const quantity = parseInt(quantityInput.value || 1);
+    const coupon =
+      parseInt(couponDiscountEl.textContent.replace(/[^\d]/g, "")) || 0;
 
-    // update UI
-    productCount.innerHTML = `${opt.textContent} <span>x</span> ${qty}`;
-    subtotalEl.textContent = formatRupiah(sub);
-    totalEl.textContent = formatRupiah(grand);
+    const sub = price * quantity;
+    const grandTotal = sub - coupon;
+
+    productCount.innerHTML = `${selectedOption.text} <span>x</span> ${quantity}`;
+    subtotal.textContent = formatRupiah(sub);
+    total.textContent = formatRupiah(grandTotal);
   }
+
+  // Saat produk berubah, ambil limit baru & hitung ulang
+  productSelect.addEventListener("change", async () => {
+   
+  });
+
+  
+
+  productSelect.addEventListener("change", calculateTotal);
   quantityInput.addEventListener("input", calculateTotal);
+  fetchCoupons();
 
   // ============================
   // 2. INISIALISASI TELEPON
@@ -327,27 +327,6 @@ document.addEventListener("DOMContentLoaded", function () {
       return 3;
     }
   }
-
-  // Saat produk berubah, ambil limit baru & hitung ulang
-  productSelect.addEventListener("change", async () => {
-    console.log("🔄 produk diganti:", productSelect.value);
-    maxQuantity = await fetchMaxQuantity(productSelect.value);
-    console.log("📦 maxQuantity set ke:", maxQuantity);
-    quantityInput.value = 1;
-    if (maxQuantity <= 0) {
-      alert("Produk habis…");
-      quantityInput.disabled = true;
-      btnCheckout.disabled = true;
-      productCount.textContent = "Stok: Habis";
-      subtotalEl.textContent = formatRupiah(0);
-      couponDiscountEl.textContent = formatRupiah(0);
-      totalEl.textContent = formatRupiah(0);
-    } else {
-      quantityInput.disabled = false;
-      btnCheckout.disabled = false;
-      calculateTotal(); // cukup panggil sekali
-    }
-  });
 
   // 5.e. Klik “Tampilkan Kupon”
   showCouponBtn.addEventListener("click", (e) => {
