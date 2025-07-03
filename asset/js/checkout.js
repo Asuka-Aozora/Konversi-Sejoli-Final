@@ -45,11 +45,13 @@ document.addEventListener("DOMContentLoaded", function () {
     return seg[1] || "";
   }
   const slug = getSlug();
-  if (!slug) {
+  if (window.location.pathname !== "/checkout" && !slug) {
     // Jika slug kosong: blank putih
     document.body.innerHTML = "";
+    alert("Produk tidak ditemukan. Silakan coba lagi.");
     return;
   }
+  console.log("Checkout slug:", slug);
 
   // —————————
   // 2. Fetch produk by SLUG
