@@ -40,25 +40,28 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // —————————
   // 1. Ambil SLUG
-  function getSlug() {
-    const seg = window.location.pathname.split("/").filter(Boolean);
-    return seg[1] || "";
-  }
-  const slug = getSlug();
-  if (!slug) {
-    // Jika slug kosong: blank putih
-    document.body.innerHTML = "";
-    return;
-  }
+  // function getSlug() {
+  //   const seg = window.location.pathname.split("/").filter(Boolean);
+  //   return seg[1] || "";
+  // }
+  // const slug = getSlug();
+  
+  // console.log("Checkout slug:", slug);
 
   // —————————
   // 2. Fetch produk by SLUG
   async function fetchProduct(slug) {
-    const res = await fetch(`${BASE_URL}/get-product/${slug}`, {
-      headers: { Authorization: token },
-    });
-    const { err, data } = await res.json().catch(() => ({ err: 1 }));
-    return err ? [] : data;
+    try {
+      const res = await fetch(`${BASE_URL}/get-product/${slug}`, {
+        headers: { Authorization: token },
+      });
+      const { err, data } = await res.json().catch(() => ({ err: 1 }));
+      return err ? [] : data;
+    } catch (err) {
+      console.error("Gagal fetch produk:", err);
+      alert("Gagal mengambil data produk. Silakan coba lagi.");
+      return [];
+    }
   }
 
   // —————————
@@ -80,17 +83,17 @@ document.addEventListener("DOMContentLoaded", function () {
     `;
 
     // Fetch stok maksimal
-    const stokRes = await fetch(`${BASE_URL}/get-product-quantity/${p.id}`, {
-      headers: { Authorization: token },
-    });
-    const stokJson = await stokRes.json().catch(() => ({}));
-    maxQuantity = stokJson.data?.max_quantity || 1;
+    maxQuantity = await fetchMaxQuantity(p.id);
+    console.log("📦 maxQuantity set ke:", maxQuantity);
 
-    // Kalau stok 0 → disable semua
+    // 4. Jika stok habis → disable UI dan reset angka
     if (maxQuantity < 1) {
-      alert("Stok produk habis.");
+      alert("Maaf, stok produk ini habis.");
       quantityInput.disabled = true;
       btnCheckout.disabled = true;
+      productCount.textContent = "Stok: Habis";
+      subtotalEl.textContent = formatRupiah(0);
+      totalEl.textContent = formatRupiah(0);
       return;
     }
 
@@ -104,27 +107,36 @@ document.addEventListener("DOMContentLoaded", function () {
   // —————————
   // 4. Hitung total
   function calculateTotal() {
-    console.log(
-      "calculateTotal(): maxQuantity",
-      maxQuantity,
-      "input:",
-      quantityInput.value
-    );
-    // baca harga & qty
-    const opt = productSelect.selectedOptions[0];
-    const price = parseInt(opt?.dataset.price || 0, 10);
-    const qty = Math.min(+quantityInput.value || 1, maxQuantity);
-    const sub = price * qty;
-    // baca diskon yang sudah disimpan
-    const coupon = parseInt(couponDiscountEl.dataset.value || 0, 10);
-    const grand = sub - coupon;
+    const selectedOption = productSelect.options[productSelect.selectedIndex];
+    const price = parseInt(selectedOption.dataset.price || 0);
+    const quantity = parseInt(quantityInput.value || 1);
+    const coupon =
+      parseInt(couponDiscountEl.textContent.replace(/[^\d]/g, "")) || 0;
 
-    // update UI
-    productCount.innerHTML = `${opt.textContent} <span>x</span> ${qty}`;
-    subtotalEl.textContent = formatRupiah(sub);
-    totalEl.textContent = formatRupiah(grand);
+    const sub = price * quantity;
+    const grandTotal = sub - coupon;
+
+    productCount.innerHTML = `${selectedOption.text} <span>x</span> ${quantity}`;
+    subtotal.textContent = formatRupiah(sub);
+    total.textContent = formatRupiah(grandTotal);
   }
+
+  // Saat produk berubah, ambil limit baru & hitung ulang
+  productSelect.addEventListener("change", async () => {});
+
+  // Batasi input quantity sesuai maxQuantity
+  quantityInput.addEventListener("input", () => {
+    console.log("input quantity:", quantityInput.value);
+    let val = +quantityInput.value || 1;
+    if (val > maxQuantity) val = maxQuantity;
+    else if (val < 1) val = 1;
+    quantityInput.value = val;
+    calculateTotal();
+  });
+
+  productSelect.addEventListener("change", calculateTotal);
   quantityInput.addEventListener("input", calculateTotal);
+  fetchCoupons();
 
   // ============================
   // 2. INISIALISASI TELEPON
@@ -140,8 +152,6 @@ document.addEventListener("DOMContentLoaded", function () {
   // ============================
   // 3. FUNGSIONALITAS FETCH DATA
   // ============================
-
-  // 3.a. Ambil daftar produk
 
   // Ambil order ID
   async function fetchOrderId() {
@@ -299,27 +309,6 @@ document.addEventListener("DOMContentLoaded", function () {
       return 3;
     }
   }
-
-  // Saat produk berubah, ambil limit baru & hitung ulang
-  productSelect.addEventListener("change", async () => {
-    console.log("🔄 produk diganti:", productSelect.value);
-    maxQuantity = await fetchMaxQuantity(productSelect.value);
-    console.log("📦 maxQuantity set ke:", maxQuantity);
-    quantityInput.value = 1;
-    if (maxQuantity <= 0) {
-      alert("Produk habis…");
-      quantityInput.disabled = true;
-      btnCheckout.disabled = true;
-      productCount.textContent = "Stok: Habis";
-      subtotalEl.textContent = formatRupiah(0);
-      couponDiscountEl.textContent = formatRupiah(0);
-      totalEl.textContent = formatRupiah(0);
-    } else {
-      quantityInput.disabled = false;
-      btnCheckout.disabled = false;
-      calculateTotal(); // cukup panggil sekali
-    }
-  });
 
   // 5.e. Klik “Tampilkan Kupon”
   showCouponBtn.addEventListener("click", (e) => {
@@ -526,9 +515,50 @@ document.addEventListener("DOMContentLoaded", function () {
   // 6. INIT: PANGGIL SEMUA FETCH
   // ============================
   (async function init() {
-    // Jika tidak ada slug, ambil semua produk
-    if (!slug) {
-      console.warn("No slug found, skipping product fetch.");
+    // 1. Ambil slug dari URL
+    const segs = window.location.pathname.split("/").filter(Boolean);
+    const slug = segs[1] || "";
+
+    // 2. Jika bukan path /checkout dan slug kosong → blank
+    if (window.location.pathname === "/checkout" && !slug) {
+      document.body.innerHTML = "";
+      return; // biarkan page blank saja
+    }
+
+    // 3. Jika path /checkout/SLUG tapi slug = "" (sudah tertangani di atas)
+    //    atau kalau slug ada tapi produk tidak ditemukan → tampilkan pesan 404
+    //    sebelum melakukan apapun yang lain
+    const products = slug
+      ? await fetchProduct(slug) // ambil data via GET /get-product/:slug
+      : [];
+    console.log("Produk ditemukan:", products);
+    if (!slug || products === undefined || products.length === 0) {
+      // kosongkan semua elemen
+      document.body.innerHTML = "";
+
+      // buat elemen <h1> animasi
+      const h1 = document.createElement("h1");
+      Object.assign(h1.style, {
+        fontSize: "6rem",
+        fontWeight: "bold",
+        textAlign: "center",
+        color: "#000",
+        marginTop: "24rem",
+        opacity: 0,
+      });
+      h1.textContent = "Produk tidak ditemukan";
+      document.body.appendChild(h1);
+
+      // animasi fade-in
+      const fade = h1.animate([{ opacity: 0 }, { opacity: 1 }], {
+        duration: 500,
+        easing: "ease-in-out",
+        fill: "forwards",
+      });
+      fade.onfinish = () => fade.commitStyles();
+
+      // optional: alert
+      alert("Produk tidak ditemukan. Silakan coba lagi.");
       return;
     }
 
