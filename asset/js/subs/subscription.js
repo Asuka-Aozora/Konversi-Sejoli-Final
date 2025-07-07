@@ -33,15 +33,16 @@ function renderOrders(data) {
   tbody.innerHTML = ""; // kosongkan dulu
 
   data.forEach((item) => {
-    const dt = new Date(item.created_at);
+    const dt = new Date(item.end_date);
     const dateStr = dt.toLocaleDateString("en-US", {
-      day: "2-digit",
       month: "short",
+      day: "numeric",
+      year: "numeric",
     });
-    const timeStr = dt.toLocaleTimeString("en-US", {
-      hour: "2-digit",
-      minute: "2-digit",
-    });
+    const daysDiff = Math.floor((dt - new Date()) / (1000 * 60 * 60 * 24));
+    const daysText = `${
+      daysDiff > 0 ? `in ${daysDiff} days` : `${-daysDiff} days ago`
+    }`;
     const typeLabel = item.type.split("-").pop().toUpperCase();
     const isCompleted = item.status === "completed";
     const statusIcon = isCompleted ? "check-square" : "alert-triangle";
@@ -73,8 +74,8 @@ function renderOrders(data) {
         </div>
       </td>
       <td data-tw-merge class="px-5 py-3 border-b dark:border-darkmode-300 box whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
-        <div class="whitespace-nowrap">${typeLabel}</div>
-        <div class="mt-0.5 whitespace-nowrap text-xs text-slate-500">${dateStr}, ${timeStr}</div>
+        <div class="text-sm text-gray-900">${dateStr}</div>
+      <div class="text-xs text-gray-500 mt-0.5">${daysText}</div>
       </td>
       <td data-tw-merge class="px-5 py-3 border-b dark:border-darkmode-300 box rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600 before:absolute before:inset-y-0 before:left-0 before:my-auto before:block before:h-8 before:w-px before:bg-slate-200 before:dark:bg-darkmode-400">
         <div class="flex items-center justify-center">
