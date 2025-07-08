@@ -77,38 +77,41 @@ function renderOrders(data) {
 
     tr.innerHTML = `
       <!-- Checkbox -->
-      <td class="...">
-        <input type="checkbox" value="${item.ID}" class="order-checkbox ..." />
+      <td class="px-5 py-3 border-b dark:border-darkmode-300 box w-10 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
+        <input type="checkbox" value="${item.ID}" class="order-checkbox transition-all duration-100 ease-in-out shadow-sm border-slate-200 cursor-pointer rounded focus:ring-4 focus:ring-offset-0 focus:ring-primary focus:ring-opacity-20 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&[type='radio']]:checked:bg-primary [&[type='radio']]:checked:border-primary [&[type='radio']]:checked:border-opacity-10 [&[type='checkbox']]:checked:bg-primary [&[type='checkbox']]:checked:border-primary [&[type='checkbox']]:checked:border-opacity-10 [&:disabled:not(:checked)]:bg-slate-100 [&:disabled:not(:checked)]:cursor-not-allowed [&:disabled:not(:checked)]:dark:bg-darkmode-800/50 [&:disabled:checked]:opacity-70 [&:disabled:checked]:cursor-not-allowed [&:disabled:checked]:dark:bg-darkmode-800/50" />
       </td>
       <!-- No. Invoice -->
-      <td class="...">
-        <a class="underline decoration-dotted" href="#">#INV-${item.ID}</a>
+      <td class="px-5 py-3 border-b dark:border-darkmode-300 box w-40 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
+        <a class=""whitespace-nowrap underline decoration-dotted" href="#">#INV-${item.ID}</a>
       </td>
       <!-- User -->
-      <td class="...">
-        <a class="font-medium" href="#">${item.display_name}</a>
-        <div class="text-xs text-slate-500">Location</div>
+      <td class="px-5 py-3 border-b dark:border-darkmode-300 box w-40 whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
+        <a class="whitespace-nowrap font-medium" href="#">${item.display_name}</a>
+        <div class="mt-0.5 whitespace-nowrap text-xs text-slate-500">Location</div>
       </td>
       <!-- Status -->
-      <td class="status-cell ...">
-        <div class="flex items-center text-success">
-          <i data-lucide="${statusIcon}" class="..."></i>${item.status}
+      <td class="status-cell status-cell px-5 py-3 border-b dark:border-darkmode-300 box whitespace-nowrap
+                 rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005]
+                 first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r
+                 dark:bg-darkmode-600">
+        <div class="flex items-center justify-center whitespace-nowrap text-success">
+          <i data-lucide="${statusIcon}" class="stroke-1.5 mr-2 h-4 w-4"></i>${item.status}
         </div>
       </td>
       <!-- Type & Date -->
-      <td class="...">
+      <td class="px-5 py-3 border-b dark:border-darkmode-300 box whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
         <div>${typeLabel}</div>
         <div class="text-xs text-slate-500">${dateStr}, ${timeStr}</div>
       </td>
       <!-- Total -->
-      <td class="... text-right">
-        <div class="pr-16">$${totalStr}</div>
+      <td class="px-5 py-3 border-b dark:border-darkmode-300 box whitespace-nowrap rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600">
+        <div class="text-center">$${totalStr}</div>
       </td>
       <!-- View Detail -->
-      <td class="...">
+      <td class="px-5 py-3 border-b dark:border-darkmode-300 box rounded-l-none rounded-r-none border-x-0 shadow-[5px_3px_5px_#00000005] first:rounded-l-[0.6rem] first:border-l last:rounded-r-[0.6rem] last:border-r dark:bg-darkmode-600 before:absolute before:inset-y-0 before:left-0 before:my-auto before:block before:h-8 before:w-px before:bg-slate-200 before:dark:bg-darkmode-400">
         <div class="flex items-center justify-center">
-          <a class="text-primary view-detail" href="#">
-            <i data-lucide="check-square" class="..."></i>View Details
+          <a class="mr-5 flex items-center whitespace-nowrap text-primary view-detail" href="#">
+            <i data-lucide="check-square" class="stroke-1.5 mr-1 h-4 w-4"></i>View Details
           </a>
         </div>
       </td>
