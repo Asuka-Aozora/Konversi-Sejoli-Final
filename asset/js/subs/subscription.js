@@ -21,7 +21,12 @@ async function getSubs(page, limit, filters = {}) {
   const offset = (page - 1) * limit;
 
   const params = new URLSearchParams({ limit, offset, ...filters });
-  const res = await fetch(`${BASE_URL}/get-subs?${params.toString()}`, {
+
+  const finalUrl = `${BASE_URL}/get-subs?${params.toString()}`;
+  console.log("get subs URL:", finalUrl);
+  
+  
+  const res = await fetch(finalUrl, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -30,6 +35,7 @@ async function getSubs(page, limit, filters = {}) {
   });
 
   if (!res.ok) {
+    console.error(`HTTP error! status: ${res.status}`);
     throw new Error(`HTTP ${res.status}`);
   }
   const json = await res.json();
@@ -40,7 +46,16 @@ async function getSubs(page, limit, filters = {}) {
 // Render daftar subscription ke dalam <tbody>
 function renderSubs(data) {
   const tbody = document.getElementById("subs-tbody2");
+  const placeholder = document.getElementById("no-data-placeholder2");
   tbody.innerHTML = ""; // kosongkan dulu
+
+  // kalau data kosong
+  if (data.length === 0) {
+    placeholder.classList.remove("hidden");
+    return;
+  } else {
+    placeholder.classList.add("hidden");
+  }
 
   data.forEach((item) => {
     const dt = new Date(item.end_date);
@@ -133,11 +148,13 @@ document.getElementById("checkAll2").addEventListener("change", function () {
 });
 
 // Change limit
-document.getElementById("limitSelect2").addEventListener("change", async (e) => {
-  currentLimit = parseInt(e.target.value, 10);
-  currentPage = 1;
-  await loadAndRender();
-});
+document
+  .getElementById("limitSelect2")
+  .addEventListener("change", async (e) => {
+    currentLimit = parseInt(e.target.value, 10);
+    currentPage = 1;
+    await loadAndRender();
+  });
 
 // Render pagination <ul>
 function renderPagination() {
@@ -150,7 +167,8 @@ function renderPagination() {
   const start = Math.max(1, currentPage - delta);
   const end = Math.min(totalPages, currentPage + delta);
   if (start > 1) navUl.append(liDots());
-  for (let i = start; i <= end; i++) navUl.append(liBtn(i, i, false, i === currentPage));
+  for (let i = start; i <= end; i++)
+    navUl.append(liBtn(i, i, false, i === currentPage));
   if (end < totalPages) navUl.append(liDots());
   navUl.append(liBtn("»", currentPage + 1, currentPage === totalPages));
   navUl.append(liBtn("»»", totalPages, currentPage === totalPages));
@@ -160,7 +178,9 @@ function liBtn(label, page, disabled = false, active = false) {
   const li = document.createElement("li");
   const a = document.createElement("a");
   a.textContent = label;
-  a.className = `px-3 py-1 border rounded cursor-pointer ${active ? 'bg-slate-300' : ''}`;
+  a.className = `px-3 py-1 border rounded cursor-pointer ${
+    active ? "bg-slate-300" : ""
+  }`;
   if (disabled || page < 1 || page > totalPages) {
     a.classList.add("opacity-50", "cursor-not-allowed");
   } else {
@@ -172,7 +192,11 @@ function liBtn(label, page, disabled = false, active = false) {
   li.appendChild(a);
   return li;
 }
-function liDots() { const li = document.createElement("li"); li.textContent = "..."; return li; }
+function liDots() {
+  const li = document.createElement("li");
+  li.textContent = "...";
+  return li;
+}
 
 // Load & render initial
 async function loadAndRender() {
@@ -181,12 +205,13 @@ async function loadAndRender() {
     console.log({ total: resp.total, dataLen: resp.data.length });
     if (resp.status !== "success") return console.warn(resp.message);
     totalPages = Math.ceil(resp.total / currentLimit);
-    console.log(`Total pages: ${totalPages}, Current page: ${currentPage}, Limit: ${currentLimit}`);
+    console.log(
+      `Total pages: ${totalPages}, Current page: ${currentPage}, Limit: ${currentLimit}`
+    );
     console.log(`Filters:`, currentFilters);
     console.log(`Current page data:`, resp.data);
-    
+    console.log("📊 Data terima:", { total: resp.total, length: resp.data.length });
     renderSubs(resp.data);
-    
     renderPagination();
   } catch (err) {
     console.error("Gagal mengambil subs:", err);
@@ -200,26 +225,25 @@ async function init() {
 }
 init();
 
-// document.getElementById("btn-find2").addEventListener("click", async (e) => {
-//   e.preventDefault();
-//   const form = document.querySelector(".sejoli-form-filter-holder");
-//   const inputs = form.querySelectorAll("input, select");
-//   const filters = {};
-//   inputs.forEach((el) => {
-//     if (el.value && el.name) filters[el.name] = el.value.trim();
-//   });
-//   currentFilters = filters;
-//   currentPage = 1;
-//   await loadAndRender();
-// });
+document.getElementById("btn-filter2").addEventListener("click", () => {
+  document
+    .querySelector(".sejoli-form-filter-holder2")
+    .classList.toggle("show");
+});
 
-// Date range picker
-document.addEventListener("DOMContentLoaded", () => {
-  $("#date-range-picker2").daterangepicker({
-    opens: "left", autoUpdateInput: true,
-    locale: { format: "YYYY-MM-DD", cancelLabel: "Clear" },
-    ranges: { Today: [moment(), moment()], 'Last 7 Days': [moment().subtract(6,'days'), moment()], /* ... */ }
-  }, (start, end) => {
-    $("#date-range-picker2").val(`${start.format('YYYY-MM-DD')} - ${end.format('YYYY-MM-DD')}`);
+document.getElementById("btn-find2").addEventListener("click", async (e) => {
+  e.preventDefault();
+  const form = document.querySelector(".sejoli-form-filter-holder2");
+  const inputs = form.querySelectorAll("input, select");
+  const filters = {};
+  inputs.forEach((el) => {
+    if (el.value && el.name) filters[el.name] = el.value.trim();
   });
+
+  console.log("filter yang dikirim:", filters);
+  
+  
+  currentFilters = filters;
+  currentPage = 1;
+  await loadAndRender();
 });

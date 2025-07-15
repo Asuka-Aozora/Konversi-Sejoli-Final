@@ -217,7 +217,8 @@
   z-index: 1000;
 }
 
-.sejoli-form-filter-holder {
+.sejoli-form-filter-holder,
+.sejoli-form-filter-holder2 {
   transition: opacity 0.3s ease, transform 0.3s ease;
   transform: translateY(-10px);
   opacity: 0;
@@ -225,11 +226,13 @@
   visibility: hidden;
 }
 
-.sejoli-form-filter-holder.show {
+.sejoli-form-filter-holder.show,
+.sejoli-form-filter-holder2.show {
   transform: translateY(0);
   opacity: 1;
   pointer-events: auto;
   visibility: visible;
+  z-index: 9999;
 }
 
 .form-grid {
